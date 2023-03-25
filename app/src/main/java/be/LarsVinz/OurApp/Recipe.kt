@@ -1,4 +1,3 @@
 package be.LarsVinz.OurApp
 
-class Recipe {
-}
+data class Recipe(val recipeName : String, val steps : List<String>)
