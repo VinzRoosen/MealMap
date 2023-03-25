@@ -3,9 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/overviewFragment">
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="be.LarsVinz.OurApp.MainFragment"
-        android:label="MainFragment" />
+        android:id="@+id/overviewFragment"
+        android:name="be.LarsVinz.OurApp.OverviewFragment"
+        android:label="OverviewFragment">
+        <action
+            android:id="@+id/action_overviewFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeListFragment"
+        android:name="be.LarsVinz.OurApp.RecipeListFragment"
+        android:label="fragment_recipe_list"
+        tools:layout="@layout/fragment_recipe_list" >
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_createRecipeFragment"
+            app:destination="@id/createRecipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="be.LarsVinz.OurApp.RecipeDetailFragment"
+        android:label="fragment_recipe_detail"
+        tools:layout="@layout/fragment_recipe_detail" >
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createRecipeFragment"
+        android:name="be.LarsVinz.OurApp.CreateRecipeFragment"
+        android:label="CreateRecipeFragment" >
+        <action
+            android:id="@+id/action_createRecipeFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </fragment>
 </navigation>
