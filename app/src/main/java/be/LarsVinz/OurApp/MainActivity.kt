@@ -15,17 +15,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-        setupMainFragment()
         setupMenuDrawer()
 
         setContentView(binding.root)
-    }
-
-    private fun setupMainFragment() {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.mainContainer, MainFragment())
-            commit()
-        }
     }
 
     private fun setupMenuDrawer() {
@@ -34,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         menuBarToggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        
+
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menuTest -> println("Test")
