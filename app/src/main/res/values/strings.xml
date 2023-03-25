@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">OurApp</string>
+    <string name="open_menu">Open</string>
+    <string name="close_menu">Close</string>
 </resources>
