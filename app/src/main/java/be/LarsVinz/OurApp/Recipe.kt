@@ -1,4 +1,4 @@
 package be.LarsVinz.OurApp
 
-class Recept {
+class Recipe {
 }
