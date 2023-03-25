@@ -7,11 +7,7 @@
     <fragment
         android:id="@+id/overviewFragment"
         android:name="be.LarsVinz.OurApp.OverviewFragment"
-        android:label="OverviewFragment">
-        <action
-            android:id="@+id/action_overviewFragment_to_recipeListFragment"
-            app:destination="@id/recipeListFragment" />
-    </fragment>
+        android:label="OverviewFragment"/>
     <fragment
         android:id="@+id/recipeListFragment"
         android:name="be.LarsVinz.OurApp.RecipeListFragment"
@@ -41,4 +37,10 @@
             android:id="@+id/action_createRecipeFragment_to_recipeListFragment"
             app:destination="@id/recipeListFragment" />
     </fragment>
+    <action
+        android:id="@+id/action_global_recipeListFragment"
+        app:destination="@id/recipeListFragment" />
+    <action
+        android:id="@+id/action_global_overviewFragment"
+        app:destination="@id/overviewFragment" />
 </navigation>

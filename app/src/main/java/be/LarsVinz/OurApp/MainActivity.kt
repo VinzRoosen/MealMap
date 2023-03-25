@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.navigation.findNavController
 import be.LarsVinz.OurApp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -29,10 +31,25 @@ class MainActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.menuTest -> println("Test")
+                R.id.menu_navToOverview -> navigateToOverview()
+                R.id.menu_navToRecipeList -> navigateToRecipeList()
             }
             true
         }
+    }
+
+    private fun navigateToOverview(){
+        findNavController(binding.navHostFragment.id).navigate(R.id.action_global_overviewFragment)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+    }
+
+    private fun navigateToRecipeList(){
+        findNavController(binding.navHostFragment.id).navigate(R.id.action_global_recipeListFragment)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+    }
+
+    private fun navigateToShoppingList(){
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
