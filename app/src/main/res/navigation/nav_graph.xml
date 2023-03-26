@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_recipeDetailFragment_to_recipeListFragment"
             app:destination="@id/recipeListFragment" />
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_createRecipeFragment"
+            app:destination="@id/createRecipeFragment" />
     </fragment>
     <fragment
         android:id="@+id/createRecipeFragment"

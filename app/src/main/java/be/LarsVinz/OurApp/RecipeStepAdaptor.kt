@@ -1,11 +1,10 @@
 package be.LarsVinz.OurApp
 
 import android.view.*
-import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecipeStepAdaptor(val items: List<RecipeStep>) : RecyclerView.Adapter<RecipeStepAdaptor.RecipeStepViewHolder>() {
+class RecipeStepAdaptor(private val items: List<RecipeStep>, private val isStepEditable : Boolean) : RecyclerView.Adapter<RecipeStepAdaptor.RecipeStepViewHolder>() {
 
     inner class RecipeStepViewHolder(current : View) : RecyclerView.ViewHolder(current)
 
@@ -18,7 +17,7 @@ class RecipeStepAdaptor(val items: List<RecipeStep>) : RecyclerView.Adapter<Reci
         val currentTodoItem = items[position]
         holder.itemView.apply {
             findViewById<TextView>(R.id.stepNumberTxt).text = (position + 1).toString()
-            findViewById<EditText>(R.id.stepExplanationTxt).hint = "Write the step here"
+            findViewById<TextView>(R.id.stepExplanationTxt).text = items[position].explanation
         }
     }
 
