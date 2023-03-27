@@ -39,8 +39,6 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private fun onAddRecipeBtn(){
         editStepDialog()
-
-
     }
 
     private fun onSaveRecipeBtn(){
@@ -78,7 +76,5 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
             dialog.dismiss()
         }
-
-
     }
 }
