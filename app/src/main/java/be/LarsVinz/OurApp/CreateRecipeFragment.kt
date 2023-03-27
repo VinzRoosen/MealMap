@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.OurApp.databinding.FragmentCreateRecipeBinding
 
@@ -44,6 +45,10 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private fun onSaveRecipeBtn(){
         val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList)
+
+        // TODO: save het recept
+
+        findNavController().navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
     }
 
     private fun editStepDialog(){
@@ -58,19 +63,22 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         val stepSpinner = createRecipePopupView.findViewById<Spinner>(R.id.stepNumberPopupSpr)
         val stepExplanationTxt = createRecipePopupView.findViewById<TextView>(R.id.stepExplanationPopupTxt)
 
-        val test = arrayOf(1, 2, 3)
-        val spinnerAdapter = ArrayAdapter<Int>(this.requireContext(), android.R.layout.simple_spinner_dropdown_item, test)
+        val numbers = Array(recipeStepList.size + 1) { it + 1 }
+        val spinnerAdapter = ArrayAdapter<Int>(this.requireContext(), android.R.layout.simple_spinner_dropdown_item, numbers)
         stepSpinner.adapter = spinnerAdapter;
+        stepSpinner.setSelection(numbers.size - 1)
 
         addBtn.setOnClickListener{
 
             val recipeStep = RecipeStep(stepExplanationTxt.text.toString(), 0)
+            val stepNumber = stepSpinner.selectedItem as Int
 
-            // TODO: Op de juiste plaats invoegen op basis van de stepSpinner
-            recipeStepList.add(recipeStep)
-            adapter.notifyItemInserted(recipeStepList.size - 1)
+            recipeStepList.add(stepNumber - 1, recipeStep)
+            adapter.notifyDataSetChanged()
 
             dialog.dismiss()
         }
+
+
     }
 }
