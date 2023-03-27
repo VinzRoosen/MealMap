@@ -6,11 +6,11 @@
     app:startDestination="@id/overviewFragment">
     <fragment
         android:id="@+id/overviewFragment"
-        android:name="be.LarsVinz.OurApp.OverviewFragment"
+        android:name="be.LarsVinz.MealMap.OverviewFragment"
         android:label="OverviewFragment"/>
     <fragment
         android:id="@+id/recipeListFragment"
-        android:name="be.LarsVinz.OurApp.RecipeListFragment"
+        android:name="be.LarsVinz.MealMap.RecipeListFragment"
         android:label="fragment_recipe_list"
         tools:layout="@layout/fragment_recipe_list" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/recipeDetailFragment"
-        android:name="be.LarsVinz.OurApp.RecipeDetailFragment"
+        android:name="be.LarsVinz.MealMap.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
         tools:layout="@layout/fragment_recipe_detail" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/createRecipeFragment"
-        android:name="be.LarsVinz.OurApp.CreateRecipeFragment"
+        android:name="be.LarsVinz.MealMap.CreateRecipeFragment"
         android:label="CreateRecipeFragment" >
         <action
             android:id="@+id/action_createRecipeFragment_to_recipeListFragment"

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'be.LarsVinz.OurApp'
+    namespace 'be.LarsVinz.MealMap'
     compileSdk 33
 
     defaultConfig {
-        applicationId "be.LarsVinz.OurApp"
+        applicationId "be.LarsVinz.MealMap"
         minSdk 26
         targetSdk 33
         versionCode 1

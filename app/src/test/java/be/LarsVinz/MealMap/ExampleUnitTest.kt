@@ -1,4 +1,4 @@
-package be.LarsVinz.OurApp
+package be.LarsVinz.MealMap
 
 import org.junit.Test
 

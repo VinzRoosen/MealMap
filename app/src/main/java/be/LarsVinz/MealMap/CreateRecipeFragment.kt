@@ -1,4 +1,4 @@
-package be.LarsVinz.OurApp
+package be.LarsVinz.MealMap
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -12,7 +12,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import be.LarsVinz.OurApp.databinding.FragmentCreateRecipeBinding
+import be.LarsVinz.MealMap.databinding.FragmentCreateRecipeBinding
 
 class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
