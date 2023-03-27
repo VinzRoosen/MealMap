@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.OurApp.databinding.FragmentRecipeDetailBinding
 
@@ -21,11 +22,9 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
     ): View? {
         binding = FragmentRecipeDetailBinding.inflate(layoutInflater)
 
-        val recipe = (arguments?.getSerializable("mydata") as Recipe?) ?: null
+        val recipe = arguments?.getSerializable("recipe") as Recipe
 
-        if (recipe == null) {
-            findNavController().navigate(R.id.action_recipeDetailFragment_to_recipeListFragment)
-        }
+        binding.recipeNameTxt.text = recipe.recipeName
 
         adapter = RecipeStepAdaptor(recipe.steps, true)
         binding.recipeStepRvw.adapter = adapter
