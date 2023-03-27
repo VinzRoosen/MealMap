@@ -31,11 +31,6 @@
         <action
             android:id="@+id/action_recipeDetailFragment_to_createRecipeFragment"
             app:destination="@id/createRecipeFragment" />
-        <argument
-            android:name="recipe"
-            app:argType="be.LarsVinz.OurApp.Recipe"
-            app:nullable="true"
-            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/createRecipeFragment"
