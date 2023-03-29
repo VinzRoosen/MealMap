@@ -27,7 +27,10 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
     ): View? {
         binding = FragmentCreateRecipeBinding.inflate(layoutInflater)
 
-        adapter = RecipeStepAdaptor(recipeStepList, true)
+        adapter = RecipeStepAdaptor(recipeStepList) {recipeStep -> // This is the OnItemClick
+            editStepDialog(recipeStep)
+        }
+
         binding.recipeStepRvw.adapter = adapter
         binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
 
@@ -38,7 +41,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
     }
 
     private fun onAddRecipeBtn(){
-        editStepDialog()
+        editStepDialog(null)
     }
 
     private fun onSaveRecipeBtn(){
@@ -49,7 +52,8 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         findNavController().navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
     }
 
-    private fun editStepDialog(){
+    private fun editStepDialog(recipeStep : RecipeStep?){
+
         val dialogBuilder = AlertDialog.Builder(this.context)
         val createRecipePopupView = layoutInflater.inflate(R.layout.edit_recipe_popup, null)
 
@@ -61,17 +65,27 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         val stepSpinner = createRecipePopupView.findViewById<Spinner>(R.id.stepNumberPopupSpr)
         val stepExplanationTxt = createRecipePopupView.findViewById<TextView>(R.id.stepExplanationPopupTxt)
 
+        var recipeStepIndex = recipeStepList.size
+
+        if (recipeStep != null)
+        {
+            recipeStepIndex = recipeStepList.indexOf(recipeStep)
+            recipeStepList.removeAt(recipeStepIndex)
+
+            stepExplanationTxt.text = recipeStep.explanation
+        }
+
         val numbers = Array(recipeStepList.size + 1) { it + 1 }
         val spinnerAdapter = ArrayAdapter<Int>(this.requireContext(), android.R.layout.simple_spinner_dropdown_item, numbers)
         stepSpinner.adapter = spinnerAdapter;
-        stepSpinner.setSelection(numbers.size - 1)
+        stepSpinner.setSelection(recipeStepIndex)
 
         addBtn.setOnClickListener{
 
-            val recipeStep = RecipeStep(stepExplanationTxt.text.toString(), 0)
+            val newRecipeStep = RecipeStep(stepExplanationTxt.text.toString(), 0)
             val stepNumber = stepSpinner.selectedItem as Int
 
-            recipeStepList.add(stepNumber - 1, recipeStep)
+            recipeStepList.add(stepNumber - 1, newRecipeStep)
             adapter.notifyDataSetChanged()
 
             dialog.dismiss()

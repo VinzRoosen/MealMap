@@ -4,7 +4,7 @@ import android.view.*
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecipeStepAdaptor(private val items: List<RecipeStep>, private val isStepEditable : Boolean) : RecyclerView.Adapter<RecipeStepAdaptor.RecipeStepViewHolder>() {
+class RecipeStepAdaptor(private val items: List<RecipeStep>, val onItemClick: (RecipeStep) -> Unit) : RecyclerView.Adapter<RecipeStepAdaptor.RecipeStepViewHolder>() {
 
     inner class RecipeStepViewHolder(current : View) : RecyclerView.ViewHolder(current)
 
@@ -17,7 +17,11 @@ class RecipeStepAdaptor(private val items: List<RecipeStep>, private val isStepE
         val currentTodoItem = items[position]
         holder.itemView.apply {
             findViewById<TextView>(R.id.stepNumberTxt).text = (position + 1).toString()
-            findViewById<TextView>(R.id.stepExplanationTxt).text = items[position].explanation
+            findViewById<TextView>(R.id.stepExplanationTxt).text = currentTodoItem.explanation
+        }
+
+        holder.itemView.setOnClickListener{
+            onItemClick(currentTodoItem)
         }
     }
 

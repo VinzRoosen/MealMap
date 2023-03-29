@@ -24,7 +24,7 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
 
         binding.recipeNameTxt.text = recipe.recipeName
 
-        adapter = RecipeStepAdaptor(recipe.steps, true)
+        adapter = RecipeStepAdaptor(recipe.steps) {} // no click event needed
         binding.recipeStepRvw.adapter = adapter
         binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
 
