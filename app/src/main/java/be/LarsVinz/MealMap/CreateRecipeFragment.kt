@@ -2,6 +2,7 @@ package be.LarsVinz.MealMap
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,9 +29,11 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         binding = FragmentCreateRecipeBinding.inflate(layoutInflater)
 
         val recipe = arguments?.getSerializable("recipe") as Recipe?
-        recipeStepList.addAll(recipe?.steps!!)
 
-        binding.recipeNameTxt.setText(recipe.recipeName)
+        recipe?.let {
+            binding.recipeNameTxt.setText(it.recipeName)
+            recipeStepList.addAll(it.steps)
+        }
 
         adapter = RecipeStepAdaptor(recipeStepList) {recipeStep -> // This is the OnItemClick
             editStepDialog(recipeStep)
