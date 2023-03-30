@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".RecipeListFragment">
 
     <Button
-<<<<<<< HEAD
         android:id="@+id/btnNewRecipe"
         android:layout_width="339dp"
         android:layout_height="71dp"
@@ -34,30 +33,9 @@
         android:id="@+id/txtRecipeListEmtyList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-=======
-        android:id="@+id/btnNew"
-        android:layout_width="339dp"
-        android:layout_height="71dp"
-        android:text="New"
->>>>>>> ea6be0ea979ebe5da512e12e74909e9b66ea304b
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-<<<<<<< HEAD
-=======
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecycleViewMain"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="116dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnNew"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
->>>>>>> ea6be0ea979ebe5da512e12e74909e9b66ea304b
 </androidx.constraintlayout.widget.ConstraintLayout>
