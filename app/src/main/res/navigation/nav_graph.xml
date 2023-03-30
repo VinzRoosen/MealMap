@@ -37,8 +37,8 @@
         android:name="be.LarsVinz.MealMap.CreateRecipeFragment"
         android:label="CreateRecipeFragment" >
         <action
-            android:id="@+id/action_createRecipeFragment_to_recipeListFragment"
-            app:destination="@id/recipeListFragment" />
+            android:id="@+id/action_createRecipeFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_recipeListFragment"

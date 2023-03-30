@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.databinding.FragmentCreateRecipeBinding
@@ -56,8 +57,8 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList)
 
         // TODO: save het recept
-
-        findNavController().navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
+        val bundle = bundleOf("recipe" to recipe)
+        findNavController().navigate(R.id.action_createRecipeFragment_to_recipeDetailFragment, bundle)
     }
 
     private fun editStepDialog(recipeStep : RecipeStep?){

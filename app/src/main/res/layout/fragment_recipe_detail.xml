@@ -31,15 +31,25 @@
 
         <ImageButton
             android:id="@+id/editBtn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
             android:src="@drawable/icon_edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/noColor"
+            app:tint="?attr/colorOnPrimary" />
 
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:src="@drawable/icon_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/noColor"
+            app:tint="?attr/colorOnPrimary" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView

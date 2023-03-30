@@ -16,31 +16,31 @@
 
         <EditText
             android:id="@+id/recipeNameTxt"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginStart="16dp"
             android:background="@color/noColor"
             android:textColor="?attr/colorOnSecondary"
             android:textColorHint="@color/dimmedText"
-            android:ems="10"
             android:hint="Type name here..."
             android:inputType="textShortMessage|text"
             android:textAlignment="textStart"
             android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/saveRecipeBtn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:layout_height="45dp"
-            android:text="Save"
-            android:textSize="16sp"
+            android:background="@color/noColor"
+            app:tint="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_save" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -54,15 +54,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-    <Button
+    <ImageButton
         android:id="@+id/addRecipeBtn"
-        android:layout_width="80dp"
-        android:layout_height="45dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Add"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/icon_add"
+        android:background="@drawable/background_rounded_corners"
+        android:backgroundTint="?attr/colorButtonNormal"
+        app:tint="?attr/colorSecondaryVariant"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

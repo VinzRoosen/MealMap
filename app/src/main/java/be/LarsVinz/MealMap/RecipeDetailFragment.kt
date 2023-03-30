@@ -32,6 +32,10 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
             findNavController().navigate(R.id.action_recipeDetailFragment_to_createRecipeFragment, bundle)
         }
 
+        binding.backBtn.setOnClickListener{
+            findNavController().navigate(R.id.action_recipeDetailFragment_to_recipeListFragment)
+        }
+
         adapter = RecipeStepAdaptor(recipe.steps) {} // no click event needed
         binding.recipeStepRvw.adapter = adapter
         binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
