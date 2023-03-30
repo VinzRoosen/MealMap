@@ -63,8 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/icon_add"
-        android:background="@drawable/background_rounded_corners"
-        android:backgroundTint="?attr/colorButtonNormal"
+        android:background="@color/noColor"
         app:tint="?attr/colorSecondaryVariant"
         />
 

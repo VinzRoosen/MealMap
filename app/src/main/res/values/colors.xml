@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="dimmedText">#77000000</color>
+    <color name="noColor">#00000000</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="blue">#34ace0</color>
-    <color name="saturated_blue">#227093</color>
-    <color name="green">#33d9b2</color>
-    <color name="saturated_green">#218c74</color>
-    <color name="red">#ED4C67</color>
-    <color name="yellow">#ffda79</color>
-    <color name="noColor">#00000000</color>
+    <color name="grey">#8f9193</color>
 
-    <color name="dimmedText">#88000000</color>
+    <!-- Light Theme -->
+    <color name="light_Primary">#34ace0</color>
+    <color name="light_PrimaryVariant">#227093</color>
+    <color name="light_Secondary">#33d9b2</color>
+    <color name="light_SecondaryVariant">#218c74</color>
+
+    <!-- Night Theme -->
+    <color name="night_Primary">#576CBC</color>
+    <color name="night_PrimaryVariant">#19376D</color>
+    <color name="night_Secondary">#443C68</color>
+    <color name="night_SecondaryVariant">#635985</color>
+
 </resources>
