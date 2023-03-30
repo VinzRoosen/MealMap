@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+<<<<<<< HEAD
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+=======
+>>>>>>> ea6be0ea979ebe5da512e12e74909e9b66ea304b
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.databinding.FragmentRecipeListBinding
 
@@ -21,6 +24,7 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
     ): View? {
         binding = FragmentRecipeListBinding.inflate(layoutInflater)
 
+<<<<<<< HEAD
         val recipeList = mutableListOf<Recipe>()
 
         //TODO: Tijdelijk
@@ -35,10 +39,15 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
         }
 
         //TODO: Lars zijn CreateRecipe samenvoegen met recipeList
+=======
+        //New Recept
+        val recipeList = mutableListOf<Recipe>()
+>>>>>>> ea6be0ea979ebe5da512e12e74909e9b66ea304b
         val adapter = RecipePreviewAdapter(recipeList)
         binding.RecycleViewMain.adapter = adapter
         binding.RecycleViewMain.layoutManager = LinearLayoutManager(this.context)
         adapter.notifyItemInserted(recipeList.size - 1)
+<<<<<<< HEAD
 
 
         binding.btnNewRecipe.setOnClickListener{
@@ -54,6 +63,8 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
 
             findNavController().navigate(R.id.action_recipeListFragment_to_recipeDetailFragment, bundle)
         */
+=======
+>>>>>>> ea6be0ea979ebe5da512e12e74909e9b66ea304b
 
         return binding.root
     }
