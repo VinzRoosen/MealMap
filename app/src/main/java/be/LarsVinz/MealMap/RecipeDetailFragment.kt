@@ -17,7 +17,7 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRecipeDetailBinding.inflate(layoutInflater)
 
         val recipe = arguments?.getSerializable("recipe") as Recipe
