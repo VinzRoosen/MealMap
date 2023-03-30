@@ -27,6 +27,11 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
     ): View? {
         binding = FragmentCreateRecipeBinding.inflate(layoutInflater)
 
+        val recipe = arguments?.getSerializable("recipe") as Recipe?
+        recipeStepList.addAll(recipe?.steps!!)
+
+        binding.recipeNameTxt.setText(recipe.recipeName)
+
         adapter = RecipeStepAdaptor(recipeStepList) {recipeStep -> // This is the OnItemClick
             editStepDialog(recipeStep)
         }
@@ -36,10 +41,6 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
         binding.addRecipeBtn.setOnClickListener {onAddRecipeBtn()}
         binding.saveRecipeBtn.setOnClickListener {onSaveRecipeBtn()}
-
-        val recipe = arguments?.getSerializable("recipe") as Recipe?
-
-        println(recipe?.recipeName)
 
         return binding.root
     }

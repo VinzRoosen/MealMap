@@ -21,11 +21,11 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
     ): View? {
         binding = FragmentRecipeListBinding.inflate(layoutInflater)
 
-        val recipeList = mutableListOf<Recipe>()
 
         //TODO: Tijdelijk
+        val recipeList = mutableListOf<Recipe>()
         val steps = listOf<RecipeStep>( RecipeStep("Test", 0), RecipeStep("Test2", 0) )
-        recipeList.add(Recipe("test",steps))
+        recipeList.add(Recipe("test", steps))
         recipeList.add(Recipe("test 2", steps))
 
         if (recipeList.isEmpty()){
@@ -34,26 +34,16 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
             binding.txtRecipeListEmtyList.text = ""
         }
 
-        //TODO: Lars zijn CreateRecipe samenvoegen met recipeList
+        //TODO: Opgeslagen Recipes inladen
         val adapter = RecipePreviewAdapter(recipeList)
-        binding.RecycleViewMain.adapter = adapter
-        binding.RecycleViewMain.layoutManager = LinearLayoutManager(this.context)
+        binding.recipeListRvw.adapter = adapter
+        binding.recipeListRvw.layoutManager = LinearLayoutManager(this.context)
         adapter.notifyItemInserted(recipeList.size - 1)
 
 
         binding.btnNewRecipe.setOnClickListener{
             findNavController().navigate(R.id.action_recipeListFragment_to_createRecipeFragment)
         }
-
-
-        // TODO:Tijdelijk om naar de recipeDetailFragment te gaan
-        /*
-            val recipe = Recipe("Test titel", steps)
-
-            val bundle = bundleOf("recipe" to recipe)
-
-            findNavController().navigate(R.id.action_recipeListFragment_to_recipeDetailFragment, bundle)
-        */
 
         return binding.root
     }
