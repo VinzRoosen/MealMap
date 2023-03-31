@@ -23,10 +23,9 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
 
 
         //TODO: Tijdelijk
-        val recipeList = mutableListOf<Recipe>()
-        val steps = listOf<RecipeStep>( RecipeStep("Test", 0), RecipeStep("Test2", 0) )
-        recipeList.add(Recipe("test", steps))
-        recipeList.add(Recipe("test 2", steps))
+        val recipeRepository = RecipeRepository(requireActivity())
+
+        val recipeList = recipeRepository.loadAll()
 
         if (recipeList.isEmpty()){
             binding.txtRecipeListEmtyList.text = "no recipes added yet, click 'new' to create a new recipe"

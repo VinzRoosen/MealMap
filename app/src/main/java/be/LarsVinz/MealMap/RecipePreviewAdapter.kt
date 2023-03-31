@@ -10,7 +10,7 @@ import android.widget.TextView
 
 import androidx.recyclerview.widget.RecyclerView
 
-class RecipePreviewAdapter (val items: MutableList<Recipe>): RecyclerView.Adapter<RecipePreviewAdapter.testViewHolder>(){
+class RecipePreviewAdapter (val items: List<Recipe>): RecyclerView.Adapter<RecipePreviewAdapter.testViewHolder>(){
     inner class testViewHolder(currentItemView: View) : RecyclerView.ViewHolder(currentItemView)
 
 
