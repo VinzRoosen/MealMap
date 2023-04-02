@@ -6,17 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".RecipeListFragment">
 
-    <Button
+
+    <ImageButton
         android:id="@+id/btnNewRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="New"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/icon_add"
+        app:tint="?attr/colorSecondaryVariant"
+        android:background="@drawable/background_oval"
+        android:backgroundTint="#DDDDDD"
+        android:elevation="2dp"
+        />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipeListRvw"
@@ -24,8 +29,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtRecipeListEmtyList"
@@ -35,5 +42,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnRemoveRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TestRemove"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnNewRecipe"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRecipeListEmtyList"
+        app:layout_constraintVertical_bias="0.902" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

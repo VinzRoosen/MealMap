@@ -32,13 +32,13 @@
         <ImageButton
             android:id="@+id/saveRecipeBtn"
             android:layout_width="70dp"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:background="@color/noColor"
-            app:tint="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_save" />
+            app:srcCompat="@drawable/icon_save"
+            app:tint="?attr/colorOnPrimary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

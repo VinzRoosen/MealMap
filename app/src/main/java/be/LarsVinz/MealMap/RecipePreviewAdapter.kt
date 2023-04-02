@@ -10,19 +10,19 @@ import android.widget.TextView
 
 import androidx.recyclerview.widget.RecyclerView
 
-class RecipePreviewAdapter (val items: List<Recipe>): RecyclerView.Adapter<RecipePreviewAdapter.testViewHolder>(){
-    inner class testViewHolder(currentItemView: View) : RecyclerView.ViewHolder(currentItemView)
+class RecipePreviewAdapter (val items: List<Recipe>): RecyclerView.Adapter<RecipePreviewAdapter.PreviewRecipeViewHolder>(){
+    inner class PreviewRecipeViewHolder(currentItemView: View) : RecyclerView.ViewHolder(currentItemView)
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): testViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreviewRecipeViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
-        return testViewHolder(view)
+        return PreviewRecipeViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: testViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PreviewRecipeViewHolder, position: Int) {
         val currentRecipe = items[position]
         holder.itemView.apply {
-
             findViewById<TextView>(R.id.txtRecipe).text = currentRecipe.recipeName
         }
 
