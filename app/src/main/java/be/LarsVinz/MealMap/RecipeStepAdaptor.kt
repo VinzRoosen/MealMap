@@ -1,6 +1,7 @@
 package be.LarsVinz.MealMap
 
 import android.view.*
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -14,14 +15,23 @@ class RecipeStepAdaptor(private val items: List<RecipeStep>, val onItemClick: (R
     }
 
     override fun onBindViewHolder(holder: RecipeStepViewHolder, position: Int) {
-        val currentTodoItem = items[position]
+        val currentRecipeStep = items[position]
         holder.itemView.apply {
             findViewById<TextView>(R.id.stepNumberTxt).text = (position + 1).toString()
-            findViewById<TextView>(R.id.stepExplanationTxt).text = currentTodoItem.explanation
+            findViewById<TextView>(R.id.stepExplanationTxt).text = currentRecipeStep.explanation
+
+            if (currentRecipeStep.timerLength == 0){
+                // source: https://stackoverflow.com/questions/11169360/android-remove-button-dynamically
+
+                val timerButton = findViewById<Button>(R.id.timerBtn)
+                val layout = timerButton.parent as ViewGroup
+
+                layout.removeView(timerButton)
+            }
         }
 
         holder.itemView.setOnClickListener{
-            onItemClick(currentTodoItem)
+            onItemClick(currentRecipeStep)
         }
     }
 
