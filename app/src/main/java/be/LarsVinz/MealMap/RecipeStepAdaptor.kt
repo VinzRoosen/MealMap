@@ -21,12 +21,11 @@ class RecipeStepAdaptor(private val items: List<RecipeStep>, val onItemClick: (R
             findViewById<TextView>(R.id.stepExplanationTxt).text = currentRecipeStep.explanation
 
             if (currentRecipeStep.timerLength == 0){
-                // source: https://stackoverflow.com/questions/11169360/android-remove-button-dynamically
 
-                val timerButton = findViewById<Button>(R.id.timerBtn)
-                val layout = timerButton.parent as ViewGroup
-
-                layout.removeView(timerButton)
+                findViewById<Button>(R.id.timerBtn).visibility = View.GONE
+            }
+            else {
+                findViewById<Button>(R.id.timerBtn).visibility = View.VISIBLE
             }
         }
 
