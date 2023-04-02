@@ -40,20 +40,15 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         binding.recipeStepRvw.adapter = adapter
         binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
 
-        binding.addRecipeBtn.setOnClickListener {onAddRecipeStepBtn()}
-        binding.saveRecipeBtn.setOnClickListener {onSaveRecipeBtn()}
+        binding.addRecipeBtn.setOnClickListener  { openEditStepDialog(null) }
+        binding.saveRecipeBtn.setOnClickListener { onSaveRecipeBtn() }
 
         return binding.root
-    }
-
-    private fun onAddRecipeStepBtn(){
-        openEditStepDialog(null)
     }
 
     private fun onSaveRecipeBtn(){
         val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList)
 
-        // TODO: save het recept
         val repository = RecipeRepository(requireActivity())
         repository.save(recipe)
 
@@ -63,65 +58,13 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private fun openEditStepDialog(recipeStep : RecipeStep?){
 
-        val dialogBuilder = AlertDialog.Builder(this.context)
-        val createRecipePopupView = layoutInflater.inflate(R.layout.edit_recipe_popup, null)
+        val editStepDialog = EditStepDialog(requireContext(), recipeStep, recipeStepList)
+        editStepDialog.show()
 
-        dialogBuilder.setView(createRecipePopupView)
-        val dialog = dialogBuilder.create()
-        dialog.show()
+        editStepDialog.setOnDismissListener {
 
-        val addBtn = createRecipePopupView.findViewById<Button>(R.id.AddRecipePopupBtn)
-        val stepSpinner = createRecipePopupView.findViewById<Spinner>(R.id.stepNumberPopupSpr)
-        val stepExplanationTxt = createRecipePopupView.findViewById<TextView>(R.id.stepExplanationPopupTxt)
-        val hasTimerSwitch = createRecipePopupView.findViewById<Switch>(R.id.hasTimerSwitch)
-        val timerLengthTxt = createRecipePopupView.findViewById<TextView>(R.id.timerLengthTxt)
+            editStepDialog.saveRecipeStep()
 
-        var recipeStepIndex = recipeStepList.size
-
-        if (recipeStep != null)
-        {   // edit an existing step --> load the step data in the correct fields
-            recipeStepIndex = recipeStepList.indexOf(recipeStep)
-            recipeStepList.removeAt(recipeStepIndex)
-
-            stepExplanationTxt.text = recipeStep.explanation
-
-            if (recipeStep.timerLength == 0){
-                hasTimerSwitch.isChecked = false
-            }
-            else{
-                hasTimerSwitch.isChecked = true
-                timerLengthTxt.text = recipeStep.timerLength.toString()
-            }
-        }
-
-        val numbers = Array(recipeStepList.size + 1) { it + 1 }
-        val spinnerAdapter = ArrayAdapter<Int>(this.requireContext(), android.R.layout.simple_spinner_dropdown_item, numbers)
-        stepSpinner.adapter = spinnerAdapter
-        stepSpinner.setSelection(recipeStepIndex)
-
-        if (hasTimerSwitch.isChecked)  timerLengthTxt.visibility = View.VISIBLE else timerLengthTxt.visibility = View.GONE
-
-        hasTimerSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-
-            if (isChecked)  timerLengthTxt.visibility = View.VISIBLE else timerLengthTxt.visibility = View.GONE
-        }
-
-        addBtn.setOnClickListener{
-
-            dialog.dismiss()
-        }
-
-        dialog.setOnDismissListener {
-
-            val explanation = stepExplanationTxt.text.toString()
-            val timerLength = kotlin.run {
-                if (hasTimerSwitch.isChecked) timerLengthTxt.text.toString().toInt() else 0
-            }
-
-            val newRecipeStep = RecipeStep(explanation, timerLength)
-            val stepNumber = stepSpinner.selectedItem as Int
-
-            recipeStepList.add(stepNumber - 1, newRecipeStep)
             adapter.notifyDataSetChanged()
         }
     }
