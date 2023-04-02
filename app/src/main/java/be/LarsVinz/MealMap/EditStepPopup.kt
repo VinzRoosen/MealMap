@@ -36,7 +36,10 @@ class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeS
         hasTimerSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
 
             if (isChecked) openTimePickerPopup()
-            else setTimertext(false)
+            else {
+                setTimertext(false)
+                timerLength = LocalTime.ofSecondOfDay(0)
+            }
         }
 
         timerLengthTxt.setOnClickListener { openTimePickerPopup() }
@@ -121,6 +124,7 @@ class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeS
     private fun openTimePickerPopup(){
         val timePickerPopup = TimePickerPopup(context)
         timePickerPopup.show()
+        timePickerPopup.setCanceledOnTouchOutside(false)
 
         timePickerPopup.setSelectedTime(timerLength)
 
