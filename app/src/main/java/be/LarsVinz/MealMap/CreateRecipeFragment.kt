@@ -44,13 +44,13 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         binding.recipeStepRvw.adapter = adapter
         binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
 
-        binding.addRecipeBtn.setOnClickListener {onAddRecipeBtn()}
+        binding.addRecipeBtn.setOnClickListener {onAddRecipeStepBtn()}
         binding.saveRecipeBtn.setOnClickListener {onSaveRecipeBtn()}
 
         return binding.root
     }
 
-    private fun onAddRecipeBtn(){
+    private fun onAddRecipeStepBtn(){
         editStepDialog(null)
     }
 
@@ -59,7 +59,6 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
         // TODO: save het recept
         val repository = RecipeRepository(requireActivity())
-
         repository.save(recipe)
 
         val bundle = bundleOf("recipe" to recipe)
