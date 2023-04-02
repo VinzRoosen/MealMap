@@ -5,10 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeStepList: MutableList<RecipeStep>) : AlertDialog(context) {
-
-    private val view : View
 
     private val addBtn : Button
     private val deleteBtn : ImageButton
@@ -17,9 +17,11 @@ class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeS
     private val hasTimerSwitch : Switch
     private val timerLengthTxt : TextView
 
+    private var timerLength = LocalTime.of(0, 0, 0)
+
     init {
         val inflater = LayoutInflater.from(context)
-        view = inflater.inflate(R.layout.edit_recipe_popup, null, false)
+        val view = inflater.inflate(R.layout.edit_recipe_popup, null, false)
         setView(view)
 
         addBtn = view.findViewById(R.id.AddRecipePopupBtn)
@@ -31,7 +33,14 @@ class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeS
 
         populateFields(recipeStep)
 
-        hasTimerSwitch.setOnCheckedChangeListener { buttonView, isChecked -> setTimerVisibility(isChecked) }
+        hasTimerSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (isChecked) openTimePickerPopup()
+            else setTimertext(false)
+        }
+
+        timerLengthTxt.setOnClickListener { openTimePickerPopup() }
+
         addBtn.setOnClickListener{
             saveRecipeStep()
             this.dismiss()
@@ -46,11 +55,8 @@ class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeS
     public fun saveRecipeStep() {
 
         val explanation = stepExplanationTxt.text.toString()
-        val timerLength = kotlin.run {
-            if (hasTimerSwitch.isChecked) timerLengthTxt.text.toString().toInt() else 0
-        }
 
-        val newRecipeStep = RecipeStep(explanation, timerLength)
+        val newRecipeStep = RecipeStep(explanation, timerLength.toSecondOfDay())
         val stepNumber = stepSpinner.selectedItem as Int
 
         recipeStepList.remove(recipeStep)
@@ -79,27 +85,50 @@ class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeS
            stepExplanationTxt.setText(recipeStep.explanation)
 
            // switch and timer text
-           if (recipeStep.timerLength == 0){
+
+            timerLength = LocalTime.ofSecondOfDay(recipeStep.timerLength.toLong())
+
+           if (timerLength.toSecondOfDay() == 0){
                hasTimerSwitch.isChecked = false
-               setTimerVisibility(false)
+               setTimertext(false)
            }
            else{
                hasTimerSwitch.isChecked = true
-               setTimerVisibility(true)
-               timerLengthTxt.text = recipeStep.timerLength.toString()
+               setTimertext(true)
            }
         } ?: run {
 
             val numbers = Array(recipeStepList.size + 1) { it + 1 }
             setSpinner(numbers, recipeStepList.size)
 
-            setTimerVisibility(false)
+            setTimertext(false)
         }
     }
 
-    private fun setTimerVisibility(status : Boolean){
+    private fun setTimertext(visable : Boolean){
 
-        if (status)  timerLengthTxt.visibility = View.VISIBLE else timerLengthTxt.visibility = View.GONE
+        if (visable)  {
+
+            timerLengthTxt.text = timerLength.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+            timerLengthTxt.visibility = View.VISIBLE
+
+        } else{
+
+            timerLengthTxt.visibility = View.GONE
+        }
+    }
+
+    private fun openTimePickerPopup(){
+        val timePickerPopup = TimePickerPopup(context)
+        timePickerPopup.show()
+
+        timePickerPopup.setSelectedTime(timerLength)
+
+        timePickerPopup.setOnAddBtnListener {
+            timerLength = timePickerPopup.getSelectedTime()
+            setTimertext(true)
+            timePickerPopup.dismiss()
+        }
     }
 }
 
