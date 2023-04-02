@@ -95,13 +95,15 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
         addBtn.setOnClickListener{
 
+            dialog.dismiss()
+        }
+
+        dialog.setOnDismissListener {
             val newRecipeStep = RecipeStep(stepExplanationTxt.text.toString(), 0)
             val stepNumber = stepSpinner.selectedItem as Int
 
             recipeStepList.add(stepNumber - 1, newRecipeStep)
             adapter.notifyDataSetChanged()
-
-            dialog.dismiss()
         }
     }
 }
