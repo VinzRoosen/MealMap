@@ -12,7 +12,7 @@ class EditStepDialog(context : Context, val recipeStep : RecipeStep?, val recipe
     private val view : View
 
     private val addBtn : Button
-
+    private val deleteBtn : ImageButton
     private val stepSpinner : Spinner
     private val stepExplanationTxt : EditText
     private val hasTimerSwitch : Switch
@@ -24,6 +24,7 @@ class EditStepDialog(context : Context, val recipeStep : RecipeStep?, val recipe
         setView(view)
 
         addBtn = view.findViewById(R.id.AddRecipePopupBtn)
+        deleteBtn = view.findViewById(R.id.deleteBtn)
         stepSpinner = view.findViewById(R.id.stepNumberPopupSpr)
         stepExplanationTxt = view.findViewById(R.id.stepExplanationPopupTxt)
         hasTimerSwitch = view.findViewById(R.id.hasTimerSwitch)
@@ -32,8 +33,15 @@ class EditStepDialog(context : Context, val recipeStep : RecipeStep?, val recipe
         populateFields(recipeStep)
 
         hasTimerSwitch.setOnCheckedChangeListener { buttonView, isChecked -> setTimerVisibility(isChecked) }
-        addBtn.setOnClickListener{ this.dismiss() }
+        addBtn.setOnClickListener{
+            saveRecipeStep()
+            this.dismiss()
+        }
 
+        deleteBtn.setOnClickListener {
+            deleteRecipe()
+            this.dismiss()
+        }
     }
 
     public fun saveRecipeStep() {
@@ -48,6 +56,10 @@ class EditStepDialog(context : Context, val recipeStep : RecipeStep?, val recipe
 
         recipeStepList.remove(recipeStep)
         recipeStepList.add(stepNumber - 1, newRecipeStep)
+    }
+
+    public fun deleteRecipe(){
+        recipeStepList.remove(recipeStep)
     }
 
     private fun populateFields(recipeStep : RecipeStep?){

@@ -63,8 +63,6 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
         editStepDialog.setOnDismissListener {
 
-            editStepDialog.saveRecipeStep()
-
             adapter.notifyDataSetChanged()
         }
     }
