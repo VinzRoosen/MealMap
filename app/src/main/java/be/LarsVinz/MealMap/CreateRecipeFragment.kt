@@ -33,7 +33,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
             recipeStepList.addAll(it.steps)
         }
 
-        adapter = RecipeStepAdaptor(recipeStepList) {recipeStep -> // This is the OnItemClick
+        adapter = RecipeStepAdaptor(recipeStepList, requireContext()) {recipeStep -> // This is the OnItemClick
             openEditStepDialog(recipeStep)
         }
 

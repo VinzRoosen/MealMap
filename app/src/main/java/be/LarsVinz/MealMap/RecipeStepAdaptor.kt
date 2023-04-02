@@ -1,11 +1,16 @@
 package be.LarsVinz.MealMap
 
+import android.content.Context
+import android.content.Intent
+import android.provider.AlarmClock
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
-class RecipeStepAdaptor(private val items: List<RecipeStep>, val onItemClick: (RecipeStep) -> Unit) : RecyclerView.Adapter<RecipeStepAdaptor.RecipeStepViewHolder>() {
+
+class RecipeStepAdaptor(private val items: List<RecipeStep>, val context :  Context, val onItemClick: (RecipeStep) -> Unit) : RecyclerView.Adapter<RecipeStepAdaptor.RecipeStepViewHolder>() {
 
     inner class RecipeStepViewHolder(current : View) : RecyclerView.ViewHolder(current)
 
@@ -20,18 +25,33 @@ class RecipeStepAdaptor(private val items: List<RecipeStep>, val onItemClick: (R
             findViewById<TextView>(R.id.stepNumberTxt).text = (position + 1).toString()
             findViewById<TextView>(R.id.stepExplanationTxt).text = currentRecipeStep.explanation
 
+            val timerBtn = findViewById<Button>(R.id.timerBtn)
+
+            timerBtn.setOnClickListener{
+                startTimer("Test Timer", currentRecipeStep.timerLength)
+            }
+
             if (currentRecipeStep.timerLength == 0){
 
-                findViewById<Button>(R.id.timerBtn).visibility = View.GONE
+                timerBtn.visibility = View.GONE
             }
             else {
-                findViewById<Button>(R.id.timerBtn).visibility = View.VISIBLE
+                timerBtn.visibility = View.VISIBLE
             }
         }
 
         holder.itemView.setOnClickListener{
             onItemClick(currentRecipeStep)
         }
+    }
+
+    fun startTimer(message: String, seconds: Int) {
+        val intent = Intent(AlarmClock.ACTION_SET_TIMER).apply {
+            putExtra(AlarmClock.EXTRA_MESSAGE, message)
+            putExtra(AlarmClock.EXTRA_LENGTH, seconds)
+            putExtra(AlarmClock.EXTRA_SKIP_UI, true)
+        }
+        startActivity(context, intent, null) // TODO: ask for permission
     }
 
     override fun getItemCount(): Int = items.size
