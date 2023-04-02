@@ -2,12 +2,11 @@ package be.LarsVinz.MealMap
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 
-class EditStepDialog(context : Context, val recipeStep : RecipeStep?, val recipeStepList: MutableList<RecipeStep>) : AlertDialog(context) {
+class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeStepList: MutableList<RecipeStep>) : AlertDialog(context) {
 
     private val view : View
 
