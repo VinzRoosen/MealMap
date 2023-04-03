@@ -1,9 +1,13 @@
 package be.LarsVinz.MealMap
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -39,12 +43,36 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
 
         binding.addRecipeBtn.setOnClickListener  { openEditStepDialog(null) }
-        binding.saveRecipeBtn.setOnClickListener { onSaveRecipeBtn() }
+        binding.saveRecipeBtn.setOnClickListener { saveRecipeAndClose() }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+                val builder = AlertDialog.Builder(requireContext()).apply {
+                    setTitle("Save?")
+                    setMessage("Do you want to save this recipe?")
+                    setIcon(android.R.drawable.ic_dialog_alert)
+
+                    setPositiveButton("Save") { dialogInterface, id ->
+                        saveRecipeAndClose()
+                    }
+
+                    setNegativeButton("Cancel"){ dialogInterface, id ->
+                        findNavController().popBackStack()
+                    }
+
+                    show()
+                }
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         return binding.root
     }
 
-    private fun onSaveRecipeBtn(){
+    private fun saveRecipeAndClose(){
+
         val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList)
 
         val repository = RecipeRepository(requireActivity())
@@ -65,3 +93,26 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
