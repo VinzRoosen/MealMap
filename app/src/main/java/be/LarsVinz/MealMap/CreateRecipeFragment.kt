@@ -29,11 +29,21 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         binding = FragmentCreateRecipeBinding.inflate(layoutInflater)
 
         val recipe = arguments?.getSerializable("recipe") as Recipe?
+        recipe?.let { setRecipeData(recipe) }
 
-        recipe?.let {
-            binding.recipeNameTxt.setText(it.recipeName)
-            recipeStepList.addAll(it.steps)
-        }
+        setRecipeRecycleView()
+        setButtons()
+
+        return binding.root
+    }
+
+    private fun setRecipeData(recipe : Recipe){
+
+        binding.recipeNameTxt.setText(recipe.recipeName)
+        recipeStepList.addAll(recipe.steps)
+    }
+
+    private fun setRecipeRecycleView(){
 
         adapter = RecipeStepAdaptor(recipeStepList, requireContext()) {recipeStep -> // This is the OnItemClick
             openEditStepDialog(recipeStep)
@@ -41,6 +51,9 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
         binding.recipeStepRvw.adapter = adapter
         binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
+    }
+
+    private fun setButtons(){
 
         binding.addRecipeBtn.setOnClickListener  { openEditStepDialog(null) }
         binding.saveRecipeBtn.setOnClickListener { saveRecipeAndClose() }
@@ -48,27 +61,11 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
 
-                val builder = AlertDialog.Builder(requireContext()).apply {
-                    setTitle("Save?")
-                    setMessage("Do you want to save this recipe?")
-                    setIcon(android.R.drawable.ic_dialog_alert)
-
-                    setPositiveButton("Save") { dialogInterface, id ->
-                        saveRecipeAndClose()
-                    }
-
-                    setNegativeButton("Cancel"){ dialogInterface, id ->
-                        findNavController().popBackStack()
-                    }
-
-                    show()
-                }
+                openSaveConfirmationDialog()
             }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
-        return binding.root
     }
 
     private fun saveRecipeAndClose(){
@@ -84,12 +81,30 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private fun openEditStepDialog(recipeStep : RecipeStep?){
 
-        val editStepPopup = EditStepPopup(requireContext(), recipeStep, recipeStepList)
-        editStepPopup.show()
+        EditStepPopup(requireContext(), recipeStep, recipeStepList).apply {
 
-        editStepPopup.setOnDismissListener {
+            setOnDismissListener { adapter.notifyDataSetChanged() }
+            show()
+        }
+    }
 
-            adapter.notifyDataSetChanged()
+    fun openSaveConfirmationDialog(){
+
+        AlertDialog.Builder(requireContext()).apply {
+
+            setTitle("Save?")
+            setMessage("Do you want to save this recipe?")
+            setIcon(android.R.drawable.ic_dialog_alert)
+
+            setPositiveButton("Save") { dialogInterface, id ->
+                saveRecipeAndClose()
+            }
+
+            setNegativeButton("Cancel"){ dialogInterface, id ->
+                findNavController().popBackStack()
+            }
+
+            show()
         }
     }
 }
