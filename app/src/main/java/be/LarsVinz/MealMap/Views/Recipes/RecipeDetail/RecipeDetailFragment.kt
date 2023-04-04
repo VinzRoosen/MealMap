@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap
+package be.LarsVinz.MealMap.Views.Recipes.RecipeDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import be.LarsVinz.MealMap.Models.Data.Recipe
+import be.LarsVinz.MealMap.R
+import be.LarsVinz.MealMap.Views.Recipes.RecipeStepAdaptor
 import be.LarsVinz.MealMap.databinding.FragmentRecipeDetailBinding
 
 class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {

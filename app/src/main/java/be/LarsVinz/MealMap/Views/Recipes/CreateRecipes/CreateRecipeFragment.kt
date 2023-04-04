@@ -1,17 +1,20 @@
-package be.LarsVinz.MealMap
+package be.LarsVinz.MealMap.Views.Recipes.CreateRecipes
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import be.LarsVinz.MealMap.Models.Data.Recipe
+import be.LarsVinz.MealMap.Models.Data.RecipeStep
+import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
+import be.LarsVinz.MealMap.R
+import be.LarsVinz.MealMap.Views.Recipes.RecipeStepAdaptor
 import be.LarsVinz.MealMap.databinding.FragmentCreateRecipeBinding
 
 
@@ -72,8 +75,8 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
         val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList)
 
-        val repository = RecipeRepository(requireActivity())
-        repository.save(recipe)
+        val repository = RecipePreferencesRepository(requireActivity())
+        repository.saveRecipe(recipe)
 
         val bundle = bundleOf("recipe" to recipe)
         findNavController().navigate(R.id.action_createRecipeFragment_to_recipeDetailFragment, bundle)

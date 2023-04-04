@@ -1,14 +1,12 @@
-package be.LarsVinz.MealMap
+package be.LarsVinz.MealMap.Views.Recipes.CreateRecipes
 
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.NumberPicker
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
-import java.time.LocalDateTime
+import be.LarsVinz.MealMap.R
 import java.time.LocalTime
-import kotlin.math.min
 
 class TimePickerPopup(context : Context) : AlertDialog(context) {
 

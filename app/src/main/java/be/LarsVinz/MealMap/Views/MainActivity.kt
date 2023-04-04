@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap
+package be.LarsVinz.MealMap.Views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.navigation.findNavController
+import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +24,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupMenuDrawer() {
-        menuBarToggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open_menu, R.string.close_menu)
+        menuBarToggle = ActionBarDrawerToggle(this, binding.drawerLayout,
+            R.string.open_menu,
+            R.string.close_menu
+        )
         binding.drawerLayout.addDrawerListener(menuBarToggle)
         menuBarToggle.syncState()
 

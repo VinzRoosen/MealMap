@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap
+package be.LarsVinz.MealMap.Views.Recipes.RecipeList
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,8 @@ import androidx.navigation.findNavController
 import android.widget.TextView
 
 import androidx.recyclerview.widget.RecyclerView
+import be.LarsVinz.MealMap.Models.Data.Recipe
+import be.LarsVinz.MealMap.R
 
 class RecipePreviewAdapter (val items: List<Recipe>): RecyclerView.Adapter<RecipePreviewAdapter.PreviewRecipeViewHolder>(){
     inner class PreviewRecipeViewHolder(currentItemView: View) : RecyclerView.ViewHolder(currentItemView)

@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap
+package be.LarsVinz.MealMap.Views.Recipes
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import be.LarsVinz.MealMap.Models.Data.RecipeStep
+import be.LarsVinz.MealMap.R
 
 
 class RecipeStepAdaptor(private val items: List<RecipeStep>, val context :  Context, val onItemClick: (RecipeStep) -> Unit) : RecyclerView.Adapter<RecipeStepAdaptor.RecipeStepViewHolder>() {
