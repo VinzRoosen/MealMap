@@ -1,10 +1,12 @@
 package be.LarsVinz.MealMap.Models
 
 import android.content.Context
+import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.fragment.app.FragmentActivity
 import be.LarsVinz.MealMap.Exceptions.CantLoadRecipeException
 import be.LarsVinz.MealMap.R
-import be.LarsVinz.MealMap.Models.Data.Recipe
+import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import com.google.gson.*
 
 class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepository{ // TODO: activity meegeven vind ik niet leuk
@@ -53,5 +55,21 @@ class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepos
             recipeList.add(recipe)
         }
         return recipeList
+    }
+
+    override fun deleteRecipe(recipe: Recipe){
+        val sharedPref = activity.getSharedPreferences(activity.getString(R.string.recipe_data), Context.MODE_PRIVATE)
+        sharedPref.edit {
+            remove(recipe.recipeName)
+            commit()
+        }
+    }
+
+    override fun deleteAllRecipes(){
+        val sharedPref = activity.getSharedPreferences(activity.getString(R.string.recipe_data), Context.MODE_PRIVATE)
+        sharedPref.edit {
+            clear()
+            commit()
+        }
     }
 }

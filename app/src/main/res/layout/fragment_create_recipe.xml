@@ -43,14 +43,27 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ingredientRvw"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipeStepRvw"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/ingredientRvw">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <ImageButton
         android:id="@+id/addRecipeBtn"
@@ -58,12 +71,11 @@
         android:layout_height="70dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/background_oval"
+        android:backgroundTint="#DDDDDD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/icon_add"
-        app:tint="?attr/colorSecondaryVariant"
-        android:background="@drawable/background_oval"
-        android:backgroundTint="#DDDDDD"
-        />
+        app:tint="?attr/colorSecondaryVariant" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

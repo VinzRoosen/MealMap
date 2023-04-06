@@ -9,11 +9,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import be.LarsVinz.MealMap.Models.Data.Recipe
-import be.LarsVinz.MealMap.Models.Data.RecipeStep
+import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
+import be.LarsVinz.MealMap.Models.DataClasses.Recipe
+import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
 import be.LarsVinz.MealMap.R
+import be.LarsVinz.MealMap.Views.Recipes.IngredientAdapter
 import be.LarsVinz.MealMap.Views.Recipes.RecipeStepAdaptor
 import be.LarsVinz.MealMap.databinding.FragmentCreateRecipeBinding
 
@@ -22,7 +25,10 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private lateinit var binding: FragmentCreateRecipeBinding
 
-    private lateinit var adapter: RecipeStepAdaptor
+    private lateinit var ingredientAdapter: IngredientAdapter
+    private lateinit var recipeStepAdapter: RecipeStepAdaptor
+
+    private val ingredientList = mutableListOf<Ingredient>()
     private val recipeStepList = mutableListOf<RecipeStep>()
 
     override fun onCreateView(
@@ -43,16 +49,21 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
     private fun setRecipeData(recipe : Recipe){
 
         binding.recipeNameTxt.setText(recipe.recipeName)
+        ingredientList.addAll(recipe.ingredients)
         recipeStepList.addAll(recipe.steps)
     }
 
     private fun setRecipeRecycleView(){
 
-        adapter = RecipeStepAdaptor(recipeStepList, requireContext()) {recipeStep -> // This is the OnItemClick
+        ingredientAdapter = IngredientAdapter(ingredientList)
+        binding.ingredientRvw.adapter = ingredientAdapter
+        binding.ingredientRvw.layoutManager = GridLayoutManager(this.context, 2)
+
+        recipeStepAdapter = RecipeStepAdaptor(recipeStepList, requireContext()) { recipeStep -> // This is the OnItemClick
             openEditStepDialog(recipeStep)
         }
 
-        binding.recipeStepRvw.adapter = adapter
+        binding.recipeStepRvw.adapter = recipeStepAdapter
         binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
     }
 
@@ -73,7 +84,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private fun saveRecipeAndClose(){
 
-        val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList)
+        val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList, ingredientList)
 
         val repository = RecipePreferencesRepository(requireActivity())
         repository.saveRecipe(recipe)
@@ -86,7 +97,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
         EditStepPopup(requireContext(), recipeStep, recipeStepList).apply {
 
-            setOnDismissListener { adapter.notifyDataSetChanged() }
+            setOnDismissListener { recipeStepAdapter.notifyDataSetChanged() }
             show()
         }
     }

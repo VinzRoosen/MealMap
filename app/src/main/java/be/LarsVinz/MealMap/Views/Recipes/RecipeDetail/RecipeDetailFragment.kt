@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import be.LarsVinz.MealMap.Models.Data.Recipe
+import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.Views.Recipes.RecipeStepAdaptor
 import be.LarsVinz.MealMap.databinding.FragmentRecipeDetailBinding

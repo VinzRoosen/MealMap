@@ -1,6 +1,6 @@
 package be.LarsVinz.MealMap.Models
 
-import be.LarsVinz.MealMap.Models.Data.Recipe
+import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 
 interface RecipeRepository {
 
@@ -9,4 +9,7 @@ interface RecipeRepository {
 
     fun loadRecipe(recipeName : String) : Recipe
     fun loadAllRecipes() : List<Recipe>
+
+    fun deleteRecipe(recipe: Recipe)
+    fun deleteAllRecipes()
 }

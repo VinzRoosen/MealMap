@@ -5,7 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import be.LarsVinz.MealMap.Models.Data.RecipeStep
+import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.R
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter

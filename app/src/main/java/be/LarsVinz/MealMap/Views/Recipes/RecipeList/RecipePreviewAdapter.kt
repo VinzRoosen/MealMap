@@ -9,7 +9,7 @@ import androidx.navigation.findNavController
 import android.widget.TextView
 
 import androidx.recyclerview.widget.RecyclerView
-import be.LarsVinz.MealMap.Models.Data.Recipe
+import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
 
 class RecipePreviewAdapter (val items: List<Recipe>): RecyclerView.Adapter<RecipePreviewAdapter.PreviewRecipeViewHolder>(){
