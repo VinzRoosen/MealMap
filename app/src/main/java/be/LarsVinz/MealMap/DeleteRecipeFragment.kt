@@ -16,15 +16,21 @@ class DeleteRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDeleteRecipeBinding.inflate(layoutInflater)
         
         val recipeRepository = RecipeRepository(requireActivity())
         val recipeList = recipeRepository.loadAll()
 
-        adapter = RecipeDeleteAdapter(recipeList) {} // no click event needed
+        adapter = RecipeDeleteAdapter(recipeList) {}
         binding.rvwDelete.adapter = adapter
         binding.rvwDelete.layoutManager = LinearLayoutManager(this.context)
+
+        binding.btnDeleteRecipe.setOnClickListener{onDeleteRecipeBtn()}
+
         return binding.root
+    }
+
+    private fun onDeleteRecipeBtn() {
     }
 }
