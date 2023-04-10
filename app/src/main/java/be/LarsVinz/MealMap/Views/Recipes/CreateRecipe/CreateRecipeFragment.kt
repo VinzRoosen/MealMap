@@ -41,7 +41,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
             binding.recipeNameTxt.setText(it.recipeName)
         }
 
-        recipeFragment.setRecipeData(ingredientList, recipeStepList) // TODO
+        recipeFragment.setRecipeData(ingredientList, recipeStepList)
 
         childFragmentManager.beginTransaction().apply {
             replace(binding.recipeFragment.id, recipeFragment)

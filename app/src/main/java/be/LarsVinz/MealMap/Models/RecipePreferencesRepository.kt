@@ -9,7 +9,7 @@ import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import com.google.gson.*
 
-class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepository{ // TODO: activity meegeven vind ik niet leuk
+class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepository{
 
     override fun saveRecipe(recipe: Recipe) {
 
