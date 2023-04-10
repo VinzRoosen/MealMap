@@ -7,35 +7,22 @@ import android.view.View
 import android.widget.*
 import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.R
+import be.LarsVinz.MealMap.databinding.EditRecipeIngredientPopupBinding
+import be.LarsVinz.MealMap.databinding.EditRecipeStepPopupBinding
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeStepList: MutableList<RecipeStep>) : AlertDialog(context) {
+class EditRecipeStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeStepList: MutableList<RecipeStep>) : AlertDialog(context) {
 
-    private val addBtn : Button
-    private val deleteBtn : ImageButton
-    private val stepSpinner : Spinner
-    private val stepExplanationTxt : EditText
-    private val hasTimerSwitch : Switch
-    private val timerLengthTxt : TextView
+    private val binding = EditRecipeStepPopupBinding.inflate(layoutInflater)
 
     private var timerLength = LocalTime.of(0, 0, 0)
 
     init {
-        val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.edit_recipe_popup, null, false)
-        setView(view)
-
-        addBtn = view.findViewById(R.id.AddRecipePopupBtn)
-        deleteBtn = view.findViewById(R.id.deleteBtn)
-        stepSpinner = view.findViewById(R.id.stepNumberPopupSpr)
-        stepExplanationTxt = view.findViewById(R.id.stepExplanationPopupTxt)
-        hasTimerSwitch = view.findViewById(R.id.hasTimerSwitch)
-        timerLengthTxt = view.findViewById(R.id.timerLengthTxt)
 
         populateFields(recipeStep)
 
-        hasTimerSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.hasTimerSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
 
             if (isChecked) openTimePickerPopup()
             else {
@@ -44,31 +31,33 @@ class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeS
             }
         }
 
-        timerLengthTxt.setOnClickListener { openTimePickerPopup() }
+        binding.timerLengthTxt.setOnClickListener { openTimePickerPopup() }
 
-        addBtn.setOnClickListener{
+        binding.AddRecipePopupBtn.setOnClickListener{
             saveRecipeStep()
             this.dismiss()
         }
 
-        deleteBtn.setOnClickListener {
+        binding.deleteBtn.setOnClickListener {
             deleteRecipe()
             this.dismiss()
         }
+
+        setView(binding.root)
     }
 
-    public fun saveRecipeStep() {
+    fun saveRecipeStep() {
 
-        val explanation = stepExplanationTxt.text.toString()
+        val explanation = binding.stepExplanationPopupTxt.text.toString()
 
         val newRecipeStep = RecipeStep(explanation, timerLength.toSecondOfDay())
-        val stepNumber = stepSpinner.selectedItem as Int
+        val stepNumber = binding.stepNumberPopupSpr.selectedItem as Int
 
         recipeStepList.remove(recipeStep)
         recipeStepList.add(stepNumber - 1, newRecipeStep)
     }
 
-    public fun deleteRecipe(){
+    fun deleteRecipe(){
         recipeStepList.remove(recipeStep)
     }
 
@@ -76,8 +65,8 @@ class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeS
 
         fun setSpinner(numbers : Array<Int>, index : Int){
             val spinnerAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, numbers)
-            stepSpinner.adapter = spinnerAdapter
-            stepSpinner.setSelection(index)
+            binding.stepNumberPopupSpr.adapter = spinnerAdapter
+            binding.stepNumberPopupSpr.setSelection(index)
         }
 
         recipeStep?.let {
@@ -87,18 +76,17 @@ class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeS
            setSpinner(numbers, recipeStepIndex)
 
            // explanation text
-           stepExplanationTxt.setText(recipeStep.explanation)
+           binding.stepExplanationPopupTxt.setText(recipeStep.explanation)
 
            // switch and timer text
-
             timerLength = LocalTime.ofSecondOfDay(recipeStep.timerLength.toLong())
 
            if (timerLength.toSecondOfDay() == 0){
-               hasTimerSwitch.isChecked = false
+               binding.hasTimerSwitch.isChecked = false
                setTimertext(false)
            }
            else{
-               hasTimerSwitch.isChecked = true
+               binding.hasTimerSwitch.isChecked = true
                setTimertext(true)
            }
         } ?: run {
@@ -114,12 +102,12 @@ class EditStepPopup(context : Context, val recipeStep : RecipeStep?, val recipeS
 
         if (visable)  {
 
-            timerLengthTxt.text = timerLength.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
-            timerLengthTxt.visibility = View.VISIBLE
+            binding.timerLengthTxt.text = timerLength.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+            binding.timerLengthTxt.visibility = View.VISIBLE
 
         } else{
 
-            timerLengthTxt.visibility = View.GONE
+            binding.timerLengthTxt.visibility = View.GONE
         }
     }
 

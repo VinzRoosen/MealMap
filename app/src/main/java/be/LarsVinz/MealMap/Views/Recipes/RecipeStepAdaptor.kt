@@ -43,7 +43,7 @@ class RecipeStepAdaptor(private val items: List<RecipeStep>, val context :  Cont
         }
 
         holder.itemView.setOnClickListener{
-            onItemClick(currentRecipeStep)
+            onItemClick.invoke(currentRecipeStep)
         }
     }
 

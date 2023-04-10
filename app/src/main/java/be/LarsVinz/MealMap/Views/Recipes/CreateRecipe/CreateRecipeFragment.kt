@@ -55,15 +55,15 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private fun setClickEvents(){
 
-        binding.addRecipeBtn.setOnClickListener  { openEditStepDialog(null) }
+        binding.addRecipeBtn.setOnClickListener  { openEditStepPopup(null) }
         binding.saveRecipeBtn.setOnClickListener { saveRecipeAndClose() }
 
         recipeFragment.setOnRecipeStepClicked{
-            openEditStepDialog(it)
+            openEditStepPopup(it)
         }
 
         recipeFragment.setOnIngredientClicked {
-
+            openEditIngredientPopup()
         }
 
         val callback = object : OnBackPressedCallback(true) {
@@ -87,11 +87,19 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         findNavController().navigate(R.id.action_createRecipeFragment_to_recipeDetailFragment, bundle)
     }
 
-    private fun openEditStepDialog(recipeStep : RecipeStep?){
+    private fun openEditStepPopup(recipeStep : RecipeStep?){
 
-        EditStepPopup(requireContext(), recipeStep, recipeStepList).apply {
+        EditRecipeStepPopup(requireContext(), recipeStep, recipeStepList).apply {
 
             setOnDismissListener { recipeFragment.onRecipeStepChanged() }
+            show()
+        }
+    }
+
+    private fun openEditIngredientPopup(){
+
+        EditRecipeIngredientPopup(requireContext(), ingredientList).apply {
+            setOnDismissListener { recipeFragment.onIngredientChanged() }
             show()
         }
     }

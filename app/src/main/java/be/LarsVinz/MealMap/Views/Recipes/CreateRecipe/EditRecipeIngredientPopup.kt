@@ -1,0 +1,78 @@
+package be.LarsVinz.MealMap.Views.Recipes.CreateRecipe
+
+import android.app.AlertDialog
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
+import androidx.constraintlayout.widget.ConstraintLayout
+import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
+import be.LarsVinz.MealMap.R
+import be.LarsVinz.MealMap.databinding.EditRecipeIngredientPopupBinding
+
+class EditRecipeIngredientPopup(context : Context, private val ingredients : MutableList<Ingredient>) : AlertDialog(context), AdapterView.OnItemSelectedListener {
+
+    private val binding = EditRecipeIngredientPopupBinding.inflate(layoutInflater)
+
+    init {
+
+        setIngredientSpinner()
+
+        binding.saveBtn.setOnClickListener { onSaveButton() }
+
+        setView(binding.root)
+    }
+
+    private fun setIngredientSpinner(){
+
+        val ingredientNames = mutableListOf<String>()
+        ingredients.forEach { ingredientNames.add(it.ingredientName) }
+        ingredientNames.add("New")
+
+        val spinnerAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ingredientNames)
+        binding.ingredientSpinner.adapter = spinnerAdapter
+        binding.ingredientSpinner.setSelection(ingredientNames.size - 1)
+
+        binding.ingredientSpinner.onItemSelectedListener = this
+    }
+
+    private fun onSaveButton(){
+
+        val spinner = binding.ingredientSpinner
+        val index = spinner.selectedItemPosition
+
+        val name = binding.ingredientNameETxt.text.toString()
+        val amount = binding.ingredientAmountETxt.text.toString().toInt()
+        val unit = binding.ingredientUnitETxt.text.toString()
+
+        if (index < ingredients.size) ingredients.removeAt(index)
+        ingredients.add(index, Ingredient(name, amount, unit))
+
+        this.dismiss()
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+
+        val selectedIngredient = ingredients.getOrNull(pos)
+
+        selectedIngredient?.let {
+
+            binding.ingredientNameETxt.setText(it.ingredientName)
+            binding.ingredientAmountETxt.setText(it.amount.toString())
+            binding.ingredientUnitETxt.setText(it.unit)
+        } ?: run {
+
+            binding.ingredientNameETxt.setText("")
+            binding.ingredientAmountETxt.setText("")
+            binding.ingredientUnitETxt.setText("")
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+    }
+
+}

@@ -3,7 +3,9 @@ package be.LarsVinz.MealMap.Views.Recipes
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +28,7 @@ class RecipeFragment() : Fragment(R.layout.fragment_recipe) {
     private var ingredientButtonState = true
 
     private var onRecipeStepItemClick: (RecipeStep) -> Unit = {}
-    private var onIngredientItemClick: (Ingredient) -> Unit = {}
+    private var onIngredientItemClick: () -> Unit = {}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +48,7 @@ class RecipeFragment() : Fragment(R.layout.fragment_recipe) {
         onRecipeStepItemClick = event
     }
 
-    fun setOnIngredientClicked(event : (Ingredient) -> Unit){
+    fun setOnIngredientClicked(event : () -> Unit){
         onIngredientItemClick = event
     }
 
@@ -62,13 +64,6 @@ class RecipeFragment() : Fragment(R.layout.fragment_recipe) {
 
         this.ingredientList = ingredientList
         this.recipeStepList = recipeStepList
-
-        this.ingredientList = listOf(
-            Ingredient("Appels", 5, "kg"),
-            Ingredient("Peren", 5, "kg"),
-            Ingredient("Appelsienensdqsdqsdqsdqsdqsdqsdqdqsdqsdqsdqdqsdqsdqd", 5, "kg"),
-            Ingredient("beren", 5, "kg")
-        )
     }
 
     fun setRecipeData(recipe: Recipe){
@@ -81,12 +76,17 @@ class RecipeFragment() : Fragment(R.layout.fragment_recipe) {
         ingredientAdapter = IngredientAdapter(ingredientList)
         binding.ingredientRvw.adapter = ingredientAdapter
         binding.ingredientRvw.layoutManager = GridLayoutManager(this.context, 2)
-
-        recipeStepAdapter = RecipeStepAdaptor(recipeStepList, requireContext()) { recipeStep ->
-
-            onRecipeStepItemClick.invoke(recipeStep)
+        binding.ingredientRvw.setOnTouchListener { view, motionEvent -> // TODO: Dit moet omdat de setOnClickListener niet werkt, maar miss beter anders?
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                onIngredientItemClick.invoke()
+                view.performClick()
+            }
+            false;
         }
 
+        recipeStepAdapter = RecipeStepAdaptor(recipeStepList, requireContext()) { recipeStep ->
+            onRecipeStepItemClick.invoke(recipeStep)
+        }
         binding.recipeStepRvw.adapter = recipeStepAdapter
         binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
     }
