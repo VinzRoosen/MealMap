@@ -22,6 +22,7 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
         setIngredientSpinner()
 
         binding.saveBtn.setOnClickListener { onSaveButton() }
+        binding.removeBtn.setOnClickListener { onDeleteButton() }
 
         setView(binding.root)
     }
@@ -41,15 +42,21 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
 
     private fun onSaveButton(){
 
-        val spinner = binding.ingredientSpinner
-        val index = spinner.selectedItemPosition
-
         val name = binding.ingredientNameETxt.text.toString()
         val amount = binding.ingredientAmountETxt.text.toString().toInt()
         val unit = binding.ingredientUnitETxt.text.toString()
 
+        val index = binding.ingredientSpinner.selectedItemPosition
         if (index < ingredients.size) ingredients.removeAt(index)
         ingredients.add(index, Ingredient(name, amount, unit))
+
+        this.dismiss()
+    }
+
+    private fun onDeleteButton(){
+
+        val index = binding.ingredientSpinner.selectedItemPosition
+        if (index < ingredients.size) ingredients.removeAt(index)
 
         this.dismiss()
     }
@@ -63,11 +70,13 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
             binding.ingredientNameETxt.setText(it.ingredientName)
             binding.ingredientAmountETxt.setText(it.amount.toString())
             binding.ingredientUnitETxt.setText(it.unit)
+            binding.removeBtn.visibility = View.VISIBLE
         } ?: run {
 
             binding.ingredientNameETxt.setText("")
             binding.ingredientAmountETxt.setText("")
             binding.ingredientUnitETxt.setText("")
+            binding.removeBtn.visibility = View.GONE
         }
     }
 
