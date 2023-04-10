@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
+import be.LarsVinz.MealMap.Views.Recipes.RecipeFragment
 import be.LarsVinz.MealMap.Views.Recipes.RecipeStepAdaptor
 import be.LarsVinz.MealMap.databinding.FragmentRecipeDetailBinding
 
@@ -39,9 +40,13 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
             findNavController().navigate(R.id.action_recipeDetailFragment_to_recipeListFragment)
         }
 
-        adapter = RecipeStepAdaptor(recipe.steps, requireContext()) {} // no click event needed
-        binding.recipeStepRvw.adapter = adapter
-        binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
+        val recipeFragment = RecipeFragment()
+        recipeFragment.setRecipeData(recipe)
+
+        childFragmentManager.beginTransaction().apply {
+            replace(binding.recipeFragment.id, recipeFragment)
+            commit()
+        }
 
         return binding.root
     }

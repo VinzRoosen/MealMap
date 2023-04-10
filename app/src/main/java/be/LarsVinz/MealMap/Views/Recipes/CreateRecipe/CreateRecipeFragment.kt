@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap.Views.Recipes.CreateRecipes
+package be.LarsVinz.MealMap.Views.Recipes.CreateRecipe
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -9,15 +9,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
 import be.LarsVinz.MealMap.R
-import be.LarsVinz.MealMap.Views.Recipes.IngredientAdapter
-import be.LarsVinz.MealMap.Views.Recipes.RecipeStepAdaptor
+import be.LarsVinz.MealMap.Views.Recipes.RecipeFragment
 import be.LarsVinz.MealMap.databinding.FragmentCreateRecipeBinding
 
 
@@ -25,11 +22,10 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private lateinit var binding: FragmentCreateRecipeBinding
 
-    private lateinit var ingredientAdapter: IngredientAdapter
-    private lateinit var recipeStepAdapter: RecipeStepAdaptor
-
     private val ingredientList = mutableListOf<Ingredient>()
     private val recipeStepList = mutableListOf<RecipeStep>()
+
+    private val recipeFragment = RecipeFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,39 +34,37 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         binding = FragmentCreateRecipeBinding.inflate(layoutInflater)
 
         val recipe = arguments?.getSerializable("recipe") as Recipe?
-        recipe?.let { setRecipeData(recipe) }
+        recipe?.let {
 
-        setRecipeRecycleView()
-        setButtons()
+            ingredientList.addAll(it.ingredients)
+            recipeStepList.addAll(it.steps)
+            binding.recipeNameTxt.setText(it.recipeName)
+        }
+
+        recipeFragment.setRecipeData(ingredientList, recipeStepList) // TODO
+
+        childFragmentManager.beginTransaction().apply {
+            replace(binding.recipeFragment.id, recipeFragment)
+            commit()
+        }
+
+        setClickEvents()
 
         return binding.root
     }
 
-    private fun setRecipeData(recipe : Recipe){
-
-        binding.recipeNameTxt.setText(recipe.recipeName)
-        ingredientList.addAll(recipe.ingredients)
-        recipeStepList.addAll(recipe.steps)
-    }
-
-    private fun setRecipeRecycleView(){
-
-        ingredientAdapter = IngredientAdapter(ingredientList)
-        binding.ingredientRvw.adapter = ingredientAdapter
-        binding.ingredientRvw.layoutManager = GridLayoutManager(this.context, 2)
-
-        recipeStepAdapter = RecipeStepAdaptor(recipeStepList, requireContext()) { recipeStep -> // This is the OnItemClick
-            openEditStepDialog(recipeStep)
-        }
-
-        binding.recipeStepRvw.adapter = recipeStepAdapter
-        binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
-    }
-
-    private fun setButtons(){
+    private fun setClickEvents(){
 
         binding.addRecipeBtn.setOnClickListener  { openEditStepDialog(null) }
         binding.saveRecipeBtn.setOnClickListener { saveRecipeAndClose() }
+
+        recipeFragment.setOnRecipeStepClicked{
+            openEditStepDialog(it)
+        }
+
+        recipeFragment.setOnIngredientClicked {
+
+        }
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -97,7 +91,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
         EditStepPopup(requireContext(), recipeStep, recipeStepList).apply {
 
-            setOnDismissListener { recipeStepAdapter.notifyDataSetChanged() }
+            setOnDismissListener { recipeFragment.onRecipeStepChanged() }
             show()
         }
     }

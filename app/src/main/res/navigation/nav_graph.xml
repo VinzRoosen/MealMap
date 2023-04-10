@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/createRecipeFragment"
-        android:name="be.LarsVinz.MealMap.Views.Recipes.CreateRecipes.CreateRecipeFragment"
+        android:name="be.LarsVinz.MealMap.Views.Recipes.CreateRecipe.CreateRecipeFragment"
         android:label="CreateRecipeFragment" >
         <action
             android:id="@+id/action_createRecipeFragment_to_recipeDetailFragment"
