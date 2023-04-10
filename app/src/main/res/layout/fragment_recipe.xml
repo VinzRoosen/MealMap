@@ -56,6 +56,16 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <TextView
+            android:id="@+id/infoAddIngredientTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click here to add an ingredient"
+            app:layout_constraintBottom_toBottomOf="@+id/ingredientRvw"
+            app:layout_constraintEnd_toEndOf="@+id/ingredientRvw"
+            app:layout_constraintStart_toStartOf="@+id/ingredientRvw"
+            app:layout_constraintTop_toBottomOf="@+id/ingredientBtn" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -69,5 +79,15 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/infoAddRecipeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click + to add a recipe step"
+        app:layout_constraintBottom_toBottomOf="@+id/recipeStepRvw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/recipeStepRvw"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

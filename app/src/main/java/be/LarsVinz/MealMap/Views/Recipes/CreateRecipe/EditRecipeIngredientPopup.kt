@@ -9,9 +9,11 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.text.isDigitsOnly
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.EditRecipeIngredientPopupBinding
+import com.google.android.material.snackbar.Snackbar
 
 class EditRecipeIngredientPopup(context : Context, private val ingredients : MutableList<Ingredient>) : AlertDialog(context), AdapterView.OnItemSelectedListener {
 
@@ -42,13 +44,19 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
 
     private fun onSaveButton(){
 
+
         val name = binding.ingredientNameETxt.text.toString()
-        val amount = binding.ingredientAmountETxt.text.toString().toInt()
+        val amount = binding.ingredientAmountETxt.text.toString()
         val unit = binding.ingredientUnitETxt.text.toString()
+
+        if (name.isBlank() || amount.isBlank() || unit.isBlank() || !amount.isDigitsOnly()){
+            // TODO snackbar met error
+            return
+        }
 
         val index = binding.ingredientSpinner.selectedItemPosition
         if (index < ingredients.size) ingredients.removeAt(index)
-        ingredients.add(index, Ingredient(name, amount, unit))
+        ingredients.add(index, Ingredient(name, amount.toInt(), unit))
 
         this.dismiss()
     }

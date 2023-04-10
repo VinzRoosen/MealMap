@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +14,7 @@ import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentRecipeBinding
 
-class RecipeFragment() : Fragment(R.layout.fragment_recipe) {
+class RecipeFragment(val addRecipeStepInfoMessage : String, val addIngredientInfoMessage : String) : Fragment(R.layout.fragment_recipe) {
 
     private lateinit var binding: FragmentRecipeBinding
 
@@ -39,6 +38,12 @@ class RecipeFragment() : Fragment(R.layout.fragment_recipe) {
 
         setRecipeRecycleViews()
 
+        binding.infoAddRecipeTxt.text = addRecipeStepInfoMessage
+        binding.infoAddIngredientTxt.text = addIngredientInfoMessage
+
+        setRecipeInfotext(recipeStepList.isNotEmpty())
+        setIngredientInfotext(ingredientList.isNotEmpty())
+
         binding.ingredientBtn.setOnClickListener { onIngredientButton() }
 
         return binding.root
@@ -53,11 +58,15 @@ class RecipeFragment() : Fragment(R.layout.fragment_recipe) {
     }
 
     fun onRecipeStepChanged(){
+
         recipeStepAdapter.notifyDataSetChanged()
+        setRecipeInfotext(!recipeStepList.isEmpty())
     }
 
     fun onIngredientChanged(){
+
         ingredientAdapter.notifyDataSetChanged()
+        setIngredientInfotext(!ingredientList.isEmpty())
     }
 
     fun setRecipeData(ingredientList : List<Ingredient>, recipeStepList : List<RecipeStep>){
@@ -69,6 +78,18 @@ class RecipeFragment() : Fragment(R.layout.fragment_recipe) {
     fun setRecipeData(recipe: Recipe){
 
         setRecipeData(recipe.ingredients, recipe.steps)
+    }
+
+    private fun setRecipeInfotext(status : Boolean){
+
+        if (status) binding.infoAddRecipeTxt.visibility = View.GONE
+        else        binding.infoAddRecipeTxt.visibility = View.VISIBLE
+    }
+
+    private fun setIngredientInfotext(status : Boolean){
+
+        if (status) binding.infoAddIngredientTxt.visibility = View.GONE
+        else        binding.infoAddIngredientTxt.visibility = View.VISIBLE
     }
 
     private fun setRecipeRecycleViews(){

@@ -25,7 +25,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
     private val ingredientList = mutableListOf<Ingredient>()
     private val recipeStepList = mutableListOf<RecipeStep>()
 
-    private val recipeFragment = RecipeFragment()
+    private val recipeFragment = RecipeFragment("Click + to add a recipe step", "Click here to add an ingredient!")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
