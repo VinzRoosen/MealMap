@@ -19,6 +19,9 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
     ): View? {
         binding = FragmentOverviewBinding.inflate(layoutInflater)
 
+        val repo = RecipePreferencesRepository(requireActivity())
+        repo.deleteAllRecipes()
+
         return binding.root
     }
 }

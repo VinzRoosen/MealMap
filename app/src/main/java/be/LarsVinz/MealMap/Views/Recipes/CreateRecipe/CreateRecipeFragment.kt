@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
@@ -78,7 +79,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private fun saveRecipeAndClose(){
 
-        val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList, ingredientList)
+        val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList, ingredientList, listOf()) // TODO: add tags
 
         val repository = RecipePreferencesRepository(requireActivity())
         repository.saveRecipe(recipe)
