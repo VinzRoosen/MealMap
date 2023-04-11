@@ -1,19 +1,17 @@
 package be.LarsVinz.MealMap.Views.Recipes.CreateRecipe
 
+import android.R
 import android.app.AlertDialog
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.compose.ui.text.toLowerCase
 import androidx.core.text.isDigitsOnly
+import be.LarsVinz.MealMap.Enums.RecipeUnit
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
-import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.EditRecipeIngredientPopupBinding
-import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 class EditRecipeIngredientPopup(context : Context, private val ingredients : MutableList<Ingredient>) : AlertDialog(context), AdapterView.OnItemSelectedListener {
 
@@ -22,6 +20,7 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
     init {
 
         setIngredientSpinner()
+        setRecipeUnitSpinner()
 
         binding.saveBtn.setOnClickListener { onSaveButton() }
         binding.removeBtn.setOnClickListener { onDeleteButton() }
@@ -32,7 +31,7 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
     private fun setIngredientSpinner(){
 
         val ingredientNames = mutableListOf<String>()
-        ingredients.forEach { ingredientNames.add(it.ingredientName) }
+        ingredients.forEach { ingredientNames.add(it.name) }
         ingredientNames.add("New")
 
         val spinnerAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ingredientNames)
@@ -42,14 +41,22 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
         binding.ingredientSpinner.onItemSelectedListener = this
     }
 
-    private fun onSaveButton(){
+    private fun setRecipeUnitSpinner(){
 
+        val recipeUnits = mutableListOf<String>()
+        for (unit in RecipeUnit.values()) { recipeUnits.add(unit.name.lowercase()) }
+
+        val spinnerAdapter = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, recipeUnits)
+        binding.ingredientUnitSpr.adapter = spinnerAdapter
+    }
+
+    private fun onSaveButton(){
 
         val name = binding.ingredientNameETxt.text.toString()
         val amount = binding.ingredientAmountETxt.text.toString()
-        val unit = binding.ingredientUnitETxt.text.toString()
+        val unit = RecipeUnit.values().first { it.ordinal == binding.ingredientUnitSpr.selectedItemPosition }
 
-        if (name.isBlank() || amount.isBlank() || unit.isBlank() || !amount.isDigitsOnly()){
+        if (name.isBlank() || amount.isBlank()){
             // TODO snackbar met error
             return
         }
@@ -57,7 +64,7 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
         val index = binding.ingredientSpinner.selectedItemPosition
         if (index < ingredients.size) ingredients.removeAt(index)
         ingredients.add(index, Ingredient(name, amount.toInt(), unit))
-
+        ingredients.sortBy { it.name }
         this.dismiss()
     }
 
@@ -75,15 +82,14 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
 
         selectedIngredient?.let {
 
-            binding.ingredientNameETxt.setText(it.ingredientName)
+            binding.ingredientNameETxt.setText(it.name)
             binding.ingredientAmountETxt.setText(it.amount.toString())
-            binding.ingredientUnitETxt.setText(it.unit)
+            binding.ingredientUnitSpr.setSelection(it.unit.ordinal)
             binding.removeBtn.visibility = View.VISIBLE
         } ?: run {
 
             binding.ingredientNameETxt.setText("")
             binding.ingredientAmountETxt.setText("")
-            binding.ingredientUnitETxt.setText("")
             binding.removeBtn.visibility = View.GONE
         }
     }
@@ -91,5 +97,4 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
     }
-
 }

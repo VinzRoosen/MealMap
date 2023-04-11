@@ -23,7 +23,8 @@
         android:layout_height="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -36,7 +37,7 @@
         <EditText
             android:id="@+id/ingredientNameETxt"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginStart="8dp"
             android:ems="10"
             android:hint="ingredient name"
@@ -49,24 +50,12 @@
         <EditText
             android:id="@+id/ingredientAmountETxt"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:ems="10"
             android:hint="Amount"
             android:inputType="number"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ingredientUnitETxt"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/ingredientUnitETxt"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="unit"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ingredientUnitSpr"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -79,6 +68,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ingredientNameETxt" />
+
+        <Spinner
+            android:id="@+id/ingredientUnitSpr"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

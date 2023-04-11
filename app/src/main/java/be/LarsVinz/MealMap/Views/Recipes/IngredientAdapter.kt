@@ -20,7 +20,7 @@ class IngredientAdapter(val items : List<Ingredient>) : RecyclerView.Adapter<Ing
         val currentIngredient = items[position]
         holder.itemView.apply {
 
-            findViewById<TextView>(R.id.ingredientNameTxt).text = currentIngredient.ingredientName
+            findViewById<TextView>(R.id.ingredientNameTxt).text = currentIngredient.name
             findViewById<TextView>(R.id.ingredientAmountTxt).text = "${currentIngredient.amount} ${currentIngredient.unit}"
         }
     }
