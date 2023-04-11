@@ -25,7 +25,7 @@ class RecipePreviewAdapter (val items: List<Recipe>): RecyclerView.Adapter<Recip
     override fun onBindViewHolder(holder: PreviewRecipeViewHolder, position: Int) {
         val currentRecipe = items[position]
         holder.itemView.apply {
-            findViewById<TextView>(R.id.txtRecipe).text = currentRecipe.recipeName
+            findViewById<TextView>(R.id.txtRecipe).text = currentRecipe.name
         }
 
         holder.itemView.setOnClickListener{

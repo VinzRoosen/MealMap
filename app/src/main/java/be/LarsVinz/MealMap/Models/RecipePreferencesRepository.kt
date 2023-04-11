@@ -1,7 +1,6 @@
 package be.LarsVinz.MealMap.Models
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.fragment.app.FragmentActivity
 import be.LarsVinz.MealMap.Exceptions.CantLoadRecipeException
@@ -17,7 +16,7 @@ class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepos
         val recipeGson = gson.toJson(recipe)
 
         val sharedPref =  activity.getSharedPreferences(activity.getString(R.string.recipe_data), Context.MODE_PRIVATE)
-        with (sharedPref.edit()) {            putString(recipe.recipeName, recipeGson)
+        with (sharedPref.edit()) {            putString(recipe.name, recipeGson)
             apply()
         }
     }
@@ -60,7 +59,7 @@ class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepos
     override fun deleteRecipe(recipe: Recipe){
         val sharedPref = activity.getSharedPreferences(activity.getString(R.string.recipe_data), Context.MODE_PRIVATE)
         sharedPref.edit {
-            remove(recipe.recipeName)
+            remove(recipe.name)
             commit()
         }
     }

@@ -38,7 +38,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
             ingredientList.addAll(it.ingredients)
             recipeStepList.addAll(it.steps)
-            binding.recipeNameTxt.setText(it.recipeName)
+            binding.recipeNameTxt.setText(it.name)
         }
 
         recipeFragment.setRecipeData(ingredientList, recipeStepList)
@@ -112,11 +112,11 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
             setMessage("Do you want to save this recipe?")
             setIcon(android.R.drawable.ic_dialog_alert)
 
-            setPositiveButton("Save") { dialogInterface, id ->
+            setPositiveButton("Yes") { dialogInterface, id ->
                 saveRecipeAndClose()
             }
 
-            setNegativeButton("Cancel"){ dialogInterface, id ->
+            setNegativeButton("No"){ dialogInterface, id ->
                 findNavController().popBackStack()
             }
 

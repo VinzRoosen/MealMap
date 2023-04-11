@@ -8,11 +8,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.R
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 
-class RecipeStepAdaptor(private val items: List<RecipeStep>, val context :  Context, val onItemClick: (RecipeStep) -> Unit) : RecyclerView.Adapter<RecipeStepAdaptor.RecipeStepViewHolder>() {
+class RecipeStepAdaptor(private val steps: List<RecipeStep>, val context :  Context, val onItemClick: (RecipeStep) -> Unit) : RecyclerView.Adapter<RecipeStepAdaptor.RecipeStepViewHolder>() {
 
     inner class RecipeStepViewHolder(current : View) : RecyclerView.ViewHolder(current)
 
@@ -22,23 +25,26 @@ class RecipeStepAdaptor(private val items: List<RecipeStep>, val context :  Cont
     }
 
     override fun onBindViewHolder(holder: RecipeStepViewHolder, position: Int) {
-        val currentRecipeStep = items[position]
+        val currentRecipeStep = steps[position]
         holder.itemView.apply {
             findViewById<TextView>(R.id.stepNumberTxt).text = (position + 1).toString()
             findViewById<TextView>(R.id.stepExplanationTxt).text = currentRecipeStep.explanation
 
             val timerBtn = findViewById<Button>(R.id.timerBtn)
 
-            timerBtn.setOnClickListener{
-                startTimer("Test Timer", currentRecipeStep.timerLength)
-            }
-
             if (currentRecipeStep.timerLength == 0){
 
                 timerBtn.visibility = View.GONE
             }
             else {
+                val time = LocalTime.ofSecondOfDay(currentRecipeStep.timerLength.toLong())
+
+                timerBtn.text = time.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
                 timerBtn.visibility = View.VISIBLE
+            }
+
+            timerBtn.setOnClickListener{
+                startTimer("Timer", currentRecipeStep.timerLength)
             }
         }
 
@@ -56,5 +62,5 @@ class RecipeStepAdaptor(private val items: List<RecipeStep>, val context :  Cont
         startActivity(context, intent, null) // TODO: ask for permission
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = steps.size
 }

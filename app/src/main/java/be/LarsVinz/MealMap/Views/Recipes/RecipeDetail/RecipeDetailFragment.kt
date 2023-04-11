@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.Views.Recipes.RecipeFragment
@@ -18,8 +17,6 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
 
     private lateinit var binding: FragmentRecipeDetailBinding
 
-    private lateinit var adapter: RecipeStepAdaptor
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,7 +25,7 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
 
         val recipe = arguments?.getSerializable("recipe") as Recipe
 
-        binding.recipeNameTxt.text = recipe.recipeName
+        binding.recipeNameTxt.text = recipe.name
 
         binding.editBtn.setOnClickListener{
 
