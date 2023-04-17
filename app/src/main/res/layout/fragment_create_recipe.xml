@@ -19,12 +19,12 @@
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginStart="16dp"
-            android:textColor="?attr/colorOnSecondary"
+            android:fontFamily="sans-serif-medium"
             android:hint="Type name here..."
             android:inputType="textShortMessage|text"
             android:textAlignment="textStart"
+            android:textColor="?attr/colorOnSecondary"
             android:textSize="20sp"
-            android:fontFamily="sans-serif-medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,15 +42,16 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipeStepRvw"
+    <FrameLayout
+        android:id="@+id/recipeFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+    </FrameLayout>
 
     <ImageButton
         android:id="@+id/addRecipeBtn"
@@ -58,12 +59,11 @@
         android:layout_height="70dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/background_oval"
+        android:backgroundTint="#DDDDDD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/icon_add"
-        app:tint="?attr/colorSecondaryVariant"
-        android:background="@drawable/background_oval"
-        android:backgroundTint="#DDDDDD"
-        />
+        app:tint="?attr/colorSecondaryVariant" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

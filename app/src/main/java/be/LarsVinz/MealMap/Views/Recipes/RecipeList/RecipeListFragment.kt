@@ -1,13 +1,14 @@
-package be.LarsVinz.MealMap
+package be.LarsVinz.MealMap.Views.Recipes.RecipeList
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
+import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentRecipeListBinding
 
 class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
@@ -21,13 +22,14 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
     ): View? {
         binding = FragmentRecipeListBinding.inflate(layoutInflater)
 
-        val recipeRepository = RecipeRepository(requireActivity())
-        val recipeList = recipeRepository.loadAll()
+        val recipeRepository = RecipePreferencesRepository(requireActivity())
+        val recipeList = recipeRepository.loadAllRecipes()
 
+        binding.txtRecipeListEmtyList.text = "no recipes added yet, click + to create a new recipe"
         if (recipeList.isEmpty()){
-            binding.txtRecipeListEmtyList.text = "no recipes added yet, click 'new' to create a new recipe"
+            binding.txtRecipeListEmtyList.visibility = View.VISIBLE
         } else{
-            binding.txtRecipeListEmtyList.text = ""
+            binding.txtRecipeListEmtyList.visibility = View.GONE
         }
 
         val adapter = RecipePreviewAdapter(recipeList)

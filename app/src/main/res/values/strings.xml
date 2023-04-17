@@ -3,4 +3,6 @@
     <string name="open_menu">Open</string>
     <string name="close_menu">Close</string>
     <string name="recipe_data">recipe_Data</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
