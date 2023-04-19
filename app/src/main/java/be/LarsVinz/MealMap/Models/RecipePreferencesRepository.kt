@@ -16,7 +16,8 @@ class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepos
         val recipeGson = gson.toJson(recipe)
 
         val sharedPref =  activity.getSharedPreferences(activity.getString(R.string.recipe_data), Context.MODE_PRIVATE)
-        with (sharedPref.edit()) {            putString(recipe.name, recipeGson)
+        with (sharedPref.edit()) {
+            putString(recipe.name, recipeGson)
             apply()
         }
     }
@@ -34,8 +35,7 @@ class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepos
         recipeData?.let {
 
             val gson = Gson()
-            val recipe = gson.fromJson(recipeData, Recipe::class.java)
-            return recipe
+            return gson.fromJson(recipeData, Recipe::class.java)
         }
 
         throw CantLoadRecipeException("Can't load recipe with name '$recipeName'")
