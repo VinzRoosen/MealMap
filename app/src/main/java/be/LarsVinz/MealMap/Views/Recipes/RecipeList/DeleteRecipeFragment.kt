@@ -5,27 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
-import be.LarsVinz.MealMap.Models.RecipeRepository
 import be.LarsVinz.MealMap.databinding.FragmentDeleteRecipeBinding
 import be.LarsVinz.MealMap.R
-import be.LarsVinz.MealMap.RecipeDeleteAdapter
 
 class DeleteRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
     private lateinit var binding: FragmentDeleteRecipeBinding
-
     private lateinit var adapter: RecipeDeleteAdapter
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?
-    ): View {
+    private lateinit var toBeDeletedRecipes: ArrayList<Recipe>
+    private lateinit var recipeRepository: RecipePreferencesRepository
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
         binding = FragmentDeleteRecipeBinding.inflate(layoutInflater)
-        
-        val recipeRepository = RecipePreferencesRepository(requireActivity())
+        toBeDeletedRecipes = ArrayList();
+        recipeRepository = RecipePreferencesRepository(requireActivity())
+
         val recipeList = recipeRepository.loadAllRecipes()
 
-        adapter = RecipeDeleteAdapter(recipeList) {}
+        adapter = RecipeDeleteAdapter(recipeList, toBeDeletedRecipes)
         binding.rvwDelete.adapter = adapter
         binding.rvwDelete.layoutManager = LinearLayoutManager(this.context)
 
@@ -35,5 +35,9 @@ class DeleteRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
     }
 
     private fun onDeleteRecipeBtn() {
+        for (recipe in toBeDeletedRecipes) {
+            recipeRepository.deleteRecipe(recipe)
+        }
+        findNavController().navigate(R.id.action_deleteRecipeFragment_to_recipeListFragment)
     }
 }
