@@ -31,13 +31,37 @@
 
         <ImageButton
             android:id="@+id/saveRecipeBtn"
-            android:layout_width="70dp"
+            android:layout_width="50dp"
             android:layout_height="48dp"
             android:background="@color/noColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/icon_save"
+            app:tint="?attr/colorOnPrimary" />
+
+        <ImageButton
+            android:id="@+id/addTagsBtn"
+            android:layout_width="50dp"
+            android:layout_height="48dp"
+            android:background="@color/noColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/saveRecipeBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/icon_tag"
+            app:tint="?attr/colorOnPrimary" />
+
+        <ImageButton
+            android:id="@+id/addPictureBtn"
+            android:layout_width="50dp"
+            android:layout_height="48dp"
+            android:background="@color/noColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addTagsBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/icon_camera"
             app:tint="?attr/colorOnPrimary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

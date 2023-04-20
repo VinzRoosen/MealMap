@@ -119,6 +119,7 @@ class RecipeFragment(val addRecipeStepInfoMessage : String, val addIngredientInf
             binding.ingredientBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_arrow_forward, 0, 0, 0)
             binding.ingredientRvw.visibility = View.GONE
             binding.ingredientSeperator.visibility = View.GONE
+            binding.infoAddIngredientTxt.visibility = View.GONE
         }
         else{
             ingredientButtonState = true
