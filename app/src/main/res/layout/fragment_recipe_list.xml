@@ -11,17 +11,18 @@
         android:id="@+id/btnNewRecipe"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/icon_add"
-        app:tint="?attr/colorSecondaryVariant"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/background_oval"
         android:backgroundTint="#DDDDDD"
         android:elevation="2dp"
-        />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRecipeListEmtyList"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/icon_add"
+        app:tint="?attr/colorSecondaryVariant"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipeListRvw"
@@ -29,7 +30,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -43,16 +44,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnRemoveRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TestRemove"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/background_oval"
+        android:backgroundTint="#DDDDDD"
+        android:elevation="2dp"
+        android:src="@drawable/icon_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnNewRecipe"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRecipeListEmtyList"
-        app:layout_constraintVertical_bias="0.902" />
+        app:tint="?attr/colorSecondaryVariant"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

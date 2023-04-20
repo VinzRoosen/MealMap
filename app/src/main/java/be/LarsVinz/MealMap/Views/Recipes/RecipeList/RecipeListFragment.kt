@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentRecipeListBinding
+import com.google.android.material.snackbar.Snackbar
 
 class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
 
@@ -42,7 +43,11 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
         }
 
         binding.btnRemoveRecipe.setOnClickListener{
-            findNavController().navigate(R.id.action_recipeListFragment_to_deleteRecipeFragment)
+            if (recipeList.isEmpty()){
+                Snackbar.make(it, "No recipes added yet, click + to create a new recipe", Snackbar.LENGTH_SHORT).show() //TODO: De snackbar heeft misschien een vervelende positie
+            } else{
+                findNavController().navigate(R.id.action_recipeListFragment_to_deleteRecipeFragment)
+            }
         }
 
         return binding.root
