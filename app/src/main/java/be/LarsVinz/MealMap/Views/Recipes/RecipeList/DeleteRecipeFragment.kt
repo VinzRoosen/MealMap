@@ -18,7 +18,11 @@ class DeleteRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
     private lateinit var toBeDeletedRecipes: ArrayList<Recipe>
     private lateinit var recipeRepository: RecipePreferencesRepository
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentDeleteRecipeBinding.inflate(layoutInflater)
         toBeDeletedRecipes = ArrayList();
         recipeRepository = RecipePreferencesRepository(requireActivity())
@@ -29,7 +33,7 @@ class DeleteRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
         binding.rvwDelete.adapter = adapter
         binding.rvwDelete.layoutManager = LinearLayoutManager(this.context)
 
-        binding.btnDeleteRecipe.setOnClickListener{onDeleteRecipeBtn()}
+        binding.btnDeleteRecipe.setOnClickListener { onDeleteRecipeBtn() }
 
         return binding.root
     }

@@ -8,11 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
 
-class RecipeDeleteAdapter(val recipeList: List<Recipe>, val deleteRecipeList: ArrayList<Recipe>): RecyclerView.Adapter<RecipeDeleteAdapter.RecipeDeleteViewHolder>() {
+class RecipeDeleteAdapter(val recipeList: List<Recipe>, val deleteRecipeList: ArrayList<Recipe>) :
+    RecyclerView.Adapter<RecipeDeleteAdapter.RecipeDeleteViewHolder>() {
     private val CheckedRecipeList = ArrayList<Int>()
-    inner class RecipeDeleteViewHolder(currentItemView: View) : RecyclerView.ViewHolder(currentItemView)
+
+    inner class RecipeDeleteViewHolder(currentItemView: View) :
+        RecyclerView.ViewHolder(currentItemView)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeDeleteViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe_delete, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_recipe_delete, parent, false)
         return RecipeDeleteViewHolder(view)
     }
 
@@ -34,5 +39,6 @@ class RecipeDeleteAdapter(val recipeList: List<Recipe>, val deleteRecipeList: Ar
         }
 
     }
+
     override fun getItemCount(): Int = recipeList.size
 }

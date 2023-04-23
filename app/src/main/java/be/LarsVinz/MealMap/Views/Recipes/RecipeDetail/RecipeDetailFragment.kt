@@ -27,17 +27,21 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
 
         binding.recipeNameTxt.text = recipe.name
 
-        binding.editBtn.setOnClickListener{
+        binding.editBtn.setOnClickListener {
 
             val bundle = bundleOf("recipe" to recipe)
-            findNavController().navigate(R.id.action_recipeDetailFragment_to_createRecipeFragment, bundle)
+            findNavController().navigate(
+                R.id.action_recipeDetailFragment_to_createRecipeFragment,
+                bundle
+            )
         }
 
-        binding.backBtn.setOnClickListener{
+        binding.backBtn.setOnClickListener {
             findNavController().navigate(R.id.action_recipeDetailFragment_to_recipeListFragment)
         }
 
-        val recipeFragment = RecipeFragment("Edit this recipe to add steps!", "Edit this recipe to add ingredients!")
+        val recipeFragment =
+            RecipeFragment("Edit this recipe to add steps!", "Edit this recipe to add ingredients!")
         recipeFragment.setRecipeData(recipe)
 
         childFragmentManager.beginTransaction().apply {
