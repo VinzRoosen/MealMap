@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
@@ -22,6 +23,7 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
         RecyclerView.ViewHolder(currentItemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreviewRecipeViewHolder {
+
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
         return PreviewRecipeViewHolder(view)
     }
@@ -30,12 +32,27 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
     override fun onBindViewHolder(holder: PreviewRecipeViewHolder, position: Int) {
         val currentRecipe = recipeList[position]
         val favorite: Boolean = currentRecipe.tags.contains(Tag.FAVORITE)
+
         holder.itemView.apply {
-            findViewById<TextView>(R.id.txtRecipe).text = currentRecipe.name
+            val tagList: MutableList<Tag> = mutableListOf()
+
+            val adapter = RecipeTagAdapter(tagList)
+            val recyclerViewTag = findViewById<RecyclerView>(R.id.RecyclerViewTags)
 
             val btnFavorite = findViewById<ImageButton>(R.id.btnFavorite)
 
-            if (favorite) {
+            //TODO foto invoegen findViewById<ImageView>(R.id.imageRecipePreview).setImageResource()
+
+            findViewById<TextView>(R.id.txtRecipe).text = currentRecipe.name
+
+            for (tag: Tag in currentRecipe.tags) { //TODO verander Mutablelist
+                tagList.add(tag)
+            }
+
+            recyclerViewTag.adapter = adapter
+            recyclerViewTag.layoutManager = LinearLayoutManager(this.context)
+
+            if (favorite) { //TODO save favorite ding
                 btnFavorite.setImageDrawable(
                     ContextCompat.getDrawable(
                         context, R.drawable.icon_fav_true
