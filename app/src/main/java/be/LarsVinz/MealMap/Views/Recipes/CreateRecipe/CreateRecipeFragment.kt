@@ -79,7 +79,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private fun saveRecipeAndClose(){
 
-        val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList, ingredientList, mutableListOf()) // TODO: add tags
+        val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList, ingredientList, listOf<Tag>()) // TODO: add tags
 
         val repository = RecipePreferencesRepository(requireActivity())
         repository.saveRecipe(recipe)

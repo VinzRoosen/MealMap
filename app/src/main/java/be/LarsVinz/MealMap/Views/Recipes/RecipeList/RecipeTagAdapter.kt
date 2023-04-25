@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.R
 
-class RecipeTagAdapter(var tagList: MutableList<Tag>) :   //TODO verander mutableList
+class RecipeTagAdapter(var tagList: List<Tag>) :   //TODO verander mutableList
     RecyclerView.Adapter<RecipeTagAdapter.RecipeTagViewHolder>() {
     inner class RecipeTagViewHolder(currentItemView: View) :
         RecyclerView.ViewHolder(currentItemView)
