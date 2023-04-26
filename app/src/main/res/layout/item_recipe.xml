@@ -4,24 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_recipe"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:padding="2dp">
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="2dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/background_rounded_corners"
+    android:backgroundTint="?attr/colorSecondaryVariant">
 
-        <TextView
-            android:id="@+id/txtRecipe"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/background_rounded_corners"
-            android:backgroundTint="?attr/colorSecondaryVariant"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="RecepiName"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.571" />
+    <TextView
+        android:id="@+id/txtRecipe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="start"
+        android:text="@string/recipename"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnFavorite"
+        app:layout_constraintStart_toEndOf="@+id/imageRecipePreview"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:background="@color/noColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/icon_fav_false"
+        tools:ignore="SpeakableTextPresentCheck"
+        app:tint="?attr/colorAccent" />
+
+    <ImageView
+        android:id="@+id/imageRecipePreview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:srcCompat="@tools:sample/avatars[2]" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerViewTag"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnFavorite"
+        app:layout_constraintStart_toEndOf="@+id/imageRecipePreview"
+        app:layout_constraintTop_toBottomOf="@+id/txtRecipe" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

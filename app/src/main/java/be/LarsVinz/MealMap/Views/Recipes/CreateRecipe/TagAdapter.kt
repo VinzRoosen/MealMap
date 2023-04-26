@@ -13,7 +13,7 @@ class TagAdapter(val items : List<Tag>, val selectedTagList : MutableList<Tag>) 
     inner class TagViewHolder(current : View) : RecyclerView.ViewHolder(current)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tag, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_createtag, parent, false)
         return TagViewHolder(view)
     }
 
