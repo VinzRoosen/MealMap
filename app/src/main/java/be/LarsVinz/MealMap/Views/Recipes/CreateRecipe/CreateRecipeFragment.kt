@@ -25,8 +25,9 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private val ingredientList = mutableListOf<Ingredient>()
     private val recipeStepList = mutableListOf<RecipeStep>()
+    private val recipeTagList = mutableListOf<Tag>()
 
-    private val recipeFragment = RecipeFragment("Click + to add a recipe step", "Click here to add an ingredient!")
+    private val recipeFragment = RecipeFragment(true, recipeStepList, ingredientList)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,15 +40,13 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
             ingredientList.addAll(it.ingredients)
             recipeStepList.addAll(it.steps)
+            recipeTagList.addAll(it.tags)
             binding.recipeNameTxt.setText(it.name)
         }
 
         recipeFragment.setRecipeData(ingredientList, recipeStepList)
 
-        childFragmentManager.beginTransaction().apply {
-            replace(binding.recipeFragment.id, recipeFragment)
-            commit()
-        }
+        openFragment(recipeFragment)
 
         setClickEvents()
 
@@ -56,53 +55,40 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private fun setClickEvents(){
 
-        binding.addRecipeBtn.setOnClickListener  { openEditStepPopup(null) }
         binding.saveRecipeBtn.setOnClickListener { saveRecipeAndClose() }
-
-        recipeFragment.setOnRecipeStepClicked{
-            openEditStepPopup(it)
-        }
-
-        recipeFragment.setOnIngredientClicked {
-            openEditIngredientPopup()
-        }
+        binding.addTagsBtn.setOnClickListener { openFragment(EditTagsFragment(recipeTagList)) }
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
 
-                openSaveConfirmationDialog()
+                if (childFragmentManager.fragments.last() is RecipeFragment){
+                    openSaveConfirmationDialog()
+                }
+                else childFragmentManager.popBackStack()
             }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
+    private fun openFragment(fragment: Fragment){
+
+        childFragmentManager.beginTransaction().apply {
+            replace(binding.recipeFragment.id, fragment)
+            addToBackStack(null)
+            commit()
+        }
+    }
+
     private fun saveRecipeAndClose(){
 
-        val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList, ingredientList, listOf()) // TODO: add tags
+        val recipe = Recipe(binding.recipeNameTxt.text.toString(), recipeStepList, ingredientList, recipeTagList) // TODO: add tags
 
         val repository = RecipePreferencesRepository(requireActivity())
         repository.saveRecipe(recipe)
 
         val bundle = bundleOf("recipe" to recipe)
         findNavController().navigate(R.id.action_createRecipeFragment_to_recipeDetailFragment, bundle)
-    }
-
-    private fun openEditStepPopup(recipeStep : RecipeStep?){
-
-        EditRecipeStepPopup(requireContext(), recipeStep, recipeStepList).apply {
-
-            setOnDismissListener { recipeFragment.onRecipeStepChanged() }
-            show()
-        }
-    }
-
-    private fun openEditIngredientPopup(){
-
-        EditRecipeIngredientPopup(requireContext(), ingredientList).apply {
-            setOnDismissListener { recipeFragment.onIngredientChanged() }
-            show()
-        }
     }
 
     fun openSaveConfirmationDialog(){

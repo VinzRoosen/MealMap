@@ -37,7 +37,7 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
             findNavController().navigate(R.id.action_recipeDetailFragment_to_recipeListFragment)
         }
 
-        val recipeFragment = RecipeFragment("Edit this recipe to add steps!", "Edit this recipe to add ingredients!")
+        val recipeFragment = RecipeFragment(false, recipe.steps, recipe.ingredients)
         recipeFragment.setRecipeData(recipe)
 
         childFragmentManager.beginTransaction().apply {
