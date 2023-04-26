@@ -16,9 +16,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:gravity="start"
-        android:text="RecipeName"
+        android:text="@string/recipename"
+        android:textColor="@color/black"
         android:textSize="30sp"
-        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnFavorite"
         app:layout_constraintStart_toEndOf="@+id/imageRecipePreview"
@@ -27,7 +27,7 @@
 
     <ImageButton
         android:id="@+id/btnFavorite"
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_height="0dp"
         android:background="@color/noColor"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,7 +35,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/icon_fav_false"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        app:tint="@color/black" />
 
     <ImageView
         android:id="@+id/imageRecipePreview"
@@ -54,7 +55,7 @@
         android:id="@+id/RecyclerViewTag"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnFavorite"
         app:layout_constraintStart_toEndOf="@+id/imageRecipePreview"

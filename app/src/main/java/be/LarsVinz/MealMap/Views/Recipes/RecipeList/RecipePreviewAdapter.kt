@@ -32,7 +32,7 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
         holder.itemView.apply {
             val btnFavorite = findViewById<ImageButton>(R.id.btnFavorite)
             val recyclerViewTag = findViewById<RecyclerView>(R.id.RecyclerViewTag)
-            val tagList: List<Tag> = listOf(Tag.BBQ, Tag.PASTA, Tag.BREAKFAST, Tag.GLUTEN_FREE)
+            val tagList: List<Tag> = currentRecipe.tags
 
             findViewById<ImageView>(R.id.imageRecipePreview).setImageResource(R.drawable.icon_test_recipe_preview)
             findViewById<TextView>(R.id.txtRecipe).text = currentRecipe.name
@@ -44,13 +44,7 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
             btnFavorite.setImageDrawable(ContextCompat.getDrawable(context, if (favorite) R.drawable.icon_fav_true else R.drawable.icon_fav_false))
             btnFavorite.setOnClickListener {
                 favorite = !favorite
-                /*
-                if (newFavorite) {
-                    currentRecipe.tags.add(Tag.FAVORITE)
-                } else {
-                    currentRecipe.tags.remove(Tag.FAVORITE)
-                }
-                 */
+                //TODO: Favorieten opslaan
                 notifyDataSetChanged()
             }
         }
