@@ -62,7 +62,7 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
         binding.editTextSearch.doOnTextChanged { text, _, _, _ ->
             val filteredList: MutableList<Recipe> = mutableListOf()
             for (item: Recipe in recipeList) {
-                if (item.name.lowercase().contains(text.toString().lowercase())) {
+                if (item.name.lowercase().contains(text.toString().lowercase()) || item.tags.toString().lowercase().contains(text.toString().lowercase())) {
                     filteredList.add(item)
                 }
             }
