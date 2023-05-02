@@ -7,7 +7,7 @@ interface ImageRepository {
 
     fun saveImage(image : Bitmap, fileName : String)
 
-    fun loadImage(fileName : String) : Bitmap
+    fun loadImage(fileName : String) : Bitmap?
 
     fun deleteImageRecipe(fileName: String)
 }

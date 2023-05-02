@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
+import java.io.FileNotFoundException
 
 class ImageFileRepository(val context: Context) :  ImageRepository {
 
@@ -16,11 +17,16 @@ class ImageFileRepository(val context: Context) :  ImageRepository {
         }
     }
 
-    override fun loadImage(fileName: String): Bitmap {
+    override fun loadImage(fileName: String): Bitmap? {
 
-        context.openFileInput(fileName.lowercase()).use {
+        try {
+            context.openFileInput(fileName.lowercase()).use {
 
-            return BitmapFactory.decodeStream(it)
+                return BitmapFactory.decodeStream(it)
+            }
+        }
+        catch (ex : FileNotFoundException){
+            return null
         }
     }
 

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
@@ -38,8 +39,10 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
 
             currentRecipe.imagePath?.let {
 
-                val image = ImageFileRepository(context).loadImage(it)
-                findViewById<ImageView>(R.id.imageRecipePreview).setImageBitmap(image)
+                ImageFileRepository(context).loadImage(it)?.let {
+                    findViewById<ImageView>(R.id.imageRecipePreview).setImageBitmap(it)
+                }
+
             } ?: run {
 
                 findViewById<ImageView>(R.id.imageRecipePreview).setImageResource(R.drawable.icon_test_recipe_preview)
