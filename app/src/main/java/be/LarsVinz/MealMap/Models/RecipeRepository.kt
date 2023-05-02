@@ -11,5 +11,5 @@ interface RecipeRepository {
     fun loadAllRecipes() : List<Recipe>
 
     fun deleteRecipe(recipe: Recipe)
-    fun deleteAllRecipes()
+    fun deleteRecipes(recipes: List<Recipe>)
 }

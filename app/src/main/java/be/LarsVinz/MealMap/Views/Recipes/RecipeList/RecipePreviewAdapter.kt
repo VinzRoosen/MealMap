@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
+import be.LarsVinz.MealMap.Models.ImageFileRepository
 import be.LarsVinz.MealMap.R
 
 class RecipePreviewAdapter(var recipeList: List<Recipe>) :
@@ -30,11 +31,20 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
         val currentRecipe = recipeList[position]
 
         holder.itemView.apply {
+
             val btnFavorite = findViewById<ImageButton>(R.id.btnFavorite)
             val recyclerViewTag = findViewById<RecyclerView>(R.id.RecyclerViewTag)
             val tagList: List<Tag> = currentRecipe.tags
 
-            findViewById<ImageView>(R.id.imageRecipePreview).setImageResource(R.drawable.icon_test_recipe_preview)
+            currentRecipe.imagePath?.let {
+
+                val image = ImageFileRepository(context).loadImage(it)
+                findViewById<ImageView>(R.id.imageRecipePreview).setImageBitmap(image)
+            } ?: run {
+
+                findViewById<ImageView>(R.id.imageRecipePreview).setImageResource(R.drawable.icon_test_recipe_preview)
+            }
+
             findViewById<TextView>(R.id.txtRecipe).text = currentRecipe.name
 
             val adapter = RecipeTagAdapter(tagList)

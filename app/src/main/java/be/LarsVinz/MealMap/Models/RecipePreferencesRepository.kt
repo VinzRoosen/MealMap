@@ -2,20 +2,19 @@ package be.LarsVinz.MealMap.Models
 
 import android.content.Context
 import androidx.core.content.edit
-import androidx.fragment.app.FragmentActivity
 import be.LarsVinz.MealMap.Exceptions.CantLoadRecipeException
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import com.google.gson.*
 
-class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepository{
+class RecipePreferencesRepository(val context : Context) : RecipeRepository{
 
     override fun saveRecipe(recipe: Recipe) {
 
         val gson = Gson()
         val recipeGson = gson.toJson(recipe)
 
-        val sharedPref =  activity.getSharedPreferences(activity.getString(R.string.recipe_data), Context.MODE_PRIVATE)
+        val sharedPref =  context.getSharedPreferences(context.getString(R.string.recipe_data), Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
             putString(recipe.name, recipeGson)
             apply()
@@ -29,7 +28,7 @@ class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepos
 
     override fun loadRecipe(recipeName: String): Recipe {
 
-        val sharedPref = activity.getSharedPreferences(activity.getString(R.string.recipe_data), Context.MODE_PRIVATE)
+        val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_data), Context.MODE_PRIVATE)
         val recipeData = sharedPref.getString(recipeName, null)
 
         recipeData?.let {
@@ -43,7 +42,7 @@ class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepos
 
     override fun loadAllRecipes(): List<Recipe> {
 
-        val sharedPref = activity.getSharedPreferences(activity.getString(R.string.recipe_data), Context.MODE_PRIVATE)
+        val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_data), Context.MODE_PRIVATE)
         val recipeMap = sharedPref.all
         val recipeList = mutableListOf<Recipe>()
 
@@ -57,18 +56,18 @@ class RecipePreferencesRepository(val activity : FragmentActivity) : RecipeRepos
     }
 
     override fun deleteRecipe(recipe: Recipe){
-        val sharedPref = activity.getSharedPreferences(activity.getString(R.string.recipe_data), Context.MODE_PRIVATE)
+
+        val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_data), Context.MODE_PRIVATE)
         sharedPref.edit {
             remove(recipe.name)
             commit()
         }
+
+        recipe.imagePath?.let { ImageFileRepository(context).deleteImageRecipe(it) }
     }
 
-    override fun deleteAllRecipes(){
-        val sharedPref = activity.getSharedPreferences(activity.getString(R.string.recipe_data), Context.MODE_PRIVATE)
-        sharedPref.edit {
-            clear()
-            commit()
-        }
+    override fun deleteRecipes(recipes: List<Recipe>){
+
+        recipes.forEach { deleteRecipe(it) }
     }
 }
