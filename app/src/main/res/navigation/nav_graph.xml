@@ -51,7 +51,7 @@
         app:destination="@id/overviewFragment" />
     <fragment
         android:id="@+id/deleteRecipeFragment"
-        android:name="be.LarsVinz.MealMap.Views.Recipes.RecipeList.DeleteRecipeFragment"
+        android:name="be.LarsVinz.MealMap.Views.Recipes.RecipeList.SelectRecipeFragment"
         android:label="DeleteRecipeFragment" >
         <action
             android:id="@+id/action_deleteRecipeFragment_to_recipeListFragment"

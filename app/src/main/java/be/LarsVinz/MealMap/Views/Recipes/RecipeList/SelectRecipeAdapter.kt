@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
 
-class RecipeDeleteAdapter(val recipeList: List<Recipe>, val deleteRecipeList: ArrayList<Recipe>) :
-    RecyclerView.Adapter<RecipeDeleteAdapter.RecipeDeleteViewHolder>() {
+class SelectRecipeAdapter(
+    var recipeList: List<Recipe>, private val selectedRecipes: ArrayList<Recipe>
+) : RecyclerView.Adapter<SelectRecipeAdapter.RecipeDeleteViewHolder>() {
     private val CheckedRecipeList = ArrayList<Int>()
 
     inner class RecipeDeleteViewHolder(currentItemView: View) :
@@ -31,13 +32,17 @@ class RecipeDeleteAdapter(val recipeList: List<Recipe>, val deleteRecipeList: Ar
 
             checkBox.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    deleteRecipeList.add(currentItem)
+                    selectedRecipes.add(currentItem)
                 } else {
-                    deleteRecipeList.remove(currentItem)
+                    selectedRecipes.remove(currentItem)
                 }
             }
         }
+    }
 
+    fun filteredList(filteredList: List<Recipe>) {
+        recipeList = filteredList
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = recipeList.size

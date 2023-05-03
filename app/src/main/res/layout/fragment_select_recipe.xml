@@ -15,19 +15,20 @@
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/txt_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="85dp"
+            android:layout_marginEnd="132dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Delete"
+            android:text="Select Recipe"
             android:textColor="?attr/colorOnSecondary"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.521" />
+            app:layout_constraintStart_toEndOf="@+id/btnCancel"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnDeleteRecipe"
@@ -37,8 +38,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_delete"
-            tools:ignore="SpeakableTextPresentCheck" />
+            app:srcCompat="@drawable/icon_check"
+            app:tint="?attr/colorOnSecondary" />
+
+        <ImageButton
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/noColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txt_select"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/icon_cancel"
+            app:tint="?attr/colorOnSecondary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -50,8 +65,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSearch"
         tools:itemCount="8" />
+
+    <EditText
+        android:id="@+id/editTextSearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:contextClickable="true"
+        android:drawableStart="@drawable/icon_search"
+        android:drawableTint="?attr/colorSecondary"
+        android:hint="click here to search for a recipe"
+        android:selectAllOnFocus="true"
+        android:singleLine="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
+import be.LarsVinz.MealMap.Models.RecipeFilter
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentRecipeListBinding
@@ -60,13 +61,8 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
         }
 
         binding.editTextSearch.doOnTextChanged { text, _, _, _ ->
-            val filteredList: MutableList<Recipe> = mutableListOf()
-            for (item: Recipe in recipeList) {
-                if (item.name.lowercase().contains(text.toString().lowercase()) || item.tags.toString().lowercase().contains(text.toString().lowercase())) {
-                    filteredList.add(item)
-                }
-            }
-            adapter.filteredList(filteredList)
+            val recipeFilter = RecipeFilter();
+            adapter.filteredList(recipeFilter.filterRecipes(recipeList, text))
         }
         return binding.root
     }

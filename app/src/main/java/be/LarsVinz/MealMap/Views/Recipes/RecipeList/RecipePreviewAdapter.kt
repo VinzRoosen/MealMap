@@ -67,7 +67,7 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
 
     override fun getItemCount() = recipeList.size
 
-    fun filteredList(filteredList: MutableList<Recipe>) {
+    fun filteredList(filteredList: List<Recipe>) {
         recipeList = filteredList
         notifyDataSetChanged()
     }
