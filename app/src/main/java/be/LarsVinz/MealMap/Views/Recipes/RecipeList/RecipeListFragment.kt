@@ -21,8 +21,7 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
     private lateinit var searchArrayList: ArrayList<Recipe>
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 
     ): View {
         binding = FragmentRecipeListBinding.inflate(layoutInflater)

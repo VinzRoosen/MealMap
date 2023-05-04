@@ -18,20 +18,18 @@
             android:id="@+id/txt_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="85dp"
-            android:layout_marginEnd="132dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="Select Recipe"
             android:textColor="?attr/colorOnSecondary"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnCancel"
+            app:layout_constraintEnd_toStartOf="@+id/btnDoneSelecting"
+            app:layout_constraintStart_toEndOf="@+id/btnCancelSelecting"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnDeleteRecipe"
+            android:id="@+id/btnDoneSelecting"
             android:layout_width="50dp"
             android:layout_height="0dp"
             android:background="@color/noColor"
@@ -42,16 +40,13 @@
             app:tint="?attr/colorOnSecondary" />
 
         <ImageButton
-            android:id="@+id/btnCancel"
-            android:layout_width="0dp"
+            android:id="@+id/btnCancelSelecting"
+            android:layout_width="50dp"
             android:layout_height="0dp"
             android:background="@color/noColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txt_select"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/icon_cancel"
             app:tint="?attr/colorOnSecondary" />
 

@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
 
-class SelectRecipeAdapter(
+class DeleteRecipeAdapter(
     var recipeList: List<Recipe>, private val selectedRecipes: ArrayList<Recipe>
-) : RecyclerView.Adapter<SelectRecipeAdapter.RecipeDeleteViewHolder>() {
+) : RecyclerView.Adapter<DeleteRecipeAdapter.RecipeDeleteViewHolder>() {
     private val CheckedRecipeList = ArrayList<Int>()
 
     inner class RecipeDeleteViewHolder(currentItemView: View) :
@@ -23,20 +25,27 @@ class SelectRecipeAdapter(
     }
 
     override fun onBindViewHolder(holder: RecipeDeleteViewHolder, position: Int) {
-        val currentItem = recipeList[position]
+        val currentRecipe = recipeList[position]
         holder.itemView.apply {
             val checkBox = findViewById<CheckBox>(R.id.checkBoxDeleteRecipe)
+            val recyclerViewSelectTag = findViewById<RecyclerView>(R.id.RecyclerViewSelectTag)
+            val tagList: List<Tag> = currentRecipe.tags
 
-            checkBox.text = currentItem.name
+            checkBox.text = currentRecipe.name
             checkBox.isChecked = CheckedRecipeList.contains(position)
 
             checkBox.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    selectedRecipes.add(currentItem)
+                    selectedRecipes.add(currentRecipe)
                 } else {
-                    selectedRecipes.remove(currentItem)
+                    selectedRecipes.remove(currentRecipe)
                 }
             }
+
+            val adapter = RecipeTagAdapter(tagList)
+            recyclerViewSelectTag.adapter = adapter
+            recyclerViewSelectTag.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 

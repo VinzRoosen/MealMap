@@ -34,7 +34,7 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
         ingredients.forEach { ingredientNames.add(it.name) }
         ingredientNames.add("New")
 
-        val spinnerAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, ingredientNames)
+        val spinnerAdapter = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, ingredientNames)
         binding.ingredientSpinner.adapter = spinnerAdapter
         binding.ingredientSpinner.setSelection(ingredientNames.size - 1)
 
