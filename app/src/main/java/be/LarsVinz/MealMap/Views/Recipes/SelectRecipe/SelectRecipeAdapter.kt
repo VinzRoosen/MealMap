@@ -10,10 +10,10 @@ import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
 
-class DeleteRecipeAdapter(
+class SelectRecipeAdapter(
     var recipeList: List<Recipe>, private val selectedRecipes: ArrayList<Recipe>
-) : RecyclerView.Adapter<DeleteRecipeAdapter.RecipeDeleteViewHolder>() {
-    private val CheckedRecipeList = ArrayList<Int>()
+) : RecyclerView.Adapter<SelectRecipeAdapter.RecipeDeleteViewHolder>() {
+    private val checkedRecipeList = ArrayList<Int>()
 
     inner class RecipeDeleteViewHolder(currentItemView: View) :
         RecyclerView.ViewHolder(currentItemView)
@@ -32,7 +32,7 @@ class DeleteRecipeAdapter(
             val tagList: List<Tag> = currentRecipe.tags
 
             checkBox.text = currentRecipe.name
-            checkBox.isChecked = CheckedRecipeList.contains(position)
+            checkBox.isChecked = checkedRecipeList.contains(position)
 
             checkBox.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {

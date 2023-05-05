@@ -11,15 +11,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.RecipeFilter
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
+import be.LarsVinz.MealMap.Models.ShoppingListRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentDeleteRecipeBinding
 import com.google.android.material.snackbar.Snackbar
 
-class DeleteRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
+class SelectRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
     private lateinit var binding: FragmentDeleteRecipeBinding
-    private lateinit var adapter: DeleteRecipeAdapter
+    private lateinit var adapter: SelectRecipeAdapter
     private lateinit var selectedRecipes: ArrayList<Recipe>
     private lateinit var recipeRepository: RecipePreferencesRepository
+    private lateinit var shoppingListRepository: ShoppingListRepository
+    private var case : String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -28,8 +31,10 @@ class DeleteRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
         selectedRecipes = ArrayList()
         recipeRepository = RecipePreferencesRepository(requireActivity())
         val recipeList = recipeRepository.loadAllRecipes()
+        shoppingListRepository = ShoppingListRepository(requireContext())
+        case = arguments?.getString("case")
 
-        adapter = DeleteRecipeAdapter(recipeList, selectedRecipes)
+        adapter = SelectRecipeAdapter(recipeList, selectedRecipes)
         binding.rvwDelete.adapter = adapter
         binding.rvwDelete.layoutManager = LinearLayoutManager(this.context)
 
@@ -51,10 +56,21 @@ class DeleteRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
                 Snackbar.LENGTH_SHORT
             ).show()
         } else {
-            for (recipe in selectedRecipes) {
-                recipeRepository.deleteRecipe(recipe)
+            when (case){
+                "select_shopping_list" -> saveSelectedRecipesToShoppingList()
+                "delete_recipes" -> deleteSelectedRecipesFromRecipeList()
             }
-            findNavController().navigate(R.id.action_deleteRecipeFragment_to_recipeListFragment)
+
         }
+    }
+
+    private fun saveSelectedRecipesToShoppingList() {
+        shoppingListRepository.saveRecipes(selectedRecipes)
+        findNavController().navigate(R.id.action_selectRecipeFragment_to_shoppingListFragment)
+    }
+
+    private fun deleteSelectedRecipesFromRecipeList(){
+        recipeRepository.deleteRecipes(selectedRecipes)
+        findNavController().navigate(R.id.action_deleteRecipeFragment_to_recipeListFragment)
     }
 }

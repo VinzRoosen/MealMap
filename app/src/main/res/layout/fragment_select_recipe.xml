@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Select Recipe"
+            android:text="Delete Recipe"
             android:textColor="?attr/colorOnSecondary"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"

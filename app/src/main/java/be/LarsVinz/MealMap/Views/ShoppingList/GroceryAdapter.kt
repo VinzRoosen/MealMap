@@ -21,8 +21,8 @@ class GroceryAdapter(private val ingredients: List<Ingredient>) :
     override fun onBindViewHolder(holder: GroceryViewHolder, position: Int) {
         val currentGrocery = ingredients[position]
         holder.itemView.apply {
-            val text: String = String.format("%s :  %d %s",currentGrocery.name , currentGrocery.amount, currentGrocery.unit.name) //TODO moet beter kunnen
-            findViewById<CheckBox>(R.id.CheckBoxGrocery).text = text
+            findViewById<CheckBox>(R.id.CheckBoxGrocery).text = currentGrocery.name
+            findViewById<TextView>(R.id.txtGroceryAmountUnit).text = currentGrocery.amount.toString() + "\t" + currentGrocery.unit.name
         }
     }
 
