@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap.Views.Recipes.ShoppingList
+package be.LarsVinz.MealMap.Views.ShoppingList
 
 import android.view.LayoutInflater
 import android.view.View

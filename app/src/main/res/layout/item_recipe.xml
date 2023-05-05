@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:gravity="start"
-        android:text="@string/recipename"
+        android:text="@string/recipe_name"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"

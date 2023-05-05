@@ -1,21 +1,17 @@
-package be.LarsVinz.MealMap.Views.Recipes
+package be.LarsVinz.MealMap.Views.Recipes.CreateRecipe
 
-import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.R
-import be.LarsVinz.MealMap.Views.Recipes.CreateRecipe.EditRecipeIngredientPopup
-import be.LarsVinz.MealMap.Views.Recipes.CreateRecipe.EditRecipeStepPopup
 import be.LarsVinz.MealMap.databinding.FragmentRecipeBinding
 
 class RecipeFragment(private val editable : Boolean, private val steps : List<RecipeStep>, private val ingredients : List<Ingredient>) : Fragment(R.layout.fragment_recipe) {

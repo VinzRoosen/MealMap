@@ -51,11 +51,13 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
             if (recipeList.isEmpty()) {
                 Snackbar.make(
                     it,
-                    "No recipes added yet, click + to create a new recipe",
+                    "no recipes added yet, click on + to select a recipe",
                     Snackbar.LENGTH_SHORT
                 ).show()
             } else {
-                findNavController().navigate(R.id.action_recipeListFragment_to_deleteRecipeFragment)
+                val bundle = Bundle()
+                bundle.putString("case", "delete_recipes")
+                findNavController().navigate(R.id.action_recipeListFragment_to_deleteRecipeFragment, bundle)
             }
         }
 

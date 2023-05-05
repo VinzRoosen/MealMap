@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap.Views.Recipes.RecipeList
+package be.LarsVinz.MealMap.Views.Recipes.SelectRecipe
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,11 +13,11 @@ import be.LarsVinz.MealMap.Models.RecipeFilter
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
 import be.LarsVinz.MealMap.Models.ShoppingListRepository
 import be.LarsVinz.MealMap.R
-import be.LarsVinz.MealMap.databinding.FragmentDeleteRecipeBinding
+import be.LarsVinz.MealMap.databinding.FragmentSelectRecipeBinding
 import com.google.android.material.snackbar.Snackbar
 
-class SelectRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
-    private lateinit var binding: FragmentDeleteRecipeBinding
+class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
+    private lateinit var binding: FragmentSelectRecipeBinding
     private lateinit var adapter: SelectRecipeAdapter
     private lateinit var selectedRecipes: ArrayList<Recipe>
     private lateinit var recipeRepository: RecipePreferencesRepository
@@ -27,7 +27,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDeleteRecipeBinding.inflate(layoutInflater)
+        binding = FragmentSelectRecipeBinding.inflate(layoutInflater)
         selectedRecipes = ArrayList()
         recipeRepository = RecipePreferencesRepository(requireActivity())
         val recipeList = recipeRepository.loadAllRecipes()
@@ -39,7 +39,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
         binding.rvwDelete.layoutManager = LinearLayoutManager(this.context)
 
         binding.btnDoneSelecting.setOnClickListener { onDoneSelectingRecipe() }
-        binding.btnCancelSelecting.setOnClickListener { findNavController().navigate(R.id.action_deleteRecipeFragment_to_recipeListFragment) }
+        binding.btnCancelSelecting.setOnClickListener { onCancelSelecting() }
 
         binding.editTextSearch.doOnTextChanged { text, _, _, _ ->
             val recipeFilter = RecipeFilter();
@@ -59,9 +59,31 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
             when (case){
                 "select_shopping_list" -> saveSelectedRecipesToShoppingList()
                 "delete_recipes" -> deleteSelectedRecipesFromRecipeList()
+                "delete_shopping_list" -> deleteSelectedRecipesFromShoppingList()
             }
-
         }
+    }
+
+    private fun onCancelSelecting(){
+        when (case){
+            "select_shopping_list" -> cancelToShoppingList()
+            "delete_shopping_list" -> cancelToShoppingList()
+            "delete_recipes" -> cancelToRecipeList()
+        }
+
+    }
+
+    private fun cancelToShoppingList() {
+        findNavController().navigate(R.id.action_selectRecipeFragment_to_shoppingListFragment)
+    }
+
+    private fun cancelToRecipeList() {
+        findNavController().navigate(R.id.action_selectRecipeFragment_to_recipeListFragment)
+    }
+
+    private fun deleteSelectedRecipesFromShoppingList() {
+        shoppingListRepository.deleteRecipes(selectedRecipes)
+        findNavController().navigate(R.id.action_selectRecipeFragment_to_shoppingListFragment)
     }
 
     private fun saveSelectedRecipesToShoppingList() {
@@ -71,6 +93,6 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
 
     private fun deleteSelectedRecipesFromRecipeList(){
         recipeRepository.deleteRecipes(selectedRecipes)
-        findNavController().navigate(R.id.action_deleteRecipeFragment_to_recipeListFragment)
+        findNavController().navigate(R.id.action_selectRecipeFragment_to_recipeListFragment)
     }
 }

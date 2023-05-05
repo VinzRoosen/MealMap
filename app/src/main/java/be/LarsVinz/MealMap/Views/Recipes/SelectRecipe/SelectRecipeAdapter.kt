@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap.Views.Recipes.RecipeList
+package be.LarsVinz.MealMap.Views.Recipes.SelectRecipe
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
+import be.LarsVinz.MealMap.Views.Recipes.RecipeList.RecipeTagAdapter
 
 class SelectRecipeAdapter(
     var recipeList: List<Recipe>, private val selectedRecipes: ArrayList<Recipe>

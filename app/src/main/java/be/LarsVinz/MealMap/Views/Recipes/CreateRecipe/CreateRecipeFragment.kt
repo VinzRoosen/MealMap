@@ -20,7 +20,6 @@ import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.Models.ImageFileRepository
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
 import be.LarsVinz.MealMap.R
-import be.LarsVinz.MealMap.Views.Recipes.RecipeFragment
 import be.LarsVinz.MealMap.databinding.FragmentCreateRecipeBinding
 
 
