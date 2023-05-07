@@ -93,6 +93,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
 
     private fun deleteSelectedRecipesFromRecipeList(){
         recipeRepository.deleteRecipes(selectedRecipes)
+        shoppingListRepository.deleteRecipes(selectedRecipes)
         findNavController().navigate(R.id.action_selectRecipeFragment_to_recipeListFragment)
     }
 }
