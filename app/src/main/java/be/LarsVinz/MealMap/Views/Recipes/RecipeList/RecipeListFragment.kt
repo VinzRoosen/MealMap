@@ -1,5 +1,6 @@
 package be.LarsVinz.MealMap.Views.Recipes.RecipeList
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
 
     private lateinit var binding: FragmentRecipeListBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 
