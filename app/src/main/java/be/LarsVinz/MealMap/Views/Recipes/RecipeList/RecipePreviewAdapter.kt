@@ -67,6 +67,6 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
 
     fun filteredList(filteredList: List<Recipe>) {
         recipeList = filteredList
-        notifyItemInserted(recipeList.size - 1)
+        notifyDataSetChanged()
     }
 }

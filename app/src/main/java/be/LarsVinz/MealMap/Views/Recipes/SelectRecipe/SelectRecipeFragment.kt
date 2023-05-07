@@ -8,6 +8,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.RecipeFilter
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
@@ -50,13 +51,8 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
     }
 
     private fun onDoneSelectingRecipe() {
-        if (selectedRecipes.isEmpty()) {
-            Snackbar.make(
-                requireView(),
-                "No recipes selected yet, click on the cross to cancel",
-                Snackbar.LENGTH_SHORT
-            ).show()
-        } else {
+        if (selectedRecipes.isEmpty()) {Snackbar.make(requireView(),"No recipes selected yet, click on the cross to cancel", Snackbar.LENGTH_SHORT).show()}
+        else {
             when (case){
                 "select_shopping_list" -> saveSelectedRecipesToShoppingList()
                 "delete_recipes" -> deleteSelectedRecipesFromRecipeList()
@@ -70,7 +66,6 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
             "select_shopping_list" , "delete_shopping_list" -> cancelToShoppingList()
             "delete_recipes" -> cancelToRecipeList()
         }
-
     }
 
     private fun cancelToShoppingList() {

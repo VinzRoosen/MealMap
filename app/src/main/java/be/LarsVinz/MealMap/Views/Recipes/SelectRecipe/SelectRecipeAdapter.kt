@@ -52,7 +52,7 @@ class SelectRecipeAdapter(
 
     fun filteredList(filteredList: List<Recipe>) {
         recipes = filteredList
-        notifyItemInserted(recipes.size-1)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = recipes.size
