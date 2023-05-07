@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.ImageFileRepository
+import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
 import be.LarsVinz.MealMap.R
 
 class RecipePreviewAdapter(var recipeList: List<Recipe>) :
     RecyclerView.Adapter<RecipePreviewAdapter.PreviewRecipeViewHolder>() {
-    var favorite = false //currentRecipe.tags.contains(Tag.FAVORITE)
+
     inner class PreviewRecipeViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView)
 
@@ -31,7 +32,7 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
         val currentRecipe = recipeList[position]
 
         holder.itemView.apply {
-
+            val favorite = currentRecipe.tags.contains(Tag.FAVORITE)
             val btnFavorite = findViewById<ImageButton>(R.id.btnFavorite)
             val recyclerViewTag = findViewById<RecyclerView>(R.id.RecyclerViewTag)
             val tagList: List<Tag> = currentRecipe.tags
@@ -41,7 +42,6 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
                 val image = ImageFileRepository(context).loadImage(it)
                 findViewById<ImageView>(R.id.imageRecipePreview).setImageBitmap(image)
             } ?: run {
-
                 findViewById<ImageView>(R.id.imageRecipePreview).setImageResource(R.drawable.icon_test_recipe_preview)
             }
 
@@ -53,9 +53,7 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
 
             btnFavorite.setImageDrawable(ContextCompat.getDrawable(context, if (favorite) R.drawable.icon_fav_true else R.drawable.icon_fav_false))
             btnFavorite.setOnClickListener {
-                favorite = !favorite
-                //TODO: Favorieten opslaan
-                notifyDataSetChanged()
+                //TODO: verander taglist van currentRecipe
             }
         }
 
@@ -69,6 +67,6 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
 
     fun filteredList(filteredList: List<Recipe>) {
         recipeList = filteredList
-        notifyDataSetChanged()
+        notifyItemInserted(recipeList.size - 1)
     }
 }

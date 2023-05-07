@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
     private lateinit var binding: FragmentSelectRecipeBinding
     private lateinit var adapter: SelectRecipeAdapter
-    private lateinit var selectedRecipes: ArrayList<Recipe>
+    private lateinit var selectedRecipes: MutableList<Recipe>
     private lateinit var recipeRepository: RecipePreferencesRepository
     private lateinit var shoppingListRepository: ShoppingListRepository
     private var case : String? = null
@@ -28,15 +28,16 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentSelectRecipeBinding.inflate(layoutInflater)
-        selectedRecipes = ArrayList()
-        recipeRepository = RecipePreferencesRepository(requireActivity())
-        val recipeList = recipeRepository.loadAllRecipes()
+        selectedRecipes = mutableListOf()
+        recipeRepository = RecipePreferencesRepository(requireContext())
         shoppingListRepository = ShoppingListRepository(requireContext())
         case = arguments?.getString("case")
 
+        val recipeList = recipeRepository.loadAllRecipes()
+
         adapter = SelectRecipeAdapter(recipeList, selectedRecipes)
         binding.rvwDelete.adapter = adapter
-        binding.rvwDelete.layoutManager = LinearLayoutManager(this.context)
+        binding.rvwDelete.layoutManager = LinearLayoutManager(requireContext())
 
         binding.btnDoneSelecting.setOnClickListener { onDoneSelectingRecipe() }
         binding.btnCancelSelecting.setOnClickListener { onCancelSelecting() }

@@ -18,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar
 class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
 
     private lateinit var binding: FragmentRecipeListBinding
-    private lateinit var searchArrayList: ArrayList<Recipe>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -28,20 +27,13 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
 
         val recipeRepository = RecipePreferencesRepository(requireActivity())
         val recipeList = recipeRepository.loadAllRecipes()
-        searchArrayList = arrayListOf()
-        searchArrayList.addAll(recipeList)
 
         binding.txtRecipeListEmtyList.text = "no recipes added yet, click + to create a new recipe"
-        if (recipeList.isEmpty()) {
-            binding.txtRecipeListEmtyList.visibility = View.VISIBLE
-        } else {
-            binding.txtRecipeListEmtyList.visibility = View.GONE
-        }
+        binding.txtRecipeListEmtyList.visibility = if (recipeList.isEmpty()) View.VISIBLE else View.GONE
 
         val adapter = RecipePreviewAdapter(recipeList)
         binding.recipeListRvw.adapter = adapter
-        binding.recipeListRvw.layoutManager = LinearLayoutManager(this.context)
-        adapter.notifyItemInserted(recipeList.size - 1)
+        binding.recipeListRvw.layoutManager = LinearLayoutManager(requireContext())
 
         binding.btnNewRecipe.setOnClickListener {
             findNavController().navigate(R.id.action_recipeListFragment_to_createRecipeFragment)
