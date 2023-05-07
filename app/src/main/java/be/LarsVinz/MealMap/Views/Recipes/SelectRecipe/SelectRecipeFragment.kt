@@ -66,8 +66,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
 
     private fun onCancelSelecting(){
         when (case){
-            "select_shopping_list" -> cancelToShoppingList()
-            "delete_shopping_list" -> cancelToShoppingList()
+            "select_shopping_list" , "delete_shopping_list" -> cancelToShoppingList()
             "delete_recipes" -> cancelToRecipeList()
         }
 

@@ -12,9 +12,9 @@ import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.Views.Recipes.RecipeList.RecipeTagAdapter
 
 class SelectRecipeAdapter(
-    var recipeList: List<Recipe>, private val selectedRecipes: ArrayList<Recipe>
+    var recipes: List<Recipe>,
+    private val selectedRecipes: MutableList<Recipe>
 ) : RecyclerView.Adapter<SelectRecipeAdapter.RecipeDeleteViewHolder>() {
-    private val checkedRecipeList = ArrayList<Int>()
 
     inner class RecipeDeleteViewHolder(currentItemView: View) :
         RecyclerView.ViewHolder(currentItemView)
@@ -26,14 +26,14 @@ class SelectRecipeAdapter(
     }
 
     override fun onBindViewHolder(holder: RecipeDeleteViewHolder, position: Int) {
-        val currentRecipe = recipeList[position]
+        val currentRecipe = recipes[position]
         holder.itemView.apply {
             val checkBox = findViewById<CheckBox>(R.id.checkBoxDeleteRecipe)
             val recyclerViewSelectTag = findViewById<RecyclerView>(R.id.RecyclerViewSelectTag)
             val tagList: List<Tag> = currentRecipe.tags
 
             checkBox.text = currentRecipe.name
-            checkBox.isChecked = checkedRecipeList.contains(position)
+            checkBox.isChecked = selectedRecipes.contains(currentRecipe)
 
             checkBox.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
@@ -51,9 +51,9 @@ class SelectRecipeAdapter(
     }
 
     fun filteredList(filteredList: List<Recipe>) {
-        recipeList = filteredList
+        recipes = filteredList
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int = recipeList.size
+    override fun getItemCount(): Int = recipes.size
 }

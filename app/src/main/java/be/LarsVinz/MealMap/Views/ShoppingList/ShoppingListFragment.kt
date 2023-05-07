@@ -24,25 +24,25 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
         val shoppingList = shoppingListRepository.loadAllIngredients()
 
         val adapter = GroceryAdapter(shoppingList)
-        binding.RecyclerViewGroceries.adapter = adapter
-        binding.RecyclerViewGroceries.layoutManager = LinearLayoutManager(this.context)
+        binding.recyclerViewGroceries.adapter = adapter
+        binding.recyclerViewGroceries.layoutManager = LinearLayoutManager(requireContext())
 
-        setTextViewEmptyShoppingList()
+        val txtShoppingListEmpty = binding.txtShoppingListEmpty
+        txtShoppingListEmpty.text = "no groceries added yet, click on + to add a recipe"
+        if (shoppingList.isEmpty()){
+            txtShoppingListEmpty.visibility = View.VISIBLE
+        } else txtShoppingListEmpty.visibility = View.INVISIBLE
 
         binding.btnNewShoppingList.setOnClickListener { newShoppingList() }
-
-        binding.btnRemoveRecipeFromShoppingList.setOnClickListener{ removeRecipeFromShoppingList()}
+        binding.btnRemoveRecipeFromShoppingList.setOnClickListener { removeRecipeFromShoppingList() }
 
         return binding.root
     }
 
-    private fun setTextViewEmptyShoppingList() {
-       binding.txtShoppingListEmpty.text = "no groceries added yet, click on + to add a recipe"
-    }
-
     private fun removeRecipeFromShoppingList() {
-        val bundle = Bundle()
-        bundle.putString("case", "delete_shopping_list")
+        val bundle = Bundle().apply {
+            putString("case", "delete_shopping_list")
+        }
         findNavController().navigate(
             R.id.action_shoppingListFragment_to_selectRecipeFragment,
             bundle
@@ -50,8 +50,9 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
     }
 
     private fun newShoppingList() {
-        val bundle = Bundle()
-        bundle.putString("case", "select_shopping_list")
+        val bundle = Bundle().apply {
+            putString("case", "select_shopping_list")
+        }
         findNavController().navigate(
             R.id.action_shoppingListFragment_to_selectRecipeFragment,
             bundle

@@ -22,7 +22,7 @@ class GroceryAdapter(private val ingredients: List<Ingredient>) :
         val currentGrocery = ingredients[position]
         holder.itemView.apply {
             findViewById<CheckBox>(R.id.CheckBoxGrocery).text = currentGrocery.name
-            findViewById<TextView>(R.id.txtGroceryAmountUnit).text = currentGrocery.amount.toString() + "\t" + currentGrocery.unit.name
+            findViewById<TextView>(R.id.txtGroceryAmountUnit).text = "${currentGrocery.amount}\t${currentGrocery.unit.name}"
         }
     }
 
