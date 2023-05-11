@@ -6,6 +6,7 @@ import be.LarsVinz.MealMap.Exceptions.CantLoadRecipeException
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import com.google.gson.*
+import java.io.File
 
 class RecipePreferencesRepository(val context : Context) : RecipeRepository{
 
@@ -63,7 +64,7 @@ class RecipePreferencesRepository(val context : Context) : RecipeRepository{
             commit()
         }
 
-        recipe.imagePath?.let { ImageFileRepository(context).deleteRecipeImage(it) }
+        recipe.imagePath?.let { File(it).delete() }
     }
 
     override fun deleteRecipes(recipes: List<Recipe>){
