@@ -3,7 +3,6 @@ package be.LarsVinz.MealMap.Models
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import java.io.FileNotFoundException
 
 class ImageFileRepository(val context: Context) :  ImageRepository {
@@ -30,7 +29,7 @@ class ImageFileRepository(val context: Context) :  ImageRepository {
         }
     }
 
-    override fun deleteImageRecipe(fileName: String) {
+    override fun deleteRecipeImage(fileName: String) {
 
         context.deleteFile(fileName.lowercase())
     }

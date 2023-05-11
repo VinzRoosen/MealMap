@@ -9,5 +9,5 @@ interface ImageRepository {
 
     fun loadImage(fileName : String) : Bitmap?
 
-    fun deleteImageRecipe(fileName: String)
+    fun deleteRecipeImage(fileName: String)
 }

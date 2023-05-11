@@ -63,7 +63,7 @@ class RecipePreferencesRepository(val context : Context) : RecipeRepository{
             commit()
         }
 
-        recipe.imagePath?.let { ImageFileRepository(context).deleteImageRecipe(it) }
+        recipe.imagePath?.let { ImageFileRepository(context).deleteRecipeImage(it) }
     }
 
     override fun deleteRecipes(recipes: List<Recipe>){

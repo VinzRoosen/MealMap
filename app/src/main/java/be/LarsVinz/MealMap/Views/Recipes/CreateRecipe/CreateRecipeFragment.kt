@@ -29,10 +29,13 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
     private lateinit var binding: FragmentCreateRecipeBinding
     private lateinit var pictureActivityResult: ActivityResultLauncher<Void?>
 
+    private var previousRecipe : Recipe? = null
+
     private val ingredientList = mutableListOf<Ingredient>()
     private val recipeStepList = mutableListOf<RecipeStep>()
     private val recipeTagList = mutableListOf<Tag>()
 
+    private var recipeImagePath : String? = null
     private var image : Bitmap? = null
 
     override fun onCreateView(
@@ -41,12 +44,14 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
     ): View? {
         binding = FragmentCreateRecipeBinding.inflate(layoutInflater)
 
-        val recipe = arguments?.getSerializable("recipe") as Recipe?
-        recipe?.let {
+        previousRecipe = arguments?.getSerializable("recipe") as Recipe?
+        previousRecipe?.let {
 
             ingredientList.addAll(it.ingredients)
             recipeStepList.addAll(it.steps)
             recipeTagList.addAll(it.tags)
+            recipeImagePath = it.imagePath
+
             binding.recipeNameTxt.setText(it.name)
         }
 
@@ -109,23 +114,28 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
             return null
         }
 
-        var imagePath : String? = null
+        // delete previous recipe if name has changed
+        previousRecipe?.let { previousRecipe ->
+
+            if (recipeName.lowercase() != previousRecipe.name.lowercase()){
+
+                RecipePreferencesRepository(requireContext()).deleteRecipe(previousRecipe)
+            }
+        }
 
         // save image
         image?.let {
 
-            imagePath = "Image_${recipeName}"
-
+            recipeImagePath = "Image_${recipeName}"
             val imageRepository = ImageFileRepository(requireContext())
-            imageRepository.saveImage(it, imagePath!!)
+            imageRepository.saveImage(it, recipeImagePath!!)
         }
 
         // create recipe
-        val recipe = Recipe(recipeName, recipeStepList, ingredientList, recipeTagList, imagePath)
+        val recipe = Recipe(recipeName, recipeStepList, ingredientList, recipeTagList, recipeImagePath)
 
         // save recipe
-        val repository = RecipePreferencesRepository(requireActivity())
-        repository.saveRecipe(recipe)
+        RecipePreferencesRepository(requireActivity()).saveRecipe(recipe)
 
         return recipe
     }
