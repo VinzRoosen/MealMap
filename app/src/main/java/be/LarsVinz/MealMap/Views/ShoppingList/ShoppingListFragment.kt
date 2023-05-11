@@ -7,31 +7,34 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.Models.ShoppingListRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentShoppingListBinding
 
 
 class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
-    private lateinit var binding: FragmentShoppingListBinding
+    private lateinit var binding : FragmentShoppingListBinding
+    private lateinit var shoppingListRepository : ShoppingListRepository
+    private lateinit var selectedGroceries : MutableList<Ingredient>
+    private lateinit var adapter : GroceryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentShoppingListBinding.inflate(layoutInflater)
 
-        val shoppingListRepository = ShoppingListRepository(requireContext())
+        shoppingListRepository = ShoppingListRepository(requireContext())
         val shoppingList = shoppingListRepository.loadAllIngredients()
+        selectedGroceries = mutableListOf()
 
-        val adapter = GroceryAdapter(shoppingList)
+        adapter = GroceryAdapter(shoppingList, selectedGroceries)
         binding.recyclerViewGroceries.adapter = adapter
         binding.recyclerViewGroceries.layoutManager = LinearLayoutManager(requireContext())
 
         val txtShoppingListEmpty = binding.txtShoppingListEmpty
         txtShoppingListEmpty.text = "no groceries added yet, click on + to add a recipe"
-        if (shoppingList.isEmpty()){
-            txtShoppingListEmpty.visibility = View.VISIBLE
-        } else txtShoppingListEmpty.visibility = View.INVISIBLE
+        txtShoppingListEmpty.visibility = if (shoppingList.isEmpty()) View.VISIBLE else View.INVISIBLE
 
         binding.btnNewShoppingList.setOnClickListener { newShoppingList() }
         binding.btnRemoveRecipeFromShoppingList.setOnClickListener { removeRecipeFromShoppingList() }
@@ -40,22 +43,13 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
     }
 
     private fun removeRecipeFromShoppingList() {
-        val bundle = Bundle().apply {
-            putString("case", "delete_shopping_list")
-        }
-        findNavController().navigate(
-            R.id.action_shoppingListFragment_to_selectRecipeFragment,
-            bundle
-        )
+        shoppingListRepository.deleteIngredients(selectedGroceries)
+        selectedGroceries.clear()
+        adapter.notifyDataSetChanged()
     }
 
     private fun newShoppingList() {
-        val bundle = Bundle().apply {
-            putString("case", "select_shopping_list")
-        }
-        findNavController().navigate(
-            R.id.action_shoppingListFragment_to_selectRecipeFragment,
-            bundle
-        )
+        AddShoppingListPopup(requireContext(), requireView()).show()
+        adapter.notifyDataSetChanged()
     }
 }
