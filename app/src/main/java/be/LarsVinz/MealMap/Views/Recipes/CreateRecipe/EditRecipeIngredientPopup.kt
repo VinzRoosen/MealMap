@@ -13,7 +13,7 @@ import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.databinding.EditRecipeIngredientPopupBinding
 import java.util.*
 
-class EditRecipeIngredientPopup(context : Context, private val ingredients : MutableList<Ingredient>) : AlertDialog(context), AdapterView.OnItemSelectedListener {
+class EditRecipeIngredientPopup(context : Context, private val ingredients : MutableList<Ingredient>, private val multiplier : Int) : AlertDialog(context), AdapterView.OnItemSelectedListener {
 
     private val binding = EditRecipeIngredientPopupBinding.inflate(layoutInflater)
 
@@ -63,7 +63,7 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
 
         val index = binding.ingredientSpinner.selectedItemPosition
         if (index < ingredients.size) ingredients.removeAt(index)
-        ingredients.add(index, Ingredient(name, amount.toInt(), unit))
+        ingredients.add(index, Ingredient(name, amount.toInt() / multiplier, unit))
         ingredients.sortBy { it.name }
         this.dismiss()
     }
@@ -83,9 +83,10 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
         selectedIngredient?.let {
 
             binding.ingredientNameETxt.setText(it.name)
-            binding.ingredientAmountETxt.setText(it.amount.toString())
+            binding.ingredientAmountETxt.setText((it.amount * multiplier).toString())
             binding.ingredientUnitSpr.setSelection(it.unit.ordinal)
             binding.removeBtn.visibility = View.VISIBLE
+
         } ?: run {
 
             binding.ingredientNameETxt.setText("")

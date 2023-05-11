@@ -7,7 +7,7 @@ import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.R
 
 
-class IngredientAdapter(val items : List<Ingredient>) : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
+class IngredientAdapter(val items : List<Ingredient>, val multiplier : Int) : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
 
     inner class IngredientViewHolder(current : View) : RecyclerView.ViewHolder(current)
 
@@ -21,7 +21,7 @@ class IngredientAdapter(val items : List<Ingredient>) : RecyclerView.Adapter<Ing
         holder.itemView.apply {
 
             findViewById<TextView>(R.id.ingredientNameTxt).text = currentIngredient.name
-            findViewById<TextView>(R.id.ingredientAmountTxt).text = "${currentIngredient.amount} ${currentIngredient.unit}"
+            findViewById<TextView>(R.id.ingredientAmountTxt).text = "${currentIngredient.amount * multiplier} ${currentIngredient.unit.toString().lowercase()}"
         }
     }
 

@@ -1,5 +1,7 @@
 package be.LarsVinz.MealMap.Views.Recipes.RecipeList
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
-import be.LarsVinz.MealMap.Models.ImageFileRepository
+
+
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
+
 import be.LarsVinz.MealMap.R
 
 class RecipePreviewAdapter(var recipeList: List<Recipe>) :
@@ -37,9 +41,8 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
             val recyclerViewTag = findViewById<RecyclerView>(R.id.RecyclerViewTag)
             val tagList: List<Tag> = currentRecipe.tags
 
-            currentRecipe.imagePath?.let {
-
-                val image = ImageFileRepository(context).loadImage(it)
+            currentRecipe.imagePath?.let{
+                val image = BitmapFactory.decodeFile(it)
                 findViewById<ImageView>(R.id.imageRecipePreview).setImageBitmap(image)
             } ?: run {
                 findViewById<ImageView>(R.id.imageRecipePreview).setImageResource(R.drawable.icon_test_recipe_preview)

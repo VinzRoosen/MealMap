@@ -6,12 +6,21 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
+<<<<<<< HEAD
             <type value="SERIAL_NUMBER" />
             <value value="RFCW200EVYR" />
+=======
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\larsg\.android\avd\Pixel_2_API_30.avd" />
+>>>>>>> c1c8905015d7c807746959b49562a5733b6ed03b
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
+<<<<<<< HEAD
     <timeTargetWasSelectedWithDropDown value="2023-05-11T18:13:53.502715700Z" />
+=======
+    <timeTargetWasSelectedWithDropDown value="2023-05-11T13:37:12.106462200Z" />
+>>>>>>> c1c8905015d7c807746959b49562a5733b6ed03b
   </component>
 </project>

@@ -1,11 +1,13 @@
 package be.LarsVinz.MealMap.Views.Recipes.CreateRecipe
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
@@ -13,6 +15,7 @@ import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentRecipeBinding
+
 
 class RecipeFragment(private val editable : Boolean, private val steps : List<RecipeStep>, private val ingredients : List<Ingredient>) : Fragment(R.layout.fragment_recipe) {
 
@@ -33,10 +36,10 @@ class RecipeFragment(private val editable : Boolean, private val steps : List<Re
 
         binding = FragmentRecipeBinding.inflate(layoutInflater)
 
-        setRecipeRecycleViews()
+        populateUI()
 
         if (editable){
-            binding.infoAddRecipeTxt.text = "Click + to add a recipe step"
+            binding.infoAddRecipeTxt.text = "Click + to add a recipe step!"
             binding.infoAddIngredientTxt.text = "Click here to add an ingredient!"
 
             binding.addRecipeBtn.setOnClickListener  { openEditStepPopup(null) }
@@ -48,8 +51,8 @@ class RecipeFragment(private val editable : Boolean, private val steps : List<Re
             binding.addRecipeBtn.visibility = View.GONE
         }
 
-        setRecipeInfotext(recipeStepList.isNotEmpty())
-        setIngredientInfotext(ingredientList.isNotEmpty())
+        setRecipeInfotextVisability(recipeStepList.isNotEmpty())
+        setIngredientInfotextVisability(ingredientList.isNotEmpty())
 
         binding.ingredientBtn.setOnClickListener { onIngredientButton() }
 
@@ -69,13 +72,13 @@ class RecipeFragment(private val editable : Boolean, private val steps : List<Re
     fun onRecipeStepChanged(){
 
         recipeStepAdapter.notifyDataSetChanged()
-        setRecipeInfotext(recipeStepList.isNotEmpty())
+        setRecipeInfotextVisability(recipeStepList.isNotEmpty())
     }
 
     fun onIngredientChanged(){
 
         ingredientAdapter.notifyDataSetChanged()
-        setIngredientInfotext(ingredientList.isNotEmpty())
+        setIngredientInfotextVisability(ingredientList.isNotEmpty())
     }
 
     fun setRecipeData(ingredientList : List<Ingredient>, recipeStepList : List<RecipeStep>){
@@ -89,21 +92,24 @@ class RecipeFragment(private val editable : Boolean, private val steps : List<Re
         setRecipeData(recipe.ingredients, recipe.steps)
     }
 
-    private fun setRecipeInfotext(status : Boolean){
-
-        if (status) binding.infoAddRecipeTxt.visibility = View.GONE
-        else        binding.infoAddRecipeTxt.visibility = View.VISIBLE
+    private fun populateUI(){
+        populateRecipeStepRecycleView()
+        populateIngredientRecycleView(1)
+        populatePersonAmountSpinner()
     }
 
-    private fun setIngredientInfotext(status : Boolean){
+    private fun populateRecipeStepRecycleView(){
 
-        if (status) binding.infoAddIngredientTxt.visibility = View.GONE
-        else        binding.infoAddIngredientTxt.visibility = View.VISIBLE
+        recipeStepAdapter = RecipeStepAdaptor(recipeStepList, requireContext()) { recipeStep ->
+            onRecipeStepClicked(recipeStep)
+        }
+        binding.recipeStepRvw.adapter = recipeStepAdapter
+        binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
     }
 
-    private fun setRecipeRecycleViews(){
+    private fun populateIngredientRecycleView(multiplier : Int){
 
-        ingredientAdapter = IngredientAdapter(ingredientList)
+        ingredientAdapter = IngredientAdapter(ingredientList, multiplier)
         binding.ingredientRvw.adapter = ingredientAdapter
         binding.ingredientRvw.layoutManager = GridLayoutManager(this.context, 2)
         binding.ingredientRvw.setOnTouchListener { view, motionEvent -> // TODO: Dit moet omdat de setOnClickListener niet werkt, maar miss beter anders?
@@ -113,12 +119,36 @@ class RecipeFragment(private val editable : Boolean, private val steps : List<Re
             }
             false;
         }
+    }
 
-        recipeStepAdapter = RecipeStepAdaptor(recipeStepList, requireContext()) { recipeStep ->
-            onRecipeStepClicked(recipeStep)
+    private fun populatePersonAmountSpinner(){
+
+        val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf(1, 2, 3, 4, 5, 6, 7, 8))
+        binding.personAmountSpnr.adapter = spinnerAdapter
+        binding.personAmountSpnr.setSelection(0)
+        binding.personAmountSpnr.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                populateIngredientRecycleView(binding.personAmountSpnr.selectedItem as Int)
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                // your code here
+            }
         }
-        binding.recipeStepRvw.adapter = recipeStepAdapter
-        binding.recipeStepRvw.layoutManager = LinearLayoutManager(this.context)
+    }
+
+    private fun setRecipeInfotextVisability(status : Boolean){
+
+        if (status) binding.infoAddRecipeTxt.visibility = View.GONE
+        else        binding.infoAddRecipeTxt.visibility = View.VISIBLE
+    }
+
+    private fun setIngredientInfotextVisability(status : Boolean){
+
+        if (status) binding.infoAddIngredientTxt.visibility = View.GONE
+        else        binding.infoAddIngredientTxt.visibility = View.VISIBLE
     }
 
     private fun onIngredientButton(){
@@ -126,15 +156,14 @@ class RecipeFragment(private val editable : Boolean, private val steps : List<Re
         if (ingredientButtonState == true){
             ingredientButtonState = false
             binding.ingredientBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_arrow_forward, 0, 0, 0)
-            binding.ingredientRvw.visibility = View.GONE
-            binding.ingredientSeperator.visibility = View.GONE
-            binding.infoAddIngredientTxt.visibility = View.GONE
+
+            binding.ingredientContainer.visibility = View.GONE
         }
         else{
             ingredientButtonState = true
             binding.ingredientBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_arrow_downward, 0, 0, 0)
-            binding.ingredientRvw.visibility = View.VISIBLE
-            binding.ingredientSeperator.visibility = View.VISIBLE
+
+            binding.ingredientContainer.visibility = View.VISIBLE
         }
     }
 
@@ -153,7 +182,8 @@ class RecipeFragment(private val editable : Boolean, private val steps : List<Re
 
         if (!editable) return
 
-        EditRecipeIngredientPopup(requireContext(), ingredients as MutableList<Ingredient>).apply {
+        EditRecipeIngredientPopup(requireContext(), ingredients as MutableList<Ingredient>, binding.personAmountSpnr.selectedItem as Int).apply {
+
             setOnDismissListener { onIngredientChanged() }
             show()
         }
