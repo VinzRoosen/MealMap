@@ -1,6 +1,6 @@
 package be.LarsVinz.MealMap.Views.Recipes.RecipeList
 
-import android.graphics.Bitmap
+
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
@@ -15,20 +15,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
-
-
-import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
-
 import be.LarsVinz.MealMap.R
 
-class RecipePreviewAdapter(var recipeList: List<Recipe>) :
+class RecipePreviewAdapter(var recipeList: List<Recipe>) : //TODO: nog veel
     RecyclerView.Adapter<RecipePreviewAdapter.PreviewRecipeViewHolder>() {
 
     inner class PreviewRecipeViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreviewRecipeViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
         return PreviewRecipeViewHolder(itemView)
     }
 
@@ -41,7 +38,7 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
             val recyclerViewTag = findViewById<RecyclerView>(R.id.RecyclerViewTag)
             val tagList: List<Tag> = currentRecipe.tags
 
-            currentRecipe.imagePath?.let{
+            currentRecipe.imagePath?.let {
                 val image = BitmapFactory.decodeFile(it)
                 findViewById<ImageView>(R.id.imageRecipePreview).setImageBitmap(image)
             } ?: run {
@@ -52,9 +49,15 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
 
             val adapter = RecipeTagAdapter(tagList)
             recyclerViewTag.adapter = adapter
-            recyclerViewTag.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerViewTag.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            btnFavorite.setImageDrawable(ContextCompat.getDrawable(context, if (favorite) R.drawable.icon_fav_true else R.drawable.icon_fav_false))
+            btnFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    if (favorite) R.drawable.icon_fav_true else R.drawable.icon_fav_false
+                )
+            )
             btnFavorite.setOnClickListener {
                 //TODO: verander taglist van currentRecipe
             }
@@ -62,7 +65,8 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) :
 
         holder.itemView.setOnClickListener {
             val bundle = bundleOf("recipe" to currentRecipe)
-            it.findNavController().navigate(R.id.action_recipeListFragment_to_recipeDetailFragment, bundle)
+            it.findNavController()
+                .navigate(R.id.action_recipeListFragment_to_recipeDetailFragment, bundle)
         }
     }
 

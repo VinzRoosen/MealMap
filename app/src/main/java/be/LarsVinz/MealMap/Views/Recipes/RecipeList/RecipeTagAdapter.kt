@@ -8,20 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.R
 
-class RecipeTagAdapter(var tagList: List<Tag>) :   //TODO verander mutableList
-    RecyclerView.Adapter<RecipeTagAdapter.RecipeTagViewHolder>() {
-    inner class RecipeTagViewHolder(currentItemView: View) :
-        RecyclerView.ViewHolder(currentItemView)
+class RecipeTagAdapter(private var tagList: List<Tag>) :
+    RecyclerView.Adapter<RecipeTagAdapter.TagViewHolder>() {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): RecipeTagAdapter.RecipeTagViewHolder {
+    inner class TagViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tag, parent, false)
-        return RecipeTagViewHolder(view)
+        return TagViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecipeTagAdapter.RecipeTagViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TagViewHolder, position: Int) {
         val currentTag = tagList[position]
 
         holder.itemView.apply {
