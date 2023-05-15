@@ -5,30 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.Models.ShoppingListRepository
-import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentShoppingListBinding
 
+class ShoppingListFragment : Fragment() {
+    private lateinit var binding: FragmentShoppingListBinding
+    private lateinit var shoppingListRepository: ShoppingListRepository
+    private lateinit var adapter: GroceryAdapter
 
-class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
-    private lateinit var binding : FragmentShoppingListBinding
-    private lateinit var shoppingListRepository : ShoppingListRepository
-    private lateinit var selectedGroceries : MutableList<Ingredient>
-    private lateinit var adapter : GroceryAdapter
-
-    var shoppingList = mutableListOf<Ingredient>()
+    private var shoppingList = mutableListOf<Ingredient>()
+    private val selectedGroceries = mutableListOf<Ingredient>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentShoppingListBinding.inflate(layoutInflater)
+        binding = FragmentShoppingListBinding.inflate(inflater, container, false)
 
         shoppingListRepository = ShoppingListRepository(requireContext())
         shoppingList = shoppingListRepository.loadAll() as MutableList<Ingredient>
-        selectedGroceries = mutableListOf()
 
         adapter = GroceryAdapter(shoppingList, selectedGroceries)
         binding.recyclerViewGroceries.adapter = adapter
@@ -36,7 +32,8 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
 
         val txtShoppingListEmpty = binding.txtShoppingListEmpty
         txtShoppingListEmpty.text = "no groceries added yet, click on + to add a recipe"
-        txtShoppingListEmpty.visibility = if (shoppingList.isEmpty()) View.VISIBLE else View.INVISIBLE
+        txtShoppingListEmpty.visibility =
+            if (shoppingList.isEmpty()) View.VISIBLE else View.INVISIBLE
 
         binding.btnNewShoppingList.setOnClickListener { newShoppingList() }
         binding.btnRemoveRecipeFromShoppingList.setOnClickListener { removeRecipeFromShoppingList() }
@@ -52,7 +49,7 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
     }
 
     private fun newShoppingList() {
-        AddShoppingListPopup(requireContext(),shoppingList, requireView()).apply {
+        AddShoppingListPopup(requireContext(), shoppingList, binding.root).apply {
             setOnDismissListener {
                 shoppingListRepository.saveAll(shoppingList)
                 adapter.notifyDataSetChanged()

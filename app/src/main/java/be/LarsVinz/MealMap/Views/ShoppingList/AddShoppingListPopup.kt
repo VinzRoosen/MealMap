@@ -8,14 +8,16 @@ import android.widget.ArrayAdapter
 import androidx.navigation.Navigation.findNavController
 import be.LarsVinz.MealMap.Enums.RecipeUnit
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
-import be.LarsVinz.MealMap.Models.ShoppingListRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.AddShoppingListPopupBinding
 
-class AddShoppingListPopup(context: Context, val shoppingList : MutableList<Ingredient> , val view: View) : AlertDialog(context) {
+class AddShoppingListPopup(
+    context: Context,
+    val shoppingList: MutableList<Ingredient>,
+    val view: View
+) : AlertDialog(context) {
 
     private val binding = AddShoppingListPopupBinding.inflate(layoutInflater)
-    private val shoppingListRepository = ShoppingListRepository(context)
 
     init {
         makeInvisible()
@@ -55,7 +57,7 @@ class AddShoppingListPopup(context: Context, val shoppingList : MutableList<Ingr
         dismiss()
     }
 
-    private fun setRecipeUnitSpinner() { //TODO: zelfde als EDITRecipeIngredient POPUP
+    private fun setRecipeUnitSpinner() {
 
         val recipeUnits = mutableListOf<String>()
         for (unit in RecipeUnit.values()) {

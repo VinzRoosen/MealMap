@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
+import be.LarsVinz.MealMap.databinding.ItemGroceryBinding
 
 class GroceryAdapter(private val ingredients: List<Ingredient>, private val selectedGroceries: MutableList<Ingredient>) :
     RecyclerView.Adapter<GroceryAdapter.GroceryViewHolder>() {
@@ -22,13 +23,13 @@ class GroceryAdapter(private val ingredients: List<Ingredient>, private val sele
 
     override fun onBindViewHolder(holder: GroceryViewHolder, position: Int) {
         val currentGrocery = ingredients[position]
+        val binding = ItemGroceryBinding.bind(holder.itemView)
 
-        holder.itemView.apply {
-            val checkBox = findViewById<CheckBox>(R.id.CheckBoxGrocery)
-            checkBox.text = currentGrocery.name
-            checkBox.isChecked = selectedGroceries.contains(currentGrocery)
+        binding.apply {
+            checkBoxGrocery.text = currentGrocery.name
+            checkBoxGrocery.isChecked = selectedGroceries.contains(currentGrocery)
 
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
+            checkBoxGrocery.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     selectedGroceries.add(currentGrocery)
                 } else {
@@ -36,13 +37,12 @@ class GroceryAdapter(private val ingredients: List<Ingredient>, private val sele
                 }
             }
 
-            findViewById<TextView>(R.id.txtGroceryAmountUnit).text = "${currentGrocery.amount}\t${currentGrocery.unit}"
+            txtGroceryAmountUnit.text = "${currentGrocery.amount}\t${currentGrocery.unit}"
         }
     }
 
     override fun getItemCount(): Int {
         return ingredients.size
     }
-
 
 }
