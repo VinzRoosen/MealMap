@@ -28,7 +28,7 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
         binding = FragmentRecipeListBinding.inflate(layoutInflater)
 
         val recipeRepository = RecipePreferencesRepository(requireActivity())
-        val recipeList = recipeRepository.loadAllRecipes()
+        val recipeList = recipeRepository.loadAll()
 
         binding.txtRecipeListEmtyList.text = "no recipes added yet, click + to create a new recipe"
         binding.txtRecipeListEmtyList.visibility = if (recipeList.isEmpty()) View.VISIBLE else View.GONE

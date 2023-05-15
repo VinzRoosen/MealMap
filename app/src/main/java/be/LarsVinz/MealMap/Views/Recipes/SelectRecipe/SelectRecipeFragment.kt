@@ -33,7 +33,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
         shoppingListRepository = ShoppingListRepository(requireContext())
         case = arguments?.getString("case")
 
-        val recipeList = recipeRepository.loadAllRecipes()
+        val recipeList = recipeRepository.loadAll()
 
         adapter = SelectRecipeAdapter(recipeList, selectedRecipes)
         binding.rvwDelete.adapter = adapter
@@ -60,7 +60,6 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
             when (case) {
                 "select_shopping_list" -> saveSelectedRecipesToShoppingList()
                 "delete_recipes" -> deleteSelectedRecipesFromRecipeList()
-                "delete_shopping_list" -> deleteSelectedRecipesFromShoppingList()
             }
         }
     }
@@ -80,19 +79,14 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
         findNavController().navigate(R.id.action_selectRecipeFragment_to_recipeListFragment)
     }
 
-    private fun deleteSelectedRecipesFromShoppingList() {
-        //shoppingListRepository.deleteIngredients()
-        findNavController().navigate(R.id.action_selectRecipeFragment_to_shoppingListFragment)
-    }
-
     private fun saveSelectedRecipesToShoppingList() {
         shoppingListRepository.saveIngredientsFromRecipes(selectedRecipes)
         findNavController().navigate(R.id.action_selectRecipeFragment_to_shoppingListFragment)
     }
 
     private fun deleteSelectedRecipesFromRecipeList() {
-        recipeRepository.deleteRecipes(selectedRecipes)
-        //shoppingListRepository.deleteRecipes(selectedRecipes)
+        recipeRepository.deleteAll(selectedRecipes)
+        selectedRecipes.forEach{ shoppingListRepository.deleteAll(it.ingredients)}
         findNavController().navigate(R.id.action_selectRecipeFragment_to_recipeListFragment)
     }
 }

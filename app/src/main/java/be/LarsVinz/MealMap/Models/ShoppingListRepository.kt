@@ -8,25 +8,50 @@ import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
 import com.google.gson.Gson
 
-class ShoppingListRepository(val context : Context){
+class ShoppingListRepository(val context: Context) : Repository<Ingredient> {
     private val gson = Gson()
-    fun saveIngredient(ingredient: Ingredient) {
-        val ingredientGson = gson.toJson(ingredient)
 
-        val sharedPref =  context.getSharedPreferences(context.getString(R.string.shopping_data), Context.MODE_PRIVATE)
-        with (sharedPref.edit()) {
-            putString(ingredient.name, ingredientGson)
+    fun saveIngredientsFromRecipes(recipeList: List<Recipe>) {
+        recipeList.forEach {
+            it.ingredients.forEach { ingredient -> save(ingredient) }
+        }
+    }
+
+    override fun save(toSave: Ingredient) {
+        val ingredientGson = gson.toJson(toSave)
+
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.shopping_data),
+            Context.MODE_PRIVATE
+        )
+        with(sharedPref.edit()) {
+            putString(toSave.name, ingredientGson)
             apply()
         }
     }
 
-    fun saveIngredientsFromRecipes(recipeList: List<Recipe>){
-        recipeList.forEach{it.ingredients.forEach{ ingredient -> saveIngredient(ingredient)}}
+    override fun saveAll(toSaveList: List<Ingredient>) {
+        toSaveList.forEach { save(it) }
     }
 
-    fun loadAllIngredients(): List<Ingredient> {
+    override fun load(toLoad: String): Ingredient {
+        val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_data), Context.MODE_PRIVATE)
+        val recipeData = sharedPref.getString(toLoad, null)
 
-        val sharedPref = context.getSharedPreferences(context.getString(R.string.shopping_data), Context.MODE_PRIVATE)
+        recipeData?.let {
+
+            val gson = Gson()
+            return gson.fromJson(recipeData, Ingredient::class.java)
+        }
+
+        throw CantLoadRecipeException("Can't load recipe with name '$toLoad'")
+    }
+
+    override fun loadAll(): List<Ingredient> {
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.shopping_data),
+            Context.MODE_PRIVATE
+        )
         val ingredientMap = sharedPref.all
 
         return ingredientMap.entries.map { entry ->
@@ -34,18 +59,20 @@ class ShoppingListRepository(val context : Context){
         }
     }
 
-    private fun deleteIngredient(ingredient: Ingredient){
 
-        val sharedPref = context.getSharedPreferences(context.getString(R.string.shopping_data), Context.MODE_PRIVATE)
+    override fun delete(toDelete: Ingredient) {
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.shopping_data),
+            Context.MODE_PRIVATE
+        )
         sharedPref.edit {
-            remove(ingredient.name)
+            remove(toDelete.name)
             commit()
         }
     }
 
-    fun deleteIngredients(ingredients: List<Ingredient>){
-
-        ingredients.forEach { deleteIngredient(it) }
+    override fun deleteAll(toDeleteList: List<Ingredient>) {
+        toDeleteList.forEach { delete(it) }
     }
 
 

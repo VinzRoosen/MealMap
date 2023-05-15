@@ -8,29 +8,29 @@ import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import com.google.gson.*
 import java.io.File
 
-class RecipePreferencesRepository(val context : Context) : RecipeRepository{
+class RecipePreferencesRepository(val context : Context) : Repository<Recipe>{
 
-    override fun saveRecipe(recipe: Recipe) {
+    override fun save(toSave: Recipe) {
 
         val gson = Gson()
-        val recipeGson = gson.toJson(recipe)
+        val recipeGson = gson.toJson(toSave)
 
         val sharedPref =  context.getSharedPreferences(context.getString(R.string.recipe_data), Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
-            putString(recipe.name, recipeGson)
+            putString(toSave.name, recipeGson)
             apply()
         }
     }
 
-    override fun saveRecipes(recipes : List<Recipe>) {
+    override fun saveAll(toSaveList : List<Recipe>) {
 
-        recipes.forEach { saveRecipe(it) }
+        toSaveList.forEach { save(it) }
     }
 
-    override fun loadRecipe(recipeName: String): Recipe {
+    override fun load(toLoad: String): Recipe {
 
         val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_data), Context.MODE_PRIVATE)
-        val recipeData = sharedPref.getString(recipeName, null)
+        val recipeData = sharedPref.getString(toLoad, null)
 
         recipeData?.let {
 
@@ -38,10 +38,10 @@ class RecipePreferencesRepository(val context : Context) : RecipeRepository{
             return gson.fromJson(recipeData, Recipe::class.java)
         }
 
-        throw CantLoadRecipeException("Can't load recipe with name '$recipeName'")
+        throw CantLoadRecipeException("Can't load recipe with name '$toLoad'")
     }
 
-    override fun loadAllRecipes(): List<Recipe> {
+    override fun loadAll(): List<Recipe> {
 
         val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_data), Context.MODE_PRIVATE)
         val recipeMap = sharedPref.all
@@ -56,19 +56,19 @@ class RecipePreferencesRepository(val context : Context) : RecipeRepository{
         return recipeList
     }
 
-    override fun deleteRecipe(recipe: Recipe){
+    override fun delete(toDelete: Recipe){
 
         val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_data), Context.MODE_PRIVATE)
         sharedPref.edit {
-            remove(recipe.name)
+            remove(toDelete.name)
             commit()
         }
 
-        recipe.imagePath?.let { File(it).delete() }
+        toDelete.imagePath?.let { File(it).delete() }
     }
 
-    override fun deleteRecipes(recipes: List<Recipe>){
+    override fun deleteAll(toDeleteList: List<Recipe>){
 
-        recipes.forEach { deleteRecipe(it) }
+        toDeleteList.forEach { delete(it) }
     }
 }

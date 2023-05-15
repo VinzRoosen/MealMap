@@ -151,7 +151,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
             // delete previous recipe if name has changed
             if (recipeName.lowercase() != previousRecipe.name.lowercase()){
-                RecipePreferencesRepository(requireContext()).deleteRecipe(previousRecipe)
+                RecipePreferencesRepository(requireContext()).delete(previousRecipe)
             }
         }
 
@@ -164,7 +164,7 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         val recipe = Recipe(recipeName, recipeStepList, ingredientList, recipeTagList, recipeImage?.path)
 
         // save recipe
-        RecipePreferencesRepository(requireActivity()).saveRecipe(recipe)
+        RecipePreferencesRepository(requireActivity()).save(recipe)
 
         return recipe
     }

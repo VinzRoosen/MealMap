@@ -12,7 +12,7 @@ import be.LarsVinz.MealMap.Models.ShoppingListRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.AddShoppingListPopupBinding
 
-class AddShoppingListPopup(context: Context, val view: View) : AlertDialog(context) {
+class AddShoppingListPopup(context: Context, val shoppingList : MutableList<Ingredient> , val view: View) : AlertDialog(context) {
 
     private val binding = AddShoppingListPopupBinding.inflate(layoutInflater)
     private val shoppingListRepository = ShoppingListRepository(context)
@@ -38,8 +38,7 @@ class AddShoppingListPopup(context: Context, val view: View) : AlertDialog(conte
 
             if (ingredientName.isNotBlank() || ingredientAmount.isNotBlank()) {
                 val unit = RecipeUnit.values()[binding.ingredientUnitSpr.selectedItemPosition]
-                val ingredient = Ingredient(ingredientName, ingredientAmount.toInt(), unit)
-                shoppingListRepository.saveIngredient(ingredient)
+                shoppingList.add(Ingredient(ingredientName, ingredientAmount.toInt(), unit))
             }
             dismiss()
         }

@@ -19,13 +19,15 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
     private lateinit var selectedGroceries : MutableList<Ingredient>
     private lateinit var adapter : GroceryAdapter
 
+    var shoppingList = mutableListOf<Ingredient>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentShoppingListBinding.inflate(layoutInflater)
 
         shoppingListRepository = ShoppingListRepository(requireContext())
-        val shoppingList = shoppingListRepository.loadAllIngredients()
+        shoppingList = shoppingListRepository.loadAll() as MutableList<Ingredient>
         selectedGroceries = mutableListOf()
 
         adapter = GroceryAdapter(shoppingList, selectedGroceries)
@@ -43,13 +45,19 @@ class ShoppingListFragment : Fragment(R.layout.fragment_shopping_list) {
     }
 
     private fun removeRecipeFromShoppingList() {
-        shoppingListRepository.deleteIngredients(selectedGroceries)
+        shoppingListRepository.deleteAll(selectedGroceries)
+        shoppingList.removeAll(selectedGroceries)
         selectedGroceries.clear()
         adapter.notifyDataSetChanged()
     }
 
     private fun newShoppingList() {
-        AddShoppingListPopup(requireContext(), requireView()).show()
-        adapter.notifyDataSetChanged()
+        AddShoppingListPopup(requireContext(),shoppingList, requireView()).apply {
+            setOnDismissListener {
+                shoppingListRepository.saveAll(shoppingList)
+                adapter.notifyDataSetChanged()
+            }
+            show()
+        }
     }
 }
