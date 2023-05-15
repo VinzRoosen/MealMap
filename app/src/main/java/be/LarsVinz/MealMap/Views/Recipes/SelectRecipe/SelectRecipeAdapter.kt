@@ -3,13 +3,13 @@ package be.LarsVinz.MealMap.Views.Recipes.SelectRecipe
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.Views.Recipes.RecipeList.RecipeTagAdapter
+import be.LarsVinz.MealMap.databinding.ItemRecipeDeleteBinding
 
 class SelectRecipeAdapter(
     var recipes: List<Recipe>,
@@ -27,15 +27,16 @@ class SelectRecipeAdapter(
 
     override fun onBindViewHolder(holder: RecipeDeleteViewHolder, position: Int) {
         val currentRecipe = recipes[position]
-        holder.itemView.apply {
-            val checkBox = findViewById<CheckBox>(R.id.checkBoxDeleteRecipe)
-            val recyclerViewSelectTag = findViewById<RecyclerView>(R.id.RecyclerViewSelectTag)
+        val binding = ItemRecipeDeleteBinding.bind(holder.itemView)
+
+        binding.apply {
+
             val tagList: List<Tag> = currentRecipe.tags
 
-            checkBox.text = currentRecipe.name
-            checkBox.isChecked = selectedRecipes.contains(currentRecipe)
+            checkBoxDeleteRecipe.text = currentRecipe.name
+            checkBoxDeleteRecipe.isChecked = selectedRecipes.contains(currentRecipe)
 
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
+            checkBoxDeleteRecipe.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     selectedRecipes.add(currentRecipe)
                 } else {
@@ -44,9 +45,9 @@ class SelectRecipeAdapter(
             }
 
             val adapter = RecipeTagAdapter(tagList)
-            recyclerViewSelectTag.adapter = adapter
-            recyclerViewSelectTag.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            RecyclerViewSelectTag.adapter = adapter
+            RecyclerViewSelectTag.layoutManager =
+                LinearLayoutManager(root.context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 

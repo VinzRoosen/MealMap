@@ -19,18 +19,20 @@ import com.google.android.material.snackbar.Snackbar
 class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
     private lateinit var binding: FragmentSelectRecipeBinding
     private lateinit var adapter: SelectRecipeAdapter
-    private lateinit var selectedRecipes: MutableList<Recipe>
     private lateinit var recipeRepository: RecipePreferencesRepository
     private lateinit var shoppingListRepository: ShoppingListRepository
+
     private var case: String? = null
+    private var selectedRecipes = mutableListOf<Recipe>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentSelectRecipeBinding.inflate(layoutInflater)
-        selectedRecipes = mutableListOf()
+
         recipeRepository = RecipePreferencesRepository(requireContext())
         shoppingListRepository = ShoppingListRepository(requireContext())
+
         case = arguments?.getString("case")
 
         val recipeList = recipeRepository.loadAll()
@@ -43,7 +45,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
         binding.btnCancelSelecting.setOnClickListener { onCancelSelecting() }
 
         binding.editTextSearch.doOnTextChanged { text, _, _, _ ->
-            val recipeFilter = RecipeFilter();
+            val recipeFilter = RecipeFilter()
             adapter.filteredList(recipeFilter.filterRecipes(recipeList, text))
         }
         return binding.root
@@ -86,7 +88,9 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
 
     private fun deleteSelectedRecipesFromRecipeList() {
         recipeRepository.deleteAll(selectedRecipes)
-        selectedRecipes.forEach{ shoppingListRepository.deleteAll(it.ingredients)}
+        selectedRecipes.forEach { recipe ->
+            shoppingListRepository.deleteAll(recipe.ingredients)
+        }
         findNavController().navigate(R.id.action_selectRecipeFragment_to_recipeListFragment)
     }
 }
