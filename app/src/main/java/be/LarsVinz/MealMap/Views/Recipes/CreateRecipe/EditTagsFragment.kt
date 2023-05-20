@@ -22,6 +22,7 @@ class EditTagsFragment(val selectedtagList : MutableList<Tag>) : Fragment(R.layo
         binding = FragmentEditTagsBinding.inflate(layoutInflater)
 
         val tagList = Tag.values().toMutableList()
+        tagList.remove(Tag.FAVORITE)
 
         binding.TagRvw.adapter = TagAdapter(tagList, selectedtagList)
         binding.TagRvw.layoutManager = GridLayoutManager(this.context, 2)
