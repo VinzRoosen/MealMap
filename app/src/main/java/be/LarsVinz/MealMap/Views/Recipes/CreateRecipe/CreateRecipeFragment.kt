@@ -1,8 +1,6 @@
 package be.LarsVinz.MealMap.Views.Recipes.CreateRecipe
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -152,20 +150,25 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
             // delete previous recipe if name has changed
             if (recipeName.lowercase() != previousRecipe.name.lowercase()){
-                RecipePreferencesRepository(requireContext()).deleteRecipe(previousRecipe)
+                RecipePreferencesRepository(requireContext()).delete(previousRecipe)
             }
         }
+
+        var imagePath : String? = null
+
+        previousImage?.let { imagePath = it.path }
 
         // delete image if there is a new picture
         recipeImage?.let {
             previousImage?.delete()
+            imagePath = it.path
         }
 
         // create recipe
-        val recipe = Recipe(recipeName, recipeStepList, ingredientList, recipeTagList, recipeImage?.path)
+        val recipe = Recipe(recipeName, recipeStepList, ingredientList, recipeTagList, imagePath)
 
         // save recipe
-        RecipePreferencesRepository(requireActivity()).saveRecipe(recipe)
+        RecipePreferencesRepository(requireActivity()).save(recipe)
 
         return recipe
     }

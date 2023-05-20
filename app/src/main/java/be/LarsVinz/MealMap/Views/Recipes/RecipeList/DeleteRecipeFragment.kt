@@ -27,7 +27,7 @@ class DeleteRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
         toBeDeletedRecipes = ArrayList();
         recipeRepository = RecipePreferencesRepository(requireActivity())
 
-        val recipeList = recipeRepository.loadAllRecipes()
+        val recipeList = recipeRepository.loadAll()
 
         adapter = RecipeDeleteAdapter(recipeList, toBeDeletedRecipes)
         binding.rvwDelete.adapter = adapter
@@ -40,7 +40,7 @@ class DeleteRecipeFragment : Fragment(R.layout.fragment_delete_recipe) {
 
     private fun onDeleteRecipeBtn() {
         for (recipe in toBeDeletedRecipes) {
-            recipeRepository.deleteRecipe(recipe)
+            recipeRepository.delete(recipe)
         }
         findNavController().navigate(R.id.action_deleteRecipeFragment_to_recipeListFragment)
     }

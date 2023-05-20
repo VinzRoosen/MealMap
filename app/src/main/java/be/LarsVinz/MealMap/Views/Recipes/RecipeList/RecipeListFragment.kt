@@ -27,7 +27,7 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
         binding = FragmentRecipeListBinding.inflate(layoutInflater)
 
         val recipeRepository = RecipePreferencesRepository(requireActivity())
-        val recipeList = recipeRepository.loadAllRecipes()
+        val recipeList = recipeRepository.loadAll()
         searchArrayList = arrayListOf()
         searchArrayList.addAll(recipeList)
 
