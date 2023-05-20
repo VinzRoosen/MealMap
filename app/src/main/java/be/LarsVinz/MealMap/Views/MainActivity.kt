@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.menu_navToOverview -> navigateToOverview()
                 R.id.menu_navToRecipeList -> navigateToRecipeList()
+                R.id.menu_navToShoppingList -> navigateToShoppingList()
             }
             true
         }
@@ -53,7 +54,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToShoppingList(){
-
+        findNavController(binding.navHostFragment.id).navigate(R.id.action_global_shoppingListFragment)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

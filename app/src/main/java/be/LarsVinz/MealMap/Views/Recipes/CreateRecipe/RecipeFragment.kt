@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap.Views.Recipes
+package be.LarsVinz.MealMap.Views.Recipes.CreateRecipe
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,8 +14,6 @@ import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.R
-import be.LarsVinz.MealMap.Views.Recipes.CreateRecipe.EditRecipeIngredientPopup
-import be.LarsVinz.MealMap.Views.Recipes.CreateRecipe.EditRecipeStepPopup
 import be.LarsVinz.MealMap.databinding.FragmentRecipeBinding
 
 

@@ -7,12 +7,12 @@
     <fragment
         android:id="@+id/overviewFragment"
         android:name="be.LarsVinz.MealMap.Views.OverviewFragment"
-        android:label="OverviewFragment"/>
+        android:label="OverviewFragment" />
     <fragment
         android:id="@+id/recipeListFragment"
         android:name="be.LarsVinz.MealMap.Views.Recipes.RecipeList.RecipeListFragment"
         android:label="fragment_recipe_list"
-        tools:layout="@layout/fragment_recipe_list" >
+        tools:layout="@layout/fragment_recipe_list">
         <action
             android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
@@ -21,13 +21,13 @@
             app:destination="@id/createRecipeFragment" />
         <action
             android:id="@+id/action_recipeListFragment_to_deleteRecipeFragment"
-            app:destination="@id/deleteRecipeFragment" />
+            app:destination="@id/selectRecipeFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipeDetailFragment"
         android:name="be.LarsVinz.MealMap.Views.Recipes.RecipeDetail.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
-        tools:layout="@layout/fragment_recipe_detail" >
+        tools:layout="@layout/fragment_recipe_detail">
         <action
             android:id="@+id/action_recipeDetailFragment_to_recipeListFragment"
             app:destination="@id/recipeListFragment" />
@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/createRecipeFragment"
         android:name="be.LarsVinz.MealMap.Views.Recipes.CreateRecipe.CreateRecipeFragment"
-        android:label="CreateRecipeFragment" >
+        android:label="CreateRecipeFragment">
         <action
             android:id="@+id/action_createRecipeFragment_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
@@ -50,11 +50,25 @@
         android:id="@+id/action_global_overviewFragment"
         app:destination="@id/overviewFragment" />
     <fragment
-        android:id="@+id/deleteRecipeFragment"
-        android:name="be.LarsVinz.MealMap.Views.Recipes.RecipeList.DeleteRecipeFragment"
-        android:label="DeleteRecipeFragment" >
+        android:id="@+id/selectRecipeFragment"
+        android:name="be.LarsVinz.MealMap.Views.Recipes.SelectRecipe.SelectRecipeFragment"
+        android:label="DeleteRecipeFragment">
         <action
-            android:id="@+id/action_deleteRecipeFragment_to_recipeListFragment"
+            android:id="@+id/action_selectRecipeFragment_to_recipeListFragment"
             app:destination="@id/recipeListFragment" />
+        <action
+            android:id="@+id/action_selectRecipeFragment_to_shoppingListFragment"
+            app:destination="@id/shoppingListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/shoppingListFragment"
+        android:name="be.LarsVinz.MealMap.Views.ShoppingList.ShoppingListFragment"
+        android:label="ShoppingListFragment">
+        <action
+            android:id="@+id/action_shoppingListFragment_to_selectRecipeFragment"
+            app:destination="@id/selectRecipeFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_shoppingListFragment"
+        app:destination="@id/shoppingListFragment" />
 </navigation>

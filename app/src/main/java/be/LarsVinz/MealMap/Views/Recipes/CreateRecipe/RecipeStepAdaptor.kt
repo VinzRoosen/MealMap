@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap.Views.Recipes
+package be.LarsVinz.MealMap.Views.Recipes.CreateRecipe
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.R
 import java.time.LocalTime

@@ -22,7 +22,6 @@ import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
 import be.LarsVinz.MealMap.R
-import be.LarsVinz.MealMap.Views.Recipes.RecipeFragment
 import be.LarsVinz.MealMap.databinding.FragmentCreateRecipeBinding
 import java.io.File
 import java.io.FileOutputStream

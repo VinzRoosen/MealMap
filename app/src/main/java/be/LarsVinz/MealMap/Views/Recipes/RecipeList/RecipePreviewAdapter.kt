@@ -95,7 +95,7 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) : RecyclerView.Adapter<
 
     override fun getItemCount() = recipeList.size
 
-    fun filteredList(filteredList: MutableList<Recipe>) {
+    fun filteredList(filteredList: List<Recipe>) {
         recipeList = filteredList
         notifyDataSetChanged()
     }

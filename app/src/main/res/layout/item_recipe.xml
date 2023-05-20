@@ -18,7 +18,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:gravity="start"
-        android:text="@string/recipename"
+        android:text="recipe name"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
