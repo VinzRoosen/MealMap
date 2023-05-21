@@ -25,7 +25,7 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) : //TODO: nog veel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreviewRecipeViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_recipe_preview, parent, false)
         return PreviewRecipeViewHolder(itemView)
     }
 
