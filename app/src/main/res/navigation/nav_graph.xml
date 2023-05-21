@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/overviewFragment"
         android:name="be.LarsVinz.MealMap.Views.OverviewFragment"
-        android:label="OverviewFragment" />
+        android:label="OverviewFragment" >
+        <action
+            android:id="@+id/action_overviewFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recipeListFragment"
         android:name="be.LarsVinz.MealMap.Views.Recipes.RecipeList.RecipeListFragment"

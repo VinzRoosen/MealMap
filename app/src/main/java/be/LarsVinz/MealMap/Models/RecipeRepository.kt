@@ -71,4 +71,17 @@ class RecipeRepository(val context : Context) : Repository<Recipe>{
 
         toDeleteList.forEach { delete(it) }
     }
+
+    fun saveRecipeKey(key : String, recipeKey : String){
+        val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_key), Context.MODE_PRIVATE)
+        sharedPref.edit {
+            putString(key, recipeKey)
+        }
+    }
+
+    fun loadRecipeKey(key : String) : String? {
+        val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_key), Context.MODE_PRIVATE)
+
+        return sharedPref.getString(key, null)
+    }
 }

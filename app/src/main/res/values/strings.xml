@@ -3,6 +3,7 @@
     <string name="open_menu">Open</string>
     <string name="close_menu">Close</string>
     <string name="recipe_data">recipe_Data</string>
+    <string name="recipe_key">recipe_key</string>
     <string name="select_recipe">Select recipe</string>
     <string name="shopping_data">shopping_data</string>
     <string name="recipe_name">RecipeName</string>

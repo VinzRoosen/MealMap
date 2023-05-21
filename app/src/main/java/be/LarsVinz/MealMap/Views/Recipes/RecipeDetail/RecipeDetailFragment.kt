@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
+import be.LarsVinz.MealMap.Models.RecipeRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.Views.Recipes.RecipeFragment
 import be.LarsVinz.MealMap.databinding.FragmentRecipeDetailBinding
@@ -23,6 +24,8 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
         binding = FragmentRecipeDetailBinding.inflate(layoutInflater)
 
         val recipe = arguments?.getSerializable("recipe") as Recipe
+
+        RecipeRepository(requireContext()).saveRecipeKey("last_opened", recipe.name)
 
         binding.recipeNameTxt.text = recipe.name
 

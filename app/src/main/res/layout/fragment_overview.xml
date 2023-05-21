@@ -6,13 +6,171 @@
     android:layout_height="match_parent"
     tools:context=".Views.MainActivity">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="283dp"
-        android:layout_height="93dp"
-        android:text="Hier kan er een overview getoont worden van je meest gebruikte recepten enzo"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lastOpenedRecipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/lastOpenedRecipeFrame"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/background_rounded_corners"
+            android:backgroundTint="?attr/colorSecondaryVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lastOpenedRecipeTxt">
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/lastOpenedRecipeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Last opened recipe:"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lastOpenedRecipeEmptyTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You haven't opened any recipes\nor it has been deleted"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/lastOpenedRecipeFrame"
+            app:layout_constraintEnd_toEndOf="@+id/lastOpenedRecipeFrame"
+            app:layout_constraintStart_toStartOf="@+id/lastOpenedRecipeFrame"
+            app:layout_constraintTop_toTopOf="@+id/lastOpenedRecipeFrame" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lastEditedRecipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/lastOpenedRecipeLayout">
+
+        <FrameLayout
+            android:id="@+id/lastEditedRecipeFrame"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/background_rounded_corners"
+            android:backgroundTint="?attr/colorSecondaryVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lastEditedRecipeTxt">
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/lastEditedRecipeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Last edited recipe:"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lastEditedRecipeEmtyTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You haven't edited any recipes\nor it has been deleted"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/lastEditedRecipeFrame"
+            app:layout_constraintEnd_toEndOf="@+id/lastEditedRecipeFrame"
+            app:layout_constraintStart_toStartOf="@+id/lastEditedRecipeFrame"
+            app:layout_constraintTop_toTopOf="@+id/lastEditedRecipeFrame" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/randomRecipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/lastEditedRecipeLayout">
+
+        <FrameLayout
+            android:id="@+id/randomRecipeFrame"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/background_rounded_corners"
+            android:backgroundTint="?attr/colorSecondaryVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/randomRecipeTxt">
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/randomRecipeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Random recipe:"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/randomRecipeEmptyTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Shake you're phone for a random recipe"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/randomRecipeFrame"
+            app:layout_constraintEnd_toEndOf="@+id/randomRecipeFrame"
+            app:layout_constraintStart_toStartOf="@+id/randomRecipeFrame"
+            app:layout_constraintTop_toTopOf="@+id/randomRecipeFrame" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/randomRecipeLayout"
+        >
+
+        <Button
+            android:id="@+id/navToRecipesBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="All recipes" />
+
+        <Button
+            android:id="@+id/navToShoppingListBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="Shopping list" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.compose.ui.text.toLowerCase
 import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.R
@@ -25,7 +26,7 @@ class RecipeTagAdapter(var tagList: List<Tag>) :   //TODO verander mutableList
         val currentTag = tagList[position]
 
         holder.itemView.apply {
-            findViewById<TextView>(R.id.tagName).text = currentTag.name
+            findViewById<TextView>(R.id.tagName).text = currentTag.name.lowercase()
         }
     }
 

@@ -168,7 +168,10 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         val recipe = Recipe(recipeName, recipeStepList, ingredientList, recipeTagList, imagePath)
 
         // save recipe
-        RecipeRepository(requireActivity()).save(recipe)
+        val recipeRepository = RecipeRepository(requireContext())
+
+        recipeRepository.save(recipe)
+        recipeRepository.saveRecipeKey("last_edited", recipe.name)
 
         return recipe
     }

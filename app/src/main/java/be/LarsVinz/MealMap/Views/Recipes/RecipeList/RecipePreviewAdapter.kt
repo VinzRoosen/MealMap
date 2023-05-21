@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,78 +17,79 @@ import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.RecipeRepository
 import be.LarsVinz.MealMap.R
+import be.LarsVinz.MealMap.Views.Recipes.RecipePreviewFragment
+import be.LarsVinz.MealMap.databinding.ItemRecipePreviewBinding
 
 class RecipePreviewAdapter(var recipeList: List<Recipe>) : RecyclerView.Adapter<RecipePreviewAdapter.PreviewRecipeViewHolder>() {
 
-    inner class PreviewRecipeViewHolder(itemView: View, var isFavorite : Boolean) : RecyclerView.ViewHolder(itemView)
+    inner class PreviewRecipeViewHolder(val binding: ItemRecipePreviewBinding, var isFavorite : Boolean) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreviewRecipeViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
-        return PreviewRecipeViewHolder(itemView, false)
+
+        val binding = ItemRecipePreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return PreviewRecipeViewHolder(binding, false)
     }
 
     override fun onBindViewHolder(holder: PreviewRecipeViewHolder, position: Int) {
 
         val currentRecipe = recipeList[position]
 
-        holder.itemView.apply {
+        holder.apply {
 
-            holder.isFavorite = currentRecipe.tags.contains(Tag.FAVORITE)
-
-            val btnFavorite = findViewById<ImageButton>(R.id.btnFavorite)
-            val recyclerViewTag = findViewById<RecyclerView>(R.id.RecyclerViewTag)
+            isFavorite = currentRecipe.tags.contains(Tag.FAVORITE)
 
             currentRecipe.imagePath?.let{
 
                 val image = BitmapFactory.decodeFile(it)
-                findViewById<ImageView>(R.id.imageRecipePreview).setImageBitmap(image)
+                binding.imageRecipePreview.setImageBitmap(image)
             } ?: run {
 
-                findViewById<ImageView>(R.id.imageRecipePreview).visibility = View.GONE
+                binding.imageRecipePreview.visibility = View.GONE
             }
 
-            findViewById<TextView>(R.id.txtRecipe).text = currentRecipe.name
+            binding.txtRecipe.text = currentRecipe.name
 
             val tagsToShow = mutableListOf<Tag>().apply {
                 addAll(currentRecipe.tags)
                 remove(Tag.FAVORITE)
             }
+
             val adapter = RecipeTagAdapter(tagsToShow)
-            recyclerViewTag.adapter = adapter
-            recyclerViewTag.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            binding.RecyclerViewTag.adapter = adapter
+            binding.RecyclerViewTag.layoutManager = LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
 
-            // set correct image
+            // set favorite image
             var image = R.drawable.icon_fav_false
-            if (holder.isFavorite) image = R.drawable.icon_fav_true
-            btnFavorite.setImageDrawable(ContextCompat.getDrawable(context, image))
+            if (isFavorite) image = R.drawable.icon_fav_true
+            binding.btnFavorite.setImageDrawable(ContextCompat.getDrawable(itemView.context, image))
 
-            btnFavorite.setOnClickListener {
+            binding.btnFavorite.setOnClickListener {
 
-                holder.isFavorite = !holder.isFavorite
+                isFavorite = !isFavorite
 
                 // set correct image
                 var image = R.drawable.icon_fav_false
-                if (holder.isFavorite) image = R.drawable.icon_fav_true
-                btnFavorite.setImageDrawable(ContextCompat.getDrawable(context, image))
+                if (isFavorite) image = R.drawable.icon_fav_true
+                binding.btnFavorite.setImageDrawable(ContextCompat.getDrawable(itemView.context, image))
 
                 // create new tag list
                 val newTagList = mutableListOf<Tag>().apply {
 
                     addAll(currentRecipe.tags)
 
-                    if (holder.isFavorite) add(0, Tag.FAVORITE)
+                    if (isFavorite) add(0, Tag.FAVORITE)
                     else                   remove(Tag.FAVORITE)
                 }
 
-                RecipeRepository(context).save(
+                RecipeRepository(itemView.context).save(
                     Recipe(currentRecipe.name, currentRecipe.steps, currentRecipe.ingredients, newTagList, currentRecipe.imagePath)
                 )
             }
-        }
-
-        holder.itemView.setOnClickListener {
-            val bundle = bundleOf("recipe" to currentRecipe)
-            it.findNavController().navigate(R.id.action_recipeListFragment_to_recipeDetailFragment, bundle)
+            binding.recipePreviewBtn.setOnClickListener{
+                val bundle = bundleOf("recipe" to currentRecipe)
+                it.findNavController().navigate(R.id.action_recipeListFragment_to_recipeDetailFragment, bundle)
+            }
         }
     }
 
