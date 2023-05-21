@@ -5,6 +5,7 @@ enum class Tag {
     BREAKFAST,
     LUNCH,
     DINNER,
+    APPETIZER,
     DESSERT,
     HEALTHY,
     GLUTEN_FREE,

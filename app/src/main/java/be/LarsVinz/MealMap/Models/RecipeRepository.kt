@@ -8,7 +8,7 @@ import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import com.google.gson.*
 import java.io.File
 
-class RecipePreferencesRepository(val context : Context) : Repository<Recipe>{
+class RecipeRepository(val context : Context) : Repository<Recipe>{
 
     override fun save(toSave: Recipe) {
 
@@ -70,5 +70,18 @@ class RecipePreferencesRepository(val context : Context) : Repository<Recipe>{
     override fun deleteAll(toDeleteList: List<Recipe>){
 
         toDeleteList.forEach { delete(it) }
+    }
+
+    fun saveRecipeKey(key : String, recipeKey : String){
+        val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_key), Context.MODE_PRIVATE)
+        sharedPref.edit {
+            putString(key, recipeKey)
+        }
+    }
+
+    fun loadRecipeKey(key : String) : String? {
+        val sharedPref = context.getSharedPreferences(context.getString(R.string.recipe_key), Context.MODE_PRIVATE)
+
+        return sharedPref.getString(key, null)
     }
 }

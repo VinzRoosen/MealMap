@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap.Views.Recipes.CreateRecipe
+package be.LarsVinz.MealMap.Views.Recipes
 
 import android.content.Context
 import android.content.Intent

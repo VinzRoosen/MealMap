@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.RecipeFilter
-import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
+import be.LarsVinz.MealMap.Models.RecipeRepository
 import be.LarsVinz.MealMap.Models.ShoppingListRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentSelectRecipeBinding
@@ -19,20 +19,18 @@ import com.google.android.material.snackbar.Snackbar
 class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
     private lateinit var binding: FragmentSelectRecipeBinding
     private lateinit var adapter: SelectRecipeAdapter
-    private lateinit var recipeRepository: RecipePreferencesRepository
+    private lateinit var selectedRecipes: MutableList<Recipe>
+    private lateinit var recipeRepository: RecipeRepository
     private lateinit var shoppingListRepository: ShoppingListRepository
-
     private var case: String? = null
-    private var selectedRecipes = mutableListOf<Recipe>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentSelectRecipeBinding.inflate(layoutInflater)
-
-        recipeRepository = RecipePreferencesRepository(requireContext())
+        selectedRecipes = mutableListOf()
+        recipeRepository = RecipeRepository(requireContext())
         shoppingListRepository = ShoppingListRepository(requireContext())
-
         case = arguments?.getString("case")
 
         val recipeList = recipeRepository.loadAll()
@@ -45,7 +43,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
         binding.btnCancelSelecting.setOnClickListener { onCancelSelecting() }
 
         binding.editTextSearch.doOnTextChanged { text, _, _, _ ->
-            val recipeFilter = RecipeFilter()
+            val recipeFilter = RecipeFilter();
             adapter.filteredList(recipeFilter.filterRecipes(recipeList, text))
         }
         return binding.root
@@ -88,9 +86,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
 
     private fun deleteSelectedRecipesFromRecipeList() {
         recipeRepository.deleteAll(selectedRecipes)
-        selectedRecipes.forEach { recipe ->
-            shoppingListRepository.deleteAll(recipe.ingredients)
-        }
+        selectedRecipes.forEach{ shoppingListRepository.deleteAll(it.ingredients)}
         findNavController().navigate(R.id.action_selectRecipeFragment_to_recipeListFragment)
     }
 }
