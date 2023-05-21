@@ -1,6 +1,5 @@
 package be.LarsVinz.MealMap.Views.Recipes.RecipeList
 
-import android.content.Context
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +10,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Enums.Tag
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
-import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
+import be.LarsVinz.MealMap.Models.RecipeRepository
 import be.LarsVinz.MealMap.R
 
 class RecipePreviewAdapter(var recipeList: List<Recipe>) : RecyclerView.Adapter<RecipePreviewAdapter.PreviewRecipeViewHolder>() {
@@ -81,7 +79,7 @@ class RecipePreviewAdapter(var recipeList: List<Recipe>) : RecyclerView.Adapter<
                     else                   remove(Tag.FAVORITE)
                 }
 
-                RecipePreferencesRepository(context).save(
+                RecipeRepository(context).save(
                     Recipe(currentRecipe.name, currentRecipe.steps, currentRecipe.ingredients, newTagList, currentRecipe.imagePath)
                 )
             }

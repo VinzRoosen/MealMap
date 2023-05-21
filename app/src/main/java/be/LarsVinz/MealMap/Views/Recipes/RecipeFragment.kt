@@ -1,4 +1,4 @@
-package be.LarsVinz.MealMap.Views.Recipes.CreateRecipe
+package be.LarsVinz.MealMap.Views.Recipes
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,8 @@ import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.DataClasses.RecipeStep
 import be.LarsVinz.MealMap.R
+import be.LarsVinz.MealMap.Views.Recipes.CreateRecipe.EditRecipeIngredientPopup
+import be.LarsVinz.MealMap.Views.Recipes.CreateRecipe.EditRecipeStepPopup
 import be.LarsVinz.MealMap.databinding.FragmentRecipeBinding
 
 
@@ -111,7 +113,7 @@ class RecipeFragment(private val editable : Boolean, private val steps : List<Re
 
         ingredientAdapter = IngredientAdapter(ingredientList, multiplier)
         binding.ingredientRvw.adapter = ingredientAdapter
-        binding.ingredientRvw.layoutManager = GridLayoutManager(this.context, 2)
+        binding.ingredientRvw.layoutManager = LinearLayoutManager(this.context)
         binding.ingredientRvw.setOnTouchListener { view, motionEvent -> // TODO: Dit moet omdat de setOnClickListener niet werkt, maar miss beter anders?
             if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                 onIngredientClicked()

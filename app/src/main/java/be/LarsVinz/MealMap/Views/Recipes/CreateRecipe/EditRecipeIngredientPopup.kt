@@ -6,12 +6,9 @@ import android.content.Context
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.compose.ui.text.toLowerCase
-import androidx.core.text.isDigitsOnly
 import be.LarsVinz.MealMap.Enums.RecipeUnit
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.databinding.EditRecipeIngredientPopupBinding
-import java.util.*
 
 class EditRecipeIngredientPopup(context : Context, private val ingredients : MutableList<Ingredient>, private val multiplier : Int) : AlertDialog(context), AdapterView.OnItemSelectedListener {
 
@@ -63,7 +60,7 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
 
         val index = binding.ingredientSpinner.selectedItemPosition
         if (index < ingredients.size) ingredients.removeAt(index)
-        ingredients.add(index, Ingredient(name, amount.toInt() / multiplier, unit))
+        ingredients.add(index, Ingredient(name, (amount.toDouble() / multiplier), unit))
         ingredients.sortBy { it.name }
         this.dismiss()
     }

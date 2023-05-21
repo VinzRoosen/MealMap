@@ -8,7 +8,7 @@ import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import com.google.gson.*
 import java.io.File
 
-class RecipePreferencesRepository(val context : Context) : Repository<Recipe>{
+class RecipeRepository(val context : Context) : Repository<Recipe>{
 
     override fun save(toSave: Recipe) {
 

@@ -9,9 +9,8 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.RecipeFilter
-import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
+import be.LarsVinz.MealMap.Models.RecipeRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentRecipeListBinding
 import com.google.android.material.snackbar.Snackbar
@@ -27,7 +26,7 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
     ): View {
         binding = FragmentRecipeListBinding.inflate(layoutInflater)
 
-        val recipeRepository = RecipePreferencesRepository(requireActivity())
+        val recipeRepository = RecipeRepository(requireActivity())
         val recipeList = recipeRepository.loadAll()
 
         binding.txtRecipeListEmtyList.text = "no recipes added yet, click + to create a new recipe"

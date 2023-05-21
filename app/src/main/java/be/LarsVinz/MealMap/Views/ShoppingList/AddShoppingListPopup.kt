@@ -38,7 +38,7 @@ class AddShoppingListPopup(context: Context, val shoppingList : MutableList<Ingr
 
             if (ingredientName.isNotBlank() || ingredientAmount.isNotBlank()) {
                 val unit = RecipeUnit.values()[binding.ingredientUnitSpr.selectedItemPosition]
-                shoppingList.add(Ingredient(ingredientName, ingredientAmount.toInt(), unit))
+                shoppingList.add(Ingredient(ingredientName, ingredientAmount.toDouble(), unit))
             }
             dismiss()
         }

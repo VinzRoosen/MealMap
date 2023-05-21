@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.Models.RecipeFilter
-import be.LarsVinz.MealMap.Models.RecipePreferencesRepository
+import be.LarsVinz.MealMap.Models.RecipeRepository
 import be.LarsVinz.MealMap.Models.ShoppingListRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentSelectRecipeBinding
@@ -20,7 +20,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
     private lateinit var binding: FragmentSelectRecipeBinding
     private lateinit var adapter: SelectRecipeAdapter
     private lateinit var selectedRecipes: MutableList<Recipe>
-    private lateinit var recipeRepository: RecipePreferencesRepository
+    private lateinit var recipeRepository: RecipeRepository
     private lateinit var shoppingListRepository: ShoppingListRepository
     private var case: String? = null
 
@@ -29,7 +29,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
     ): View {
         binding = FragmentSelectRecipeBinding.inflate(layoutInflater)
         selectedRecipes = mutableListOf()
-        recipeRepository = RecipePreferencesRepository(requireContext())
+        recipeRepository = RecipeRepository(requireContext())
         shoppingListRepository = ShoppingListRepository(requireContext())
         case = arguments?.getString("case")
 

@@ -39,10 +39,12 @@
                 android:id="@+id/ingredientSeperator"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
+                android:layout_marginTop="4dp"
                 android:background="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ingredientRvw">
 
             </FrameLayout>
 
@@ -52,13 +54,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:background="@drawable/background_rounded_corners"
                 android:backgroundTint="?attr/colorSecondaryVariant"
-                android:minHeight="100dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintHeight_min="50dp"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
             </androidx.recyclerview.widget.RecyclerView>
