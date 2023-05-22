@@ -27,7 +27,7 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
         binding = FragmentRecipeListBinding.inflate(layoutInflater)
 
         val recipeRepository = RecipeRepository(requireActivity())
-        val recipeList = recipeRepository.loadAll()
+        val recipeList = recipeRepository.loadAll() as MutableList
 
         binding.txtRecipeListEmtyList.text = "no recipes added yet, click + to create a new recipe"
         binding.txtRecipeListEmtyList.visibility = if (recipeList.isEmpty()) View.VISIBLE else View.GONE
@@ -52,6 +52,13 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
                 bundle.putString("case", "delete_recipes")
                 findNavController().navigate(R.id.action_recipeListFragment_to_deleteRecipeFragment, bundle)
             }
+        }
+
+        binding.btnRemoveRecipe.setOnLongClickListener{
+            recipeRepository.deleteAll(recipeList)
+            recipeList.clear()
+            adapter.notifyDataSetChanged()
+            true
         }
 
         binding.editTextSearch.doOnTextChanged { text, _, _, _ ->
