@@ -155,7 +155,6 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
         }
 
         var imagePath : String? = null
-
         previousImage?.let { imagePath = it.path }
 
         // delete image if there is a new picture

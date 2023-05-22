@@ -2,6 +2,7 @@ package be.LarsVinz.MealMap.Views.ShoppingList
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -10,6 +11,8 @@ import be.LarsVinz.MealMap.Enums.RecipeUnit
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.AddShoppingListPopupBinding
+import com.google.android.material.snackbar.Snackbar
+import java.time.Duration
 
 class AddShoppingListPopup(
     context: Context,
@@ -35,14 +38,22 @@ class AddShoppingListPopup(
         binding.btnFromRecipe.isEnabled = false
 
         binding.btnSingleGrocery.setOnClickListener {
-            val ingredientName = binding.ingredientNameETxt.text.toString()
-            val ingredientAmount = binding.ingredientAmountETxt.text.toString()
+            val ingredientNameText = binding.ingredientNameETxt.text.toString()
+            val ingredientAmountText = binding.ingredientAmountETxt.text.toString()
 
-            if (ingredientName.isNotBlank() || ingredientAmount.isNotBlank()) {
+            if (ingredientNameText.isNotBlank() && ingredientAmountText.isNotBlank()) {
                 val unit = RecipeUnit.values()[binding.ingredientUnitSpr.selectedItemPosition]
-                shoppingList.add(Ingredient(ingredientName, ingredientAmount.toDouble(), unit))
+                shoppingList.add(Ingredient(ingredientNameText, ingredientAmountText.toDouble(), unit))
+                dismiss()
+
+            } else {
+                if (ingredientNameText.isBlank()) {
+                    binding.ingredientNameETxt.setHintTextColor(Color.RED)
+                }
+                if (ingredientAmountText.isBlank()) {
+                    binding.ingredientAmountETxt.setHintTextColor(Color.RED)
+                }
             }
-            dismiss()
         }
     }
 

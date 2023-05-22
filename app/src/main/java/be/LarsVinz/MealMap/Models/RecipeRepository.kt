@@ -63,13 +63,21 @@ class RecipeRepository(val context : Context) : Repository<Recipe>{
             remove(toDelete.name)
             commit()
         }
+    }
 
+    fun deleteWithImage(toDelete: Recipe){
+        delete(toDelete)
         toDelete.imagePath?.let { File(it).delete() }
     }
 
     override fun deleteAll(toDeleteList: List<Recipe>){
 
         toDeleteList.forEach { delete(it) }
+    }
+
+    fun deleteAllWithPicture(toDeleteList: List<Recipe>){
+
+        toDeleteList.forEach { deleteWithImage(it) }
     }
 
     fun saveRecipeKey(key : String, recipeKey : String){
