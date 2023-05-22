@@ -34,8 +34,8 @@ class AddShoppingListPopup(
 
     private fun onSingleGrocery() {
         makeVisible()
-        binding.btnSingleGrocery.text = "Save \n"
-        binding.btnFromRecipe.isEnabled = false
+        binding.btnSingleGrocery.text = "Save"
+        binding.btnFromRecipe.text = "Cancel"
 
         binding.btnSingleGrocery.setOnClickListener {
             val ingredientNameText = binding.ingredientNameETxt.text.toString()
@@ -54,6 +54,10 @@ class AddShoppingListPopup(
                     binding.ingredientAmountETxt.setHintTextColor(Color.RED)
                 }
             }
+        }
+
+        binding.btnFromRecipe.setOnClickListener{
+            dismiss()
         }
     }
 
