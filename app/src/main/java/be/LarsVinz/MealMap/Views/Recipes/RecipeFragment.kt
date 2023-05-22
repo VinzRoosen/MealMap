@@ -41,14 +41,14 @@ class RecipeFragment(private val editable : Boolean, private val steps : List<Re
         populateUI()
 
         if (editable){
-            binding.infoAddRecipeTxt.text = "Click + to add a recipe step!"
-            binding.infoAddIngredientTxt.text = "Click here to add an ingredient!"
+            binding.infoAddRecipeTxt.text = getString(R.string.addRecipeStep)
+            binding.infoAddIngredientTxt.text = getString(R.string.addIngredient)
 
             binding.addRecipeBtn.setOnClickListener  { openEditStepPopup(null) }
         }
         else{
-            binding.infoAddRecipeTxt.text = "Edit this recipe to add steps!"
-            binding.infoAddIngredientTxt.text = "Edit this recipe to add ingredients!"
+            binding.infoAddRecipeTxt.text = getString(R.string.editSteps)
+            binding.infoAddIngredientTxt.text = getString(R.string.editIngredients)
 
             binding.addRecipeBtn.visibility = View.GONE
         }

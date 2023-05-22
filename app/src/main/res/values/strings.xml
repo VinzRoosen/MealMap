@@ -8,4 +8,10 @@
     <string name="shopping_data">shopping_data</string>
     <string name="recipe_name">RecipeName</string>
     <string name="emptyGrocery">no groceries added yet, click on + to add a recipe</string>
+    <string name="Save">Save</string>
+    <string name="Cancel">Cancel</string>
+    <string name="addRecipeStep">Click + to add a recipe step!</string>
+    <string name="addIngredient">Click here to add an ingredient!</string>
+    <string name="editSteps">Edit this recipe to add steps!</string>
+    <string name="editIngredients">Edit this recipe to add ingredients!</string>
 </resources>

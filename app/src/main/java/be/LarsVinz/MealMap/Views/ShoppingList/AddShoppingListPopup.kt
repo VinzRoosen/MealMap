@@ -34,8 +34,8 @@ class AddShoppingListPopup(
 
     private fun onSingleGrocery() {
         makeVisible()
-        binding.btnSingleGrocery.text = "Save"
-        binding.btnFromRecipe.text = "Cancel"
+        binding.btnSingleGrocery.text = context.getString(R.string.Save)
+        binding.btnFromRecipe.text = context.getString(R.string.Cancel)
 
         binding.btnSingleGrocery.setOnClickListener {
             val ingredientNameText = binding.ingredientNameETxt.text.toString()
