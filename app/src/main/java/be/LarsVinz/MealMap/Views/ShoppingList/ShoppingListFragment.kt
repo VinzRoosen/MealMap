@@ -63,7 +63,7 @@ class ShoppingListFragment : Fragment() {
     }
     private fun populatePersonAmountSpinner(){
 
-        val adapterItems = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf(1, 2, 3, 4, 5, 6, 7, 8))
+        val adapterItems = ArrayAdapter(requireContext(), R.layout.item_amount_of_people_spinner, listOf(1, 2, 3, 4, 5, 6, 7, 8))
         binding.spnrAmountOfPeople.adapter = adapterItems
         binding.spnrAmountOfPeople.setSelection(0)
         binding.spnrAmountOfPeople.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

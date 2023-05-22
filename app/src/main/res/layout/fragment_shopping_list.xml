@@ -30,8 +30,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewGroceries"
         android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/btnNewShoppingList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -58,31 +58,37 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_marginVertical="8dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="?attr/colorPrimary"
+        android:background="@drawable/background_rounded_corners">
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginVertical="4dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:text="Amount of people:"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textColor="?attr/colorOnBackground"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="24sp" />
-
 
         <Spinner
             android:id="@+id/spnrAmountOfPeople"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="?attr/colorOnPrimary"
+            android:textAlignment="center"
+            android:popupBackground="?attr/colorPrimary"/>
     </LinearLayout>
 
 
