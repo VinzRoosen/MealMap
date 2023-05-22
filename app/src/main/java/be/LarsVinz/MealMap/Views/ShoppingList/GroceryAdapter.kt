@@ -3,15 +3,12 @@ package be.LarsVinz.MealMap.Views.ShoppingList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
-import be.LarsVinz.MealMap.Models.DataClasses.Recipe
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.ItemGroceryBinding
 
-class GroceryAdapter(private val ingredients: List<Ingredient>, private val selectedGroceries: MutableList<Ingredient>) :
+class GroceryAdapter(private val ingredients: List<Ingredient>, private val selectedGroceries: MutableList<Ingredient>, private val multiplier: Int) :
     RecyclerView.Adapter<GroceryAdapter.GroceryViewHolder>() {
     inner class GroceryViewHolder(currentItemView: View) : RecyclerView.ViewHolder(currentItemView)
 
@@ -37,7 +34,7 @@ class GroceryAdapter(private val ingredients: List<Ingredient>, private val sele
                 }
             }
 
-            txtGroceryAmountUnit.text = "${currentGrocery.amount}\t${currentGrocery.unit.toString().lowercase()}"
+            txtGroceryAmountUnit.text = "${currentGrocery.amount * multiplier}\t${currentGrocery.unit.toString().lowercase()}"
         }
     }
 

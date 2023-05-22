@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,10 +29,8 @@ class ShoppingListFragment : Fragment() {
 
         shoppingListRepository = ShoppingListRepository(requireContext())
         shoppingList = shoppingListRepository.loadAll() as MutableList<Ingredient>
-
-        adapter = GroceryAdapter(shoppingList, selectedGroceries)
-        binding.recyclerViewGroceries.adapter = adapter
-        binding.recyclerViewGroceries.layoutManager = LinearLayoutManager(requireContext())
+        
+        populatePersonAmountSpinner()
 
         val txtShoppingListEmpty = binding.txtShoppingListEmpty
         txtShoppingListEmpty.text = getString(R.string.emptyGrocery)
@@ -56,7 +56,26 @@ class ShoppingListFragment : Fragment() {
 
         return binding.root
     }
+    private fun setAdapter(multiplier : Int){
+        adapter = GroceryAdapter(shoppingList, selectedGroceries, multiplier)
+        binding.recyclerViewGroceries.adapter = adapter
+        binding.recyclerViewGroceries.layoutManager = LinearLayoutManager(requireContext())
+    }
+    private fun populatePersonAmountSpinner(){
 
+        val adapterItems = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf(1, 2, 3, 4, 5, 6, 7, 8))
+        binding.spnrAmountOfPeople.adapter = adapterItems
+        binding.spnrAmountOfPeople.setSelection(0)
+        binding.spnrAmountOfPeople.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                setAdapter(position+1)
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
+    }
     private fun removeRecipeFromShoppingList(toBeDeleted: MutableList<Ingredient>) {
         shoppingListRepository.deleteAll(toBeDeleted)
         shoppingList.removeAll(toBeDeleted)
