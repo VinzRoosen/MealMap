@@ -7,4 +7,5 @@
     <string name="select_recipe">Select recipe</string>
     <string name="shopping_data">shopping_data</string>
     <string name="recipe_name">RecipeName</string>
+    <string name="emptyGrocery">no groceries added yet, click on + to add a recipe</string>
 </resources>

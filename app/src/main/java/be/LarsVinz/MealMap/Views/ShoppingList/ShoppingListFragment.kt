@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.Models.ShoppingListRepository
+import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentShoppingListBinding
 
 class ShoppingListFragment : Fragment() {
@@ -31,20 +33,35 @@ class ShoppingListFragment : Fragment() {
         binding.recyclerViewGroceries.layoutManager = LinearLayoutManager(requireContext())
 
         val txtShoppingListEmpty = binding.txtShoppingListEmpty
-        txtShoppingListEmpty.text = "no groceries added yet, click on + to add a recipe"
+        txtShoppingListEmpty.text = getString(R.string.emptyGrocery)
         txtShoppingListEmpty.visibility =
             if (shoppingList.isEmpty()) View.VISIBLE else View.INVISIBLE
 
+        val btnRemoveRecipeFromShoppingList = binding.btnRemoveRecipeFromShoppingList
         binding.btnNewShoppingList.setOnClickListener { newShoppingList() }
-        binding.btnRemoveRecipeFromShoppingList.setOnClickListener { removeRecipeFromShoppingList() }
+        btnRemoveRecipeFromShoppingList.setOnClickListener {
+            removeRecipeFromShoppingList(
+                selectedGroceries
+            )
+        }
+
+        if (shoppingList.isNotEmpty()) {
+            btnRemoveRecipeFromShoppingList.setOnLongClickListener {
+                removeRecipeFromShoppingList(shoppingList)
+                Toast.makeText(requireContext(), "All recipes are deleted", Toast.LENGTH_SHORT)
+                    .show()
+                true
+            }
+        }
 
         return binding.root
     }
 
-    private fun removeRecipeFromShoppingList() {
-        shoppingListRepository.deleteAll(selectedGroceries)
-        shoppingList.removeAll(selectedGroceries)
-        selectedGroceries.clear()
+    private fun removeRecipeFromShoppingList(toBeDeleted: MutableList<Ingredient>) {
+        shoppingListRepository.deleteAll(toBeDeleted)
+        shoppingList.removeAll(toBeDeleted)
+        toBeDeleted.clear()
+
         adapter.notifyDataSetChanged()
     }
 
