@@ -56,9 +56,7 @@ class AddShoppingListPopup(
             }
         }
 
-        binding.btnFromRecipe.setOnClickListener{
-            dismiss()
-        }
+        binding.btnFromRecipe.setOnClickListener{ dismiss() }
     }
 
     private fun onFromRecipeList() {
