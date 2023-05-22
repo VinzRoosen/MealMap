@@ -65,19 +65,9 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
     }
 
     private fun onCancelSelecting() {
-        when (case) {
-            "select_shopping_list", "delete_shopping_list" -> cancelToShoppingList()
-            "delete_recipes" -> cancelToRecipeList()
-        }
+        findNavController().popBackStack()
     }
 
-    private fun cancelToShoppingList() {
-        findNavController().navigate(R.id.action_selectRecipeFragment_to_shoppingListFragment)
-    }
-
-    private fun cancelToRecipeList() {
-        findNavController().navigate(R.id.action_selectRecipeFragment_to_recipeListFragment)
-    }
 
     private fun saveSelectedRecipesToShoppingList() {
         shoppingListRepository.saveIngredientsFromRecipes(selectedRecipes)
@@ -85,7 +75,7 @@ class SelectRecipeFragment : Fragment(R.layout.fragment_select_recipe) {
     }
 
     private fun deleteSelectedRecipesFromRecipeList() {
-        recipeRepository.deleteAll(selectedRecipes)
+        recipeRepository.deleteAllWithPicture(selectedRecipes)
         selectedRecipes.forEach{ shoppingListRepository.deleteAll(it.ingredients)}
         findNavController().navigate(R.id.action_selectRecipeFragment_to_recipeListFragment)
     }
