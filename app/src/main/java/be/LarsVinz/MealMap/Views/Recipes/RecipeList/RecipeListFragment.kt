@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.LarsVinz.MealMap.Models.RecipeFilter
 import be.LarsVinz.MealMap.Models.RecipeRepository
+import be.LarsVinz.MealMap.Models.ShoppingListRepository
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.FragmentRecipeListBinding
 import com.google.android.material.snackbar.Snackbar
@@ -56,6 +57,10 @@ class RecipeListFragment : Fragment(R.layout.fragment_recipe_list) {
 
         binding.btnRemoveRecipe.setOnLongClickListener{
             recipeRepository.deleteAll(recipeList)
+            val shoppingListRepository = ShoppingListRepository(requireContext())
+
+            for (recipe in recipeList) shoppingListRepository.deleteAll(recipe.ingredients)
+
             recipeList.clear()
             adapter.notifyDataSetChanged()
             true
