@@ -37,7 +37,7 @@ class GroceryAdapter(private val ingredients: List<Ingredient>, private val sele
                 }
             }
 
-            txtGroceryAmountUnit.text = "${currentGrocery.amount}\t${currentGrocery.unit}"
+            txtGroceryAmountUnit.text = "${currentGrocery.amount}\t${currentGrocery.unit.toString().lowercase()}"
         }
     }
 
