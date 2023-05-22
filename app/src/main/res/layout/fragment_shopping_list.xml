@@ -34,9 +34,10 @@
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/btnNewShoppingList"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/btnRemoveRecipeFromShoppingList"
@@ -67,17 +68,19 @@
 
         <TextView
             android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Amount of people:"
-            android:textSize="24sp"
-            android:textAppearance="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            />
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="24sp" />
+
 
         <Spinner
             android:id="@+id/spnrAmountOfPeople"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1" />
     </LinearLayout>
