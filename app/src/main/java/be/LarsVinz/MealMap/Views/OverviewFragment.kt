@@ -103,21 +103,19 @@ class OverviewFragment : Fragment(R.layout.fragment_overview), SensorEventListen
 
         // get a random recipe
         val allRecipes = RecipeRepository(requireContext()).loadAll()
+
+        if (allRecipes.isEmpty()) return
+
         val randomIndex = Random.nextInt(allRecipes.size)
         val recipe = allRecipes[randomIndex]
 
-        try {
-
-            val randomRecipeFragment = RecipePreviewFragment(recipe, false)
-            childFragmentManager.beginTransaction().apply {
-                replace(binding.randomRecipeFrame.id, randomRecipeFragment)
-                commit()
-            }
-
-            binding.randomRecipeEmptyTxt.visibility = View.GONE
-        }catch (_: CantLoadRecipeException){
-
+        val randomRecipeFragment = RecipePreviewFragment(recipe, false)
+        childFragmentManager.beginTransaction().apply {
+            replace(binding.randomRecipeFrame.id, randomRecipeFragment)
+            commit()
         }
+
+        binding.randomRecipeEmptyTxt.visibility = View.GONE
     }
 
 
