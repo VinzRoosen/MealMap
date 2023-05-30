@@ -16,7 +16,7 @@
 
         <EditText
             android:id="@+id/recipeNameTxt"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-medium"
@@ -24,8 +24,12 @@
             android:inputType="textShortMessage|text"
             android:textAlignment="textStart"
             android:textColor="?attr/colorOnSecondary"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addPictureBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
