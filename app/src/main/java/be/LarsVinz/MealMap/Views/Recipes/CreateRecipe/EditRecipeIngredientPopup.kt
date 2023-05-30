@@ -6,6 +6,7 @@ import android.content.Context
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import be.LarsVinz.MealMap.Enums.RecipeUnit
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.databinding.EditRecipeIngredientPopupBinding
@@ -54,7 +55,7 @@ class EditRecipeIngredientPopup(context : Context, private val ingredients : Mut
         val unit = RecipeUnit.values().first { it.ordinal == binding.ingredientUnitSpr.selectedItemPosition }
 
         if (name.isBlank() || amount.isBlank()){
-            // TODO snackbar met error
+            Toast.makeText(context, "The recipe needs a name!", Toast.LENGTH_SHORT).show()
             return
         }
 
