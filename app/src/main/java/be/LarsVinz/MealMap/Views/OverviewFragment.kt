@@ -144,10 +144,6 @@ class OverviewFragment : Fragment(R.layout.fragment_overview), SensorEventListen
                 setRandomRecipe()
                 amountOfShakes = 0
             }
-
-            // TODO: for debugging
-            if (totalAcceleration > max) max = totalAcceleration
-            binding.randomRecipeTxt.text = "Random recipe: \namount: $amountOfShakes - max: $max - acceleration: $totalAcceleration"
         }
     }
 
