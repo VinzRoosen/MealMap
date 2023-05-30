@@ -44,6 +44,8 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
     private var previousImage : File? = null
     private var recipeImage : File? = null
 
+    private var tagButtonState = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,7 +95,24 @@ class CreateRecipeFragment : Fragment(R.layout.fragment_create_recipe) {
 
     private fun setClickEvents(){
 
-        binding.addTagsBtn.setOnClickListener { openFragment(EditTagsFragment(recipeTagList)) }
+        binding.addTagsBtn.setOnClickListener {
+
+            if (tagButtonState) {
+                binding.addTagsBtn.setImageResource(R.drawable.icon_tag)
+
+                val recipeFragment = RecipeFragment(true, recipeStepList, ingredientList)
+                recipeFragment.setRecipeData(ingredientList, recipeStepList)
+
+                openFragment(recipeFragment)
+            }
+            else {
+                binding.addTagsBtn.setImageResource(R.drawable.icon_back)
+                openFragment(EditTagsFragment(recipeTagList))
+            }
+
+            tagButtonState = !tagButtonState
+        }
+
         binding.addPictureBtn.setOnClickListener { makePicture() }
         binding.saveRecipeBtn.setOnClickListener {
             val recipe = saveRecipe()
