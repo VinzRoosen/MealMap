@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import be.LarsVinz.MealMap.Enums.RecipeUnit
 import be.LarsVinz.MealMap.Models.DataClasses.Ingredient
 import be.LarsVinz.MealMap.R
 import be.LarsVinz.MealMap.databinding.ItemGroceryBinding
@@ -23,8 +24,15 @@ class GroceryAdapter(private val ingredients: List<Ingredient>, private val sele
         val binding = ItemGroceryBinding.bind(holder.itemView)
 
         binding.apply {
+
             checkBoxGrocery.text = currentGrocery.name
             checkBoxGrocery.isChecked = selectedGroceries.contains(currentGrocery)
+
+            var amount = "${currentGrocery.amount * multiplier}"
+            var unit = currentGrocery.unit.toString().lowercase()
+
+            if (currentGrocery.amount == 0.0) amount = ""
+            if (currentGrocery.unit == RecipeUnit.LEEG) unit = ""
 
             checkBoxGrocery.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
@@ -34,7 +42,7 @@ class GroceryAdapter(private val ingredients: List<Ingredient>, private val sele
                 }
             }
 
-            txtGroceryAmountUnit.text = "${currentGrocery.amount * multiplier}\t${currentGrocery.unit.toString().lowercase()}"
+            txtGroceryAmountUnit.text = "$amount $unit"
         }
     }
 
