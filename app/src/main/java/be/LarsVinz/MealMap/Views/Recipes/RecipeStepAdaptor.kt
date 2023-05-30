@@ -58,7 +58,7 @@ class RecipeStepAdaptor(private val steps: List<RecipeStep>, val context :  Cont
             putExtra(AlarmClock.EXTRA_LENGTH, seconds)
             putExtra(AlarmClock.EXTRA_SKIP_UI, true)
         }
-        startActivity(context, intent, null) // TODO: ask for permission
+        startActivity(context, intent, null)
     }
 
     override fun getItemCount(): Int = steps.size
