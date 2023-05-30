@@ -12,9 +12,5 @@
     <item
         android:id="@+id/menu_addDebugRecipes"
         android:title="Add debug recipes"/>
-    <item
-        android:id="@+id/menu_navToSettings"
-        android:title="Settings"/>
-
 
 </menu>
